@@ -1,0 +1,32 @@
+{
+  "rules": {
+    "helpi-landing-page.visual": {
+      "description": "Airbnb-style UI system for Helpi",
+      "filepath": ".cursor/rules/helpi-landing-page-visual.mdc"
+    },
+    "helpi-landing-page.components": {
+      "description": "Required component structure and props",
+      "filepath": ".cursor/rules/helpi-landing-page-components.mdc"
+    },
+    "helpi-landing-page.structure": {
+      "description": "Landing page section structure",
+      "filepath": ".cursor/rules/helpi-landing-page-structure.mdc"
+    },
+    "helpi-landing-page.structure.folder": {
+      "description": "Component folder structure and filenames",
+      "filepath": ".cursor/rules/helpi-landing-page-structure-folder.mdc"
+    },
+    "helpi-landing-page.tech": {
+      "description": "Tech stack and development guidelines",
+      "filepath": ".cursor/rules/helpi-landing-page-tech.mdc"
+    },
+    "helpi-landing-page.references": {
+      "description": "UI inspiration references",
+      "filepath": ".cursor/rules/helpi-landing-page-references.mdc"
+    },
+    "helpi-landing-page.main": {
+      "description": "Master enforcement rule \u2014 governs all Helpi landing page logic",
+      "filepath": ".cursor/rules/helpi-landing-page-main.mdc"
+    }
+  }
+}
