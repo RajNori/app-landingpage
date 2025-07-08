@@ -206,9 +206,13 @@ export default function AppScreensCarousel() {
                                                                     </span>
                                                                 </div>
                                                                 <span className='text-sm text-gray-600'>
-                                                                    {item.price ||
-                                                                        item.status ||
-                                                                        item.rating}
+                                                                    {'price' in
+                                                                    item
+                                                                        ? item.price
+                                                                        : 'status' in
+                                                                          item
+                                                                        ? item.status
+                                                                        : item.rating}
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -268,26 +272,26 @@ export default function AppScreensCarousel() {
                             Available on iOS and Android.
                         </p>
                         <div className='flex flex-row items-center gap-4 justify-center'>
-                            <a 
-                                href='#' 
+                            <a
+                                href='#'
                                 aria-label='Download on the App Store'
                                 className='hover:opacity-80 transition-opacity duration-200 transform hover:scale-105'>
-                                <Image 
-                                    src='/badges/app-store-badge.svg' 
-                                    width={160} 
-                                    height={56} 
+                                <Image
+                                    src='/badges/app-store-badge.svg'
+                                    width={160}
+                                    height={56}
                                     alt='Download on the App Store'
                                     className='h-[56px] w-auto object-contain'
                                 />
                             </a>
-                            <a 
-                                href='#' 
+                            <a
+                                href='#'
                                 aria-label='Get it on Google Play'
                                 className='hover:opacity-80 transition-opacity duration-200 transform hover:scale-105'>
-                                <Image 
-                                    src='/badges/google-play-badge.svg' 
-                                    width={520} 
-                                    height={182} 
+                                <Image
+                                    src='/badges/google-play-badge.svg'
+                                    width={520}
+                                    height={182}
                                     alt='Get it on Google Play'
                                     className='h-[182px] w-auto object-contain'
                                 />

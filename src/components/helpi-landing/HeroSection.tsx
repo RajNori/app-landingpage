@@ -44,8 +44,9 @@ export default function HeroSection({
                             delay: 0.1,
                             ease: 'easeOut',
                         }}
-                        className='inline-flex items-center px-4 py-2 bg-purple-100 text-purple-800 rounded-full text-sm font-medium mb-8 shadow-sm'>
-                        <FaStar className='mr-2 text-yellow-500' />
+                        className='inline-flex items-center px-4 py-2
+                         bg-purple-100 text-purple-800 rounded-full text-sm font-medium mb-8 shadow-sm'>
+                        <FaStar className='mr-2  text-yellow-500' />
                         Trusted by 50,000+ Australian families
                     </motion.div>
 
@@ -85,10 +86,15 @@ export default function HeroSection({
                             ease: 'easeOut',
                         }}
                         className='flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8'>
-                        <button className='bg-[#511076] hover:bg-[#6b2a8f] text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-purple-200'>
+                        <button className='bg-[#511076] hover:bg-[#6b2a8f] text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 transform 
+                     hover:scale-105 shadow-lg 
+                     cursor-pointer 
+                     hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-purple-200'>
                             {primaryCTA}
                         </button>
-                        <button className='border-2 border-[#511076] text-[#511076] hover:bg-[#511076] hover:text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-purple-200'>
+                        <button className='border-2 border-[#511076] text-[#511076] hover:bg-[#511076] hover:text-white 
+                        cursor-pointer
+                        font-semibold py-4 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-purple-200'>
                             {secondaryCTA}
                         </button>
                     </motion.div>

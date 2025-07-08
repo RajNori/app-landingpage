@@ -1,7 +1,7 @@
 'use client';
 
-import { Disclosure, Transition } from '@headlessui/react';
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { FaPlus, FaMinus, FaQuestionCircle } from 'react-icons/fa';
 
 interface FAQ {
@@ -14,6 +14,12 @@ interface FAQAccordionProps {
 }
 
 export default function FAQAccordion({ faqs }: FAQAccordionProps) {
+    const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+
+    const toggleAccordion = (index: number) => {
+        setExpandedIndex(expandedIndex === index ? null : index);
+    };
+
     return (
         <section className='py-20 px-4 bg-gray-50'>
             <div className='max-w-4xl mx-auto'>
@@ -42,43 +48,50 @@ export default function FAQAccordion({ faqs }: FAQAccordionProps) {
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: idx * 0.1 }}
                             viewport={{ once: true }}>
-                            <Disclosure>
-                                {({ open }) => (
-                                    <div className='bg-white shadow-lg rounded-2xl p-6 border border-gray-100 hover:shadow-xl transition-all duration-300'>
-                                        <Disclosure.Button className='w-full flex items-center justify-between text-left focus:outline-none focus-visible:ring-4 focus-visible:ring-purple-200 focus-visible:ring-offset-2 rounded-xl p-2 -m-2'>
-                                            <div className='flex items-center flex-1'>
-                                                <div className='w-8 h-8 flex items-center justify-center rounded-full bg-purple-50 text-[#511076] mr-4 group-hover:bg-purple-100 transition-all duration-200'>
-                                                    <FaQuestionCircle className='w-4 h-4' />
-                                                </div>
-                                                <span className='font-semibold text-lg text-gray-900 leading-tight'>
-                                                    {faq.question}
-                                                </span>
-                                            </div>
-                                            <div className='flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-purple-50 group-hover:bg-purple-100 transition-all duration-200'>
-                                                {open ? (
-                                                    <FaMinus className='w-4 h-4 text-[#511076] transition-transform duration-200' />
-                                                ) : (
-                                                    <FaPlus className='w-4 h-4 text-[#511076] transition-transform duration-200' />
-                                                )}
-                                            </div>
-                                        </Disclosure.Button>
+                            <div className='bg-white shadow-lg rounded-2xl p-6 border border-gray-100 hover:shadow-xl transition-all duration-300'>
+                                <button
+                                    onClick={() => toggleAccordion(idx)}
+                                    className='w-full flex items-center justify-between text-left focus:outline-none focus-visible:ring-4 focus-visible:ring-purple-200 focus-visible:ring-offset-2 rounded-xl p-2 -m-2'>
+                                    <div className='flex items-center flex-1'>
+                                        <div className='w-8 h-8 flex items-center justify-center rounded-full bg-purple-50 text-[#511076] mr-4 group-hover:bg-purple-100 transition-all duration-200'>
+                                            <FaQuestionCircle className='w-4 h-4' />
+                                        </div>
+                                        <span className='font-semibold text-lg text-gray-900 leading-tight'>
+                                            {faq.question}
+                                        </span>
+                                    </div>
+                                    <div className='flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-purple-50 group-hover:bg-purple-100 transition-all duration-200'>
+                                        {expandedIndex === idx ? (
+                                            <FaMinus className='w-4 h-4 text-[#511076] transition-transform duration-200' />
+                                        ) : (
+                                            <FaPlus className='w-4 h-4 text-[#511076] transition-transform duration-200' />
+                                        )}
+                                    </div>
+                                </button>
 
-                                        <Transition
-                                            enter='transition duration-300 ease-out'
-                                            enterFrom='transform scale-95 opacity-0'
-                                            enterTo='transform scale-100 opacity-100'
-                                            leave='transition duration-200 ease-in'
-                                            leaveFrom='transform scale-100 opacity-100'
-                                            leaveTo='transform scale-95 opacity-0'>
-                                            <Disclosure.Panel className='mt-6 pt-6 border-t border-gray-100'>
+                                <AnimatePresence>
+                                    {expandedIndex === idx && (
+                                        <motion.div
+                                            initial={{ height: 0, opacity: 0 }}
+                                            animate={{
+                                                height: 'auto',
+                                                opacity: 1,
+                                            }}
+                                            exit={{ height: 0, opacity: 0 }}
+                                            transition={{
+                                                duration: 0.3,
+                                                ease: 'easeInOut',
+                                            }}
+                                            className='overflow-hidden'>
+                                            <div className='mt-6 pt-6 border-t border-gray-100'>
                                                 <p className='text-gray-600 leading-relaxed text-base'>
                                                     {faq.answer}
                                                 </p>
-                                            </Disclosure.Panel>
-                                        </Transition>
-                                    </div>
-                                )}
-                            </Disclosure>
+                                            </div>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </div>
                         </motion.div>
                     ))}
                 </div>

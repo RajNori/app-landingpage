@@ -16,7 +16,7 @@ import { testimonials } from "@/data/testimonials";
 import { faqs } from "@/data/faqs";
 
 function LandingPageLayout({ children }: { children: React.ReactNode }) {
-  return <div className="bg-white text-gray-900 min-h-screen flex flex-col">{children}</div>;
+  return <div className="bg-white text-gray-900 min-h-screen px-4 md:px-8 lg:px-16 flex flex-col">{children}</div>;
 }
 
 export default function Home() {

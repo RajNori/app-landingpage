@@ -26,7 +26,7 @@ export const metadata: Metadata = {
         description:
             "Helpi is Australia's easiest way to book cleaning help. Choose your service, confirm your helper, and relax. Trusted cleaners, secure payments, and real reviews.",
         type: 'website',
-        url: 'https://helpi.app', // Optional: update if you have a production domain
+        url: 'https://helpi.app',
     },
 };
 
