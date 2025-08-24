@@ -32,7 +32,7 @@ const benefitIcons = {
 
 export default function BenefitsGrid({ benefits }: BenefitsGridProps) {
     return (
-        <section className='py-20 px-4 bg-white'>
+        <section id="benefits" className='py-20 px-4 bg-white'>
             <div className='max-w-7xl mx-auto'>
                 {/* Header */}
                 <motion.div

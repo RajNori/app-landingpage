@@ -12,7 +12,7 @@ A modern, responsive landing page for Helpi - Australia's trusted platform conne
 
 ## 🚀 Live Demo
 
-**[View Live Landing Page](https://helpi.app)**
+**[View Live Landing Page](https://www.gethelpi.com)**
 
 ## 📱 About Helpi
 
@@ -266,7 +266,7 @@ This project is proprietary software developed for Helpi. All rights reserved.
 
 ## 📞 Support
 
-For support, email support@helpi.app or join our Slack channel.
+For support, email support@gethelpi.com or join our Slack channel.
 
 ---
 

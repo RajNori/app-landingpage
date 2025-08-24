@@ -15,9 +15,9 @@ const appScreens = [
         mockup: {
             title: 'Available Services',
             content: [
-                { icon: '🏠', text: 'Regular Cleaning', price: '$120' },
-                { icon: '✨', text: 'Deep Cleaning', price: '$180' },
-                { icon: '📦', text: 'Move-in/out', price: '$250' },
+                { icon: '🏠', text: 'Regular Cleaning', price: '$180' },
+                { icon: '✨', text: 'Deep Cleaning', price: '$280' },
+                { icon: '📦', text: 'Move-in/out', price: '$350' },
             ],
         },
     },
@@ -62,7 +62,7 @@ const appScreens = [
             title: 'Recurring Clean',
             content: [
                 { icon: '📅', text: 'Every 2 weeks', status: 'Active' },
-                { icon: '🏠', text: 'Regular Cleaning', status: '$120' },
+                { icon: '🏠', text: 'Regular Cleaning', status: '$180' },
                 { icon: '⏰', text: 'Next: March 15', status: '2:00 PM' },
             ],
         },
@@ -89,8 +89,8 @@ const appScreens = [
         mockup: {
             title: 'Payment History',
             content: [
-                { icon: '💳', text: 'Last payment', status: '$120' },
-                { icon: '📊', text: 'This month', status: '$360' },
+                { icon: '💳', text: 'Last payment', status: '$180' },
+                { icon: '📊', text: 'This month', status: '$540' },
                 { icon: '🎁', text: 'Loyalty discount', status: '10% off' },
             ],
         },

@@ -57,7 +57,14 @@ export default function Footer() {
                         Company
                     </span>
                     <ul className='space-y-2'>
-                        {footer.links.company.map((item) => (
+                        <li>
+                            <a
+                                href='/about'
+                                className='text-sm text-gray-600 hover:text-[#511076] hover:underline transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-200 leading-relaxed'>
+                                About Us
+                            </a>
+                        </li>
+                        {footer.links.company.slice(1).map((item) => (
                             <li key={item}>
                                 <a
                                     href='#'
@@ -113,7 +120,7 @@ export default function Footer() {
                             Need help? Contact us:
                         </p>
                         <p className='text-sm text-[#511076] font-medium'>
-                            support@helpi.com.au
+                            support@gethelpi.com
                         </p>
                     </div>
                 </div>

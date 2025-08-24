@@ -86,13 +86,15 @@ export default function HeroSection({
                             ease: 'easeOut',
                         }}
                         className='flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8'>
-                        <button className='bg-[#511076] hover:bg-[#6b2a8f] text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 transform 
+                        <button
+                            className='bg-[#511076] hover:bg-[#6b2a8f] text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 transform 
                      hover:scale-105 shadow-lg 
                      cursor-pointer 
                      hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-purple-200'>
                             {primaryCTA}
                         </button>
-                        <button className='border-2 border-[#511076] text-[#511076] hover:bg-[#511076] hover:text-white 
+                        <button
+                            className='border-2 border-[#511076] text-[#511076] hover:bg-[#511076] hover:text-white 
                         cursor-pointer
                         font-semibold py-4 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-purple-200'>
                             {secondaryCTA}
@@ -172,7 +174,7 @@ export default function HeroSection({
                                                         Regular Cleaning
                                                     </div>
                                                     <div className='text-sm text-gray-500'>
-                                                        2-3 hours • $120
+                                                        2-3 hours • $180
                                                     </div>
                                                 </div>
                                                 <button className='bg-[#511076] text-white px-3 py-1 rounded-lg text-sm font-medium'>
@@ -192,7 +194,7 @@ export default function HeroSection({
                                                         Deep Cleaning
                                                     </div>
                                                     <div className='text-sm text-gray-500'>
-                                                        4-5 hours • $180
+                                                        4-5 hours • $280
                                                     </div>
                                                 </div>
                                                 <button className='bg-[#511076] text-white px-3 py-1 rounded-lg text-sm font-medium'>
@@ -212,7 +214,7 @@ export default function HeroSection({
                                                         Move-in/out
                                                     </div>
                                                     <div className='text-sm text-gray-500'>
-                                                        6-8 hours • $250
+                                                        6-8 hours • $350
                                                     </div>
                                                 </div>
                                                 <button className='bg-[#511076] text-white px-3 py-1 rounded-lg text-sm font-medium'>
@@ -232,7 +234,7 @@ export default function HeroSection({
                                                         Office Cleaning
                                                     </div>
                                                     <div className='text-sm text-gray-500'>
-                                                        3-4 hours • $150
+                                                        3-4 hours • $220
                                                     </div>
                                                 </div>
                                                 <button className='bg-[#511076] text-white px-3 py-1 rounded-lg text-sm font-medium'>
@@ -252,7 +254,7 @@ export default function HeroSection({
                                                         Carpet Cleaning
                                                     </div>
                                                     <div className='text-sm text-gray-500'>
-                                                        2-3 hours • $90
+                                                        2-3 hours • $150
                                                     </div>
                                                 </div>
                                                 <button className='bg-[#511076] text-white px-3 py-1 rounded-lg text-sm font-medium'>
@@ -272,7 +274,7 @@ export default function HeroSection({
                                                         Window Cleaning
                                                     </div>
                                                     <div className='text-sm text-gray-500'>
-                                                        1-2 hours • $80
+                                                        1-2 hours • $160
                                                     </div>
                                                 </div>
                                                 <button className='bg-[#511076] text-white px-3 py-1 rounded-lg text-sm font-medium'>
@@ -293,7 +295,7 @@ export default function HeroSection({
                                                         Regular Cleaning
                                                     </div>
                                                     <div className='text-sm text-gray-500'>
-                                                        2-3 hours • $120
+                                                        2-3 hours • $180
                                                     </div>
                                                 </div>
                                                 <button className='bg-[#511076] text-white px-3 py-1 rounded-lg text-sm font-medium'>
@@ -313,7 +315,7 @@ export default function HeroSection({
                                                         Deep Cleaning
                                                     </div>
                                                     <div className='text-sm text-gray-500'>
-                                                        4-5 hours • $180
+                                                        4-5 hours • $280
                                                     </div>
                                                 </div>
                                                 <button className='bg-[#511076] text-white px-3 py-1 rounded-lg text-sm font-medium'>
@@ -322,7 +324,7 @@ export default function HeroSection({
                                             </div>
                                         </div>
 
-                                        {/* Service Tile 3 (Duplicate) */}
+                                        {/* Service Tile 2 (Duplicate) */}
                                         <div className='bg-gray-50 rounded-xl p-3 border border-gray-100'>
                                             <div className='flex items-center'>
                                                 <span className='text-2xl mr-3'>
@@ -333,7 +335,7 @@ export default function HeroSection({
                                                         Move-in/out
                                                     </div>
                                                     <div className='text-sm text-gray-500'>
-                                                        6-8 hours • $250
+                                                        6-8 hours • $350
                                                     </div>
                                                 </div>
                                                 <button className='bg-[#511076] text-white px-3 py-1 rounded-lg text-sm font-medium'>

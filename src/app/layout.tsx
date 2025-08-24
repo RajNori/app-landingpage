@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
+import Navigation from '@/components/helpi-landing/Navigation';
 
 const inter = Inter({
     subsets: ['latin'],
@@ -26,7 +27,7 @@ export const metadata: Metadata = {
         description:
             "Helpi is Australia's easiest way to book cleaning help. Choose your service, confirm your helper, and relax. Trusted cleaners, secure payments, and real reviews.",
         type: 'website',
-        url: 'https://helpi.app',
+        url: 'https://www.gethelpi.com',
     },
 };
 
@@ -38,6 +39,7 @@ export default function RootLayout({
     return (
         <html lang='en'>
             <body className={`${inter.variable} font-sans antialiased`}>
+                <Navigation />
                 {children}
             </body>
         </html>

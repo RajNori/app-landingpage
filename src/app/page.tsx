@@ -15,13 +15,9 @@ import { stats } from "@/data/stats";
 import { testimonials } from "@/data/testimonials";
 import { faqs } from "@/data/faqs";
 
-function LandingPageLayout({ children }: { children: React.ReactNode }) {
-  return <div className="bg-white text-gray-900 min-h-screen px-4 md:px-8 lg:px-16 flex flex-col">{children}</div>;
-}
-
 export default function Home() {
   return (
-    <LandingPageLayout>
+    <div className="bg-white text-gray-900 min-h-screen">
       <HeroSection {...HELPI_CONFIG.hero} />
       <StepFlowSection steps={steps} />
       <BenefitsGrid benefits={benefits} />
@@ -31,6 +27,6 @@ export default function Home() {
       <FAQAccordion faqs={faqs} />
       <FinalCTA {...HELPI_CONFIG.finalCTA} />
       <Footer />
-    </LandingPageLayout>
+    </div>
   );
 }
