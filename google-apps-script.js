@@ -136,6 +136,17 @@ function parseFormData(e) {
                 timestamp: new Date().toISOString(),
                 source: 'Helpi Landing Page',
             };
+        } else if (e.postData.type === 'application/json') {
+            const jsonData = JSON.parse(e.postData.contents);
+            return {
+                firstName: jsonData.firstName || '',
+                lastName: jsonData.lastName || '',
+                email: jsonData.email || '',
+                subject: jsonData.subject || '',
+                message: jsonData.message || '',
+                timestamp: new Date().toISOString(),
+                source: 'Helpi Landing Page',
+            };
         } else {
             throw new Error('Unsupported content type: ' + e.postData.type);
         }
@@ -250,7 +261,7 @@ function saveToSpreadsheet(data) {
             ];
             sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
             sheet.getRange(1, 1, 1, headers.length).setFontWeight('bold');
-            sheet.getRange(1, 1, 1, headers.length).setBackground('#f3f4f6');
+            sheet.getRange(1, 1, 1, headers.length).setBackground('#511076');
         }
 
         // Append the data
