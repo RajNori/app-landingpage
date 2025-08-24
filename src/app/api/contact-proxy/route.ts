@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 
+// Toggle for formData fallback (Option B)
+// Set to true to accept form-encoded data instead of JSON
+const USE_FORMDATA = false;
+
 // Contact form payload schema
 const ContactSchema = z.object({
     firstName: z.string().min(1, 'First name is required').max(50, 'First name must be less than 50 characters'),
@@ -39,10 +43,21 @@ function checkRateLimit(ip: string): boolean {
  * Contact form proxy endpoint
  * Forwards form submissions to Google Apps Script to avoid CORS and redirect issues
  * 
- * Test locally:
+ * Two modes available:
+ * - Option A (default): JSON payload with Content-Type: application/json
+ * - Option B: Form-encoded data with Content-Type: application/x-www-form-urlencoded
+ * 
+ * To enable Option B, set USE_FORMDATA = true above
+ * 
+ * Test locally (Option A - JSON):
  * curl -i -X POST http://localhost:3000/api/contact-proxy \
  *   -H "Content-Type: application/json" \
  *   -d '{"firstName":"Raj","lastName":"Nori","email":"raj@example.com","subject":"Test","message":"Hello"}'
+ * 
+ * Test locally (Option B - Form data):
+ * curl -i -X POST http://localhost:3000/api/contact-proxy \
+ *   -H "Content-Type: application/x-www-form-urlencoded" \
+ *   -d "firstName=Raj&lastName=Nori&email=raj@example.com&subject=Test&message=Hello"
  */
 export async function POST(request: NextRequest) {
     try {
@@ -69,13 +84,28 @@ export async function POST(request: NextRequest) {
 
         // Parse and validate request body
         let body: unknown;
-        try {
-            body = await request.json();
-        } catch {
-            return NextResponse.json(
-                { success: false, error: 'Invalid JSON in request body' },
-                { status: 400 }
-            );
+        
+        if (USE_FORMDATA) {
+            // Option B: Parse form-encoded data
+            try {
+                const fd = await request.formData();
+                body = Object.fromEntries(fd.entries());
+            } catch {
+                return NextResponse.json(
+                    { success: false, error: 'Invalid form data' },
+                    { status: 400 }
+                );
+            }
+        } else {
+            // Option A: Parse JSON (default)
+            try {
+                body = await request.json();
+            } catch {
+                return NextResponse.json(
+                    { success: false, error: 'Invalid JSON in request body' },
+                    { status: 400 }
+                );
+            }
         }
 
         const validationResult = ContactSchema.safeParse(body);

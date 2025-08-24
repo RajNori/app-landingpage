@@ -18,6 +18,7 @@ export default function ContactPage() {
     const [submitStatus, setSubmitStatus] = useState<{
         type: 'success' | 'error' | null;
         message: string;
+        errors?: string[];
     }>({ type: null, message: '' });
 
     const handleInputChange = (
@@ -47,13 +48,9 @@ export default function ContactPage() {
                 body: JSON.stringify(formData),
             });
 
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-
             const result = await response.json();
 
-            if (result.success) {
+            if (response.ok && result.success) {
                 setSubmitStatus({
                     type: 'success',
                     message:
@@ -70,18 +67,34 @@ export default function ContactPage() {
                     message: '',
                 });
             } else {
-                throw new Error(
-                    result.error?.message || 'Form submission failed'
-                );
+                // Handle different error types
+                let errorMessage = 'Form submission failed';
+                let errors: string[] = [];
+
+                if (response.status === 400 && result.errors) {
+                    // Validation errors
+                    errors = result.errors;
+                    errorMessage = 'Please fix the following errors:';
+                } else if (response.status === 429) {
+                    errorMessage =
+                        'Rate limit exceeded. Please try again in a minute.';
+                } else if (response.status === 500) {
+                    errorMessage = 'Something went wrong. Please try again.';
+                } else if (result.error?.message) {
+                    errorMessage = result.error.message;
+                }
+
+                setSubmitStatus({
+                    type: 'error',
+                    message: errorMessage,
+                    errors: errors.length > 0 ? errors : undefined,
+                });
             }
         } catch (error) {
             console.error('Form submission error:', error);
             setSubmitStatus({
                 type: 'error',
-                message:
-                    error instanceof Error
-                        ? error.message
-                        : 'Failed to submit form. Please try again.',
+                message: 'Failed to submit form. Please try again.',
             });
         } finally {
             setIsSubmitting(false);
@@ -208,18 +221,39 @@ export default function ContactPage() {
                                 </h3>
 
                                 {/* Status Messages */}
-                                {submitStatus.type && (
-                                    <div
-                                        className={`mb-6 p-4 rounded-xl ${
-                                            submitStatus.type === 'success'
-                                                ? 'bg-green-50 border border-green-200 text-green-800'
-                                                : 'bg-red-50 border border-red-200 text-red-800'
-                                        }`}>
-                                        {submitStatus.message}
-                                    </div>
-                                )}
+                                <div
+                                    aria-live='polite'
+                                    aria-atomic='true'
+                                    className='mb-6'>
+                                    {submitStatus.type && (
+                                        <div
+                                            className={`p-4 rounded-xl ${
+                                                submitStatus.type === 'success'
+                                                    ? 'bg-green-50 border border-green-200 text-green-800'
+                                                    : 'bg-red-50 border border-red-200 text-red-800'
+                                            }`}>
+                                            <div className='font-medium'>
+                                                {submitStatus.message}
+                                            </div>
+                                            {submitStatus.errors &&
+                                                submitStatus.errors.length >
+                                                    0 && (
+                                                    <ul className='mt-2 list-disc list-inside text-sm'>
+                                                        {submitStatus.errors.map(
+                                                            (error, index) => (
+                                                                <li key={index}>
+                                                                    {error}
+                                                                </li>
+                                                            )
+                                                        )}
+                                                    </ul>
+                                                )}
+                                        </div>
+                                    )}
+                                </div>
 
                                 <form
+                                    id='contactForm'
                                     onSubmit={handleSubmit}
                                     className='space-y-6'>
                                     <div className='grid md:grid-cols-2 gap-6'>
