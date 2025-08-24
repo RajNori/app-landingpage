@@ -205,13 +205,16 @@ function isValidEmail(email) {
  */
 function saveToSpreadsheet(data) {
     try {
-        // Find the spreadsheet
-        const spreadsheet = SpreadsheetApp.openByName(CONFIG.SPREADSHEET_NAME);
-        if (!spreadsheet) {
+        // Find the spreadsheet by name
+        const spreadsheets = DriveApp.getFilesByName(CONFIG.SPREADSHEET_NAME);
+        if (!spreadsheets.hasNext()) {
             throw new Error(
                 `Spreadsheet "${CONFIG.SPREADSHEET_NAME}" not found`
             );
         }
+        const spreadsheet = SpreadsheetApp.openById(
+            spreadsheets.next().getId()
+        );
 
         // Get the contact sheet
         const sheet = spreadsheet.getSheetByName(CONFIG.SHEET_NAME);
@@ -371,8 +374,11 @@ function testSetup() {
         console.log('Testing Helpi landing page setup...');
 
         // Test spreadsheet connection
-        const spreadsheet = SpreadsheetApp.openByName(CONFIG.SPREADSHEET_NAME);
-        if (spreadsheet) {
+        const spreadsheets = DriveApp.getFilesByName(CONFIG.SPREADSHEET_NAME);
+        if (spreadsheets.hasNext()) {
+            const spreadsheet = SpreadsheetApp.openById(
+                spreadsheets.next().getId()
+            );
             console.log('✅ Spreadsheet found:', spreadsheet.getName());
 
             const sheet = spreadsheet.getSheetByName(CONFIG.SHEET_NAME);
@@ -402,7 +408,20 @@ function setupSpreadsheet() {
         // Create new spreadsheet if it doesn't exist
         let spreadsheet;
         try {
-            spreadsheet = SpreadsheetApp.openByName(CONFIG.SPREADSHEET_NAME);
+            const spreadsheets = DriveApp.getFilesByName(
+                CONFIG.SPREADSHEET_NAME
+            );
+            if (spreadsheets.hasNext()) {
+                spreadsheet = SpreadsheetApp.openById(
+                    spreadsheets.next().getId()
+                );
+            } else {
+                spreadsheet = SpreadsheetApp.create(CONFIG.SPREADSHEET_NAME);
+                console.log(
+                    'Created new spreadsheet:',
+                    CONFIG.SPREADSHEET_NAME
+                );
+            }
         } catch (e) {
             spreadsheet = SpreadsheetApp.create(CONFIG.SPREADSHEET_NAME);
             console.log('Created new spreadsheet:', CONFIG.SPREADSHEET_NAME);
