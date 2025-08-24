@@ -273,3 +273,6 @@ For support, email support@gethelpi.com or join our Slack channel.
 **Built with ❤️ by the Helpi Team**
 
 _Making cleaning services accessible to every Australian household_
+
+---
+**🚀 Deployment Status**: Ready for Vercel CI/CD pipeline
