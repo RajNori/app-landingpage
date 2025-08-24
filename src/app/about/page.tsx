@@ -29,8 +29,8 @@ export default function AboutPage() {
                         </h1>
                         <p className='text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed'>
                             Born from a decade of experience in the service
-                            marketplace, we&apos;re revolutionizing how Australians
-                            access cleaning services.
+                            marketplace, we&apos;re revolutionizing how
+                            Australians access cleaning services.
                         </p>
                     </motion.div>
                 </div>
@@ -71,10 +71,12 @@ export default function AboutPage() {
                                     potential clients.
                                 </p>
                                 <p>
-                                    That&apos;s when the idea for Helpi was born – a
-                                    platform that would bridge this gap and
-                                    create a better, more efficient marketplace
-                                    for cleaning services.
+                                    That&apos;s when the idea for Helpi was born
+                                    – a revolutionary{' '}
+                                    <strong>on-demand platform</strong> that
+                                    would bridge this gap and create a better,
+                                    more efficient marketplace for cleaning
+                                    services.
                                 </p>
                             </div>
                         </motion.div>
@@ -98,7 +100,7 @@ export default function AboutPage() {
                                         discovered that the Australian cleaning
                                         services market was ripe for disruption.
                                         The need for a better, more reliable
-                                        service was clear, and we had the
+                                        <strong>on-demand service</strong> was clear, and we had the
                                         experience and insights to make it
                                         happen.
                                     </p>
@@ -122,8 +124,8 @@ export default function AboutPage() {
                             Our Journey
                         </h2>
                         <p className='text-lg text-gray-600 max-w-2xl mx-auto'>
-                            From market research to launching Helpi, here&apos;s how
-                            we got here
+                            From market research to launching Helpi, here&apos;s
+                            how we got here
                         </p>
                     </motion.div>
 
@@ -213,9 +215,12 @@ export default function AboutPage() {
                                         Why Melbourne?
                                     </h3>
                                     <p className='text-gray-700 leading-relaxed'>
-                                        Melbourne&apos;s vibrant startup ecosystem, diverse population, and strong service
-                                        economy make it the perfect place to launch Helpi. We&apos;re proud to call
-                                        this innovative city our home.
+                                        Melbourne&apos;s vibrant startup
+                                        ecosystem, diverse population, and
+                                        strong service economy make it the
+                                        perfect place to launch Helpi.
+                                        We&apos;re proud to call this innovative
+                                        city our home.
                                     </p>
                                 </div>
                             </div>
@@ -231,16 +236,22 @@ export default function AboutPage() {
                             </h2>
                             <div className='space-y-6 text-lg text-gray-600 leading-relaxed'>
                                 <p>
-                                    Melbourne&apos;s dynamic business environment and forward-thinking approach to
-                                    technology and services align perfectly with our vision for Helpi.
+                                    Melbourne&apos;s dynamic business
+                                    environment and forward-thinking approach to
+                                    technology and services align perfectly with
+                                    our vision for Helpi.
                                 </p>
                                 <p>
-                                    The city&apos;s diverse population and strong emphasis on quality of life
-                                    make it an ideal market for our cleaning services platform.
+                                    The city&apos;s diverse population and
+                                    strong emphasis on quality of life make it
+                                    an ideal market for our cleaning services
+                                    platform.
                                 </p>
                                 <p>
-                                    We&apos;re excited to contribute to Melbourne&apos;s growing reputation as a
-                                    hub for innovative startups and service-based businesses.
+                                    We&apos;re excited to contribute to
+                                    Melbourne&apos;s growing reputation as a hub
+                                    for innovative startups and service-based
+                                    businesses.
                                 </p>
                             </div>
                         </motion.div>
@@ -261,9 +272,10 @@ export default function AboutPage() {
                             Our Mission
                         </h2>
                         <p className='text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed'>
-                            To revolutionize the cleaning services industry by creating a platform that
-                            benefits both customers and service providers, making quality cleaning
-                            accessible to every Australian household.
+                            To revolutionize the cleaning services industry by
+                            creating an <strong>on-demand platform</strong> that benefits both customers and
+                            service providers, making quality cleaning
+                            accessible to every Australian household <strong>when they need it</strong>.
                         </p>
                     </motion.div>
 
@@ -271,21 +283,21 @@ export default function AboutPage() {
                         {[
                             {
                                 icon: FaUsers,
-                                title: 'Connect',
+                                title: 'Connect Instantly',
                                 description:
-                                    'Bridging the gap between qualified cleaners and customers who need reliable services.',
+                                    'Bridging the gap between qualified cleaners and customers who need reliable services on-demand.',
                             },
                             {
                                 icon: FaHandshake,
-                                title: 'Trust',
+                                title: 'Trust & Quality',
                                 description:
-                                    'Building a community of vetted, insured professionals that customers can rely on.',
+                                    'Building a community of vetted, insured professionals that customers can rely on instantly.',
                             },
                             {
                                 icon: MdTrendingUp,
-                                title: 'Innovate',
+                                title: 'Innovate Continuously',
                                 description:
-                                    'Continuously improving our platform based on user feedback and market needs.',
+                                    'Continuously improving our on-demand platform based on user feedback and market needs.',
                             },
                         ].map((item, index) => (
                             <motion.div
@@ -326,8 +338,9 @@ export default function AboutPage() {
                             Join Us on This Journey
                         </h2>
                         <p className='text-lg text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed'>
-                            We&apos;re just getting started, and we&apos;d love for you to be part of our story.
-                            Try Helpi today and experience the future of cleaning services.
+                            We&apos;re just getting started, and we&apos;d love
+                            for you to be part of our story. Try Helpi today and
+                            experience the future of <strong>on-demand cleaning services</strong>.
                         </p>
                         <div className='flex flex-col sm:flex-row gap-4 justify-center'>
                             <Link

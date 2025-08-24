@@ -118,14 +118,90 @@ export default function ServicesPage() {
                         transition={{ duration: 0.8 }}
                         className='mb-8'>
                         <h1 className='text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6'>
-                            Our Cleaning Services
+                            On-Demand Cleaning Services
                         </h1>
                         <p className='text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed'>
-                            Professional cleaning services tailored to your
-                            needs. From regular maintenance to deep cleaning,
-                            we&apos;ve got you covered.
+                            Professional cleaning services available on-demand
+                            when you need them. Book in 2 minutes, get cleaned
+                            today - no waiting, no hassle.
                         </p>
                     </motion.div>
+                </div>
+            </section>
+
+            {/* On-Demand Benefits Section */}
+            <section className='py-16 px-4 bg-purple-50'>
+                <div className='max-w-7xl mx-auto'>
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8 }}
+                        viewport={{ once: true }}
+                        className='text-center mb-12'>
+                        <h2 className='text-3xl md:text-4xl font-bold text-gray-900 mb-6'>
+                            Why Choose On-Demand Cleaning?
+                        </h2>
+                        <p className='text-lg text-gray-600 max-w-2xl mx-auto'>
+                            Get professional cleaning when you need it, not when
+                            it&apos;s convenient for someone else
+                        </p>
+                    </motion.div>
+
+                    <div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: 0.1 }}
+                            viewport={{ once: true }}
+                            className='text-center'>
+                            <div className='w-16 h-16 bg-[#511076] text-white rounded-full flex items-center justify-center mx-auto mb-4'>
+                                <span className='text-2xl'>⚡</span>
+                            </div>
+                            <h3 className='text-xl font-semibold text-gray-900 mb-2'>
+                                Instant Booking
+                            </h3>
+                            <p className='text-gray-600'>
+                                Book in under 2 minutes and get instant
+                                confirmation
+                            </p>
+                        </motion.div>
+
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: 0.2 }}
+                            viewport={{ once: true }}
+                            className='text-center'>
+                            <div className='w-16 h-16 bg-[#511076] text-white rounded-full flex items-center justify-center mx-auto mb-4'>
+                                <span className='text-2xl'>🕒</span>
+                            </div>
+                            <h3 className='text-xl font-semibold text-gray-900 mb-2'>
+                                Same-Day Service
+                            </h3>
+                            <p className='text-gray-600'>
+                                Book in the morning, get cleaned in the
+                                afternoon
+                            </p>
+                        </motion.div>
+
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: 0.3 }}
+                            viewport={{ once: true }}
+                            className='text-center'>
+                            <div className='w-16 h-16 bg-[#511076] text-white rounded-full flex items-center justify-center mx-auto mb-4'>
+                                <span className='text-2xl'>📱</span>
+                            </div>
+                            <h3 className='text-xl font-semibold text-gray-900 mb-2'>
+                                Real-Time Updates
+                            </h3>
+                            <p className='text-gray-600'>
+                                Track your cleaner&apos;s arrival and progress
+                                live
+                            </p>
+                        </motion.div>
+                    </div>
                 </div>
             </section>
 

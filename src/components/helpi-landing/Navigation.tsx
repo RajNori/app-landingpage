@@ -31,6 +31,9 @@ export default function Navigation() {
                         <span className='text-xl font-bold text-gray-900'>
                             Helpi
                         </span>
+                        <span className='text-sm text-[#511076] font-medium ml-2 hidden sm:block'>
+                            On-Demand
+                        </span>
                     </Link>
 
                     {/* Desktop Navigation */}
@@ -46,7 +49,7 @@ export default function Navigation() {
                         <Link
                             href='/'
                             className='bg-[#511076] hover:bg-[#6b2a8f] text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors duration-200 transform hover:scale-105'>
-                            Book Now
+                            Book Instantly
                         </Link>
                     </div>
 
@@ -89,7 +92,7 @@ export default function Navigation() {
                                 href='/'
                                 className='bg-[#511076] hover:bg-[#6b2a8f] text-white block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 mt-4'
                                 onClick={() => setIsMenuOpen(false)}>
-                                Book Now
+                                Book Instantly
                             </Link>
                         </div>
                     </motion.div>

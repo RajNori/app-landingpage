@@ -3,15 +3,15 @@ export const HELPI_CONFIG = {
         name: 'Helpi',
         tagline: 'Click. Book. Relax.',
         description:
-            'Professional cleaning services for busy Australian households',
+            'Australia&apos;s leading on-demand cleaning platform - professional cleaners at your fingertips',
         primaryColor: '#511076',
         primaryColorLight: '#6b2a8f',
         primaryColorDark: '#3d0a5a',
     },
     hero: {
-        title: 'Professional Cleaning Services for Your Home',
+        title: 'Professional Cleaning, On-Demand',
         subtitle:
-            'Book trusted, vetted cleaners in minutes. Available across Australia with flexible scheduling and transparent pricing.',
+            'Need a cleaner now? Book trusted, vetted professionals in under 2 minutes. Available across Australia with same-day service and transparent pricing.',
         primaryCTA: 'Book Now',
         secondaryCTA: 'View Services',
         image: '/hero-cleaning.svg',
@@ -19,8 +19,8 @@ export const HELPI_CONFIG = {
     steps: [
         {
             icon: '📱',
-            title: 'Book Online',
-            text: 'Choose your service, date, and time in just a few clicks',
+            title: 'Book in 2 Minutes',
+            text: 'Choose your service and get instant confirmation - no waiting, no calls',
         },
         {
             icon: '👥',
@@ -29,47 +29,47 @@ export const HELPI_CONFIG = {
         },
         {
             icon: '✨',
-            title: 'Quality Service',
-            text: 'Enjoy a spotless home with our guaranteed satisfaction policy',
+            title: 'Quality Guaranteed',
+            text: 'Enjoy a spotless home with our 100% satisfaction guarantee',
         },
         {
             icon: '💳',
-            title: 'Easy Payment',
-            text: 'Secure online payment with no hidden fees or surprises',
+            title: 'Pay Securely',
+            text: 'Secure online payment with upfront pricing - no hidden fees',
         },
     ],
     benefits: [
         {
             icon: '🕒',
-            title: 'Flexible Scheduling',
-            description: 'Book same-day or schedule recurring cleanings',
+            title: 'Same-Day Service',
+            description: 'Book now, get cleaned today - available 7 days a week',
         },
         {
             icon: '🛡️',
             title: 'Fully Insured',
             description:
-                'All cleaners are bonded and insured for your peace of mind',
+                'All cleaners are bonded and insured for your complete peace of mind',
         },
         {
             icon: '💰',
             title: 'Transparent Pricing',
-            description: "Know exactly what you'll pay with upfront quotes",
+            description: "See exactly what you'll pay upfront - no surprises, no hidden costs",
         },
         {
             icon: '🌟',
-            title: 'Quality Guarantee',
+            title: '100% Satisfaction',
             description:
-                "Not satisfied? We'll make it right or your money back",
+                "Not happy? We'll re-clean for free or give you a full refund",
         },
         {
             icon: '🌿',
             title: 'Eco-Friendly Options',
-            description: 'Choose from our range of green cleaning products',
+            description: 'Choose from our range of green cleaning products at no extra cost',
         },
         {
             icon: '📱',
-            title: 'Real-Time Updates',
-            description: "Track your cleaner's arrival and service progress",
+            title: 'Real-Time Tracking',
+            description: "Track your cleaner's arrival and service progress live",
         },
     ],
     stats: [
@@ -82,26 +82,26 @@ export const HELPI_CONFIG = {
         {
             name: 'Sarah Mitchell',
             comment:
-                'Helpi has been a lifesaver for our busy family. The cleaners are always professional and our home looks amazing!',
+                'Helpi has been a lifesaver for our busy family. I can book a cleaner last-minute when unexpected guests arrive - it&apos;s so convenient!',
             location: 'Sydney, NSW',
         },
         {
             name: 'Michael Chen',
             comment:
-                'I love the flexibility - I can book last minute or schedule regular cleanings. The app is so easy to use.',
+                'The on-demand service is incredible. I booked a deep clean at 9 AM and had someone here by 2 PM. The quality was outstanding.',
             location: 'Melbourne, VIC',
         },
         {
             name: 'Emma Rodriguez',
             comment:
-                'Finally found a cleaning service I can trust. The quality is consistently excellent and pricing is fair.',
+                'Finally found a cleaning service I can trust on-demand. No more waiting weeks for appointments - I get cleaned when I need it.',
             location: 'Brisbane, QLD',
         },
     ],
     faqs: [
         {
-            question: 'How do I book a cleaning service?',
-            answer: "Simply download our app or visit our website, choose your service type, select your preferred date and time, and confirm your booking. You'll receive instant confirmation and can track your cleaner's arrival.",
+            question: 'How quickly can I get a cleaner?',
+            answer: "We offer same-day service! Book in the morning and get cleaned in the afternoon. For urgent requests, we can often arrange a cleaner within 2-4 hours depending on availability in your area.",
         },
         {
             question: 'Are your cleaners background-checked?',
@@ -121,9 +121,9 @@ export const HELPI_CONFIG = {
         },
     ],
     finalCTA: {
-        title: 'Ready for a Cleaner Home?',
+        title: 'Ready for On-Demand Cleaning?',
         subtitle:
-            'Join thousands of Australian families who trust Helpi for their cleaning needs',
+            'Join thousands of Australian families who trust Helpi for instant, professional cleaning services',
         primaryCTA: 'Book Your First Clean',
         secondaryCTA: 'Get Quote',
     },

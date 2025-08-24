@@ -1,8 +1,8 @@
 export const steps = [
     {
         icon: '📱',
-        title: 'Book Online',
-        text: 'Choose your service, date, and time in just a few clicks',
+        title: 'Book in 2 Minutes',
+        text: 'Choose your service and get instant confirmation - no waiting, no calls',
     },
     {
         icon: '👥',
@@ -11,12 +11,12 @@ export const steps = [
     },
     {
         icon: '✨',
-        title: 'Quality Service',
-        text: 'Enjoy a spotless home with our guaranteed satisfaction policy',
+        title: 'Quality Guaranteed',
+        text: 'Enjoy a spotless home with our 100% satisfaction guarantee',
     },
     {
         icon: '💳',
-        title: 'Easy Payment',
-        text: 'Secure online payment with no hidden fees or surprises',
+        title: 'Pay Securely',
+        text: 'Secure online payment with upfront pricing - no hidden fees',
     },
 ];
