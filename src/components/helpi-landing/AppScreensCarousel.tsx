@@ -171,52 +171,280 @@ export default function AppScreensCarousel() {
                                     viewport={{ once: true }}
                                     className='min-w-[280px] sm:min-w-[300px] snap-start rounded-xl shadow-lg p-6 bg-white border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1'>
                                     {/* Mock Phone */}
-                                    <div className='bg-black rounded-3xl p-2 w-full h-64 mb-6'>
-                                        <div className='bg-white rounded-2xl p-4 h-full overflow-hidden'>
+                                    <div className='relative mx-auto border-gray-300 dark:border-gray-800 bg-gray-300 dark:bg-gray-800 border-[3.5px] rounded-[0.625rem] h-[180px] w-[90px] shadow-2xl mb-4'>
+                                        <div className='h-[8px] w-[0.75px] bg-gray-300 dark:bg-gray-800 absolute -start-[4.25px] top-[18px] rounded-s-lg'></div>
+                                        <div className='h-[11.5px] w-[0.75px] bg-gray-300 dark:bg-gray-800 absolute -start-[4.25px] top-[31px] rounded-s-lg'></div>
+                                        <div className='h-[11.5px] w-[0.75px] bg-gray-300 dark:bg-gray-800 absolute -start-[4.25px] top-[44.5px] rounded-s-lg'></div>
+                                        <div className='h-[16px] w-[0.75px] bg-gray-300 dark:bg-gray-800 absolute -end-[4.25px] top-[35.5px] rounded-e-lg'></div>
+                                        <div className='rounded-[0.5rem] overflow-hidden w-[83px] h-[173px] bg-white dark:bg-gray-800 relative'>
                                             {/* App Header */}
-                                            <div className='bg-[#511076] text-white rounded-xl p-3 mb-4'>
-                                                <div className='flex items-center justify-between'>
-                                                    <span className='font-semibold text-sm'>
-                                                        {screen.mockup.title}
-                                                    </span>
-                                                    <span className='text-xs'>
-                                                        Helpi
-                                                    </span>
-                                                </div>
+                                            <div className='bg-gradient-to-r from-purple-600 to-blue-600 rounded-t-lg p-2 relative overflow-hidden'>
+                                                {/* Clean Header Visual Elements */}
+                                                {screen.id === 1 && (
+                                                    <>
+                                                        <div className='flex items-center gap-1.5 mb-1'>
+                                                            <div className='w-2 h-2 bg-white/90 rounded-full'></div>
+                                                            <div className='w-1.5 h-1.5 bg-white/70 rounded-full'></div>
+                                                            <div className='w-1 h-1 bg-white/50 rounded-full'></div>
+                                                        </div>
+                                                        <div className='h-1 bg-white/80 rounded-sm w-3/4'></div>
+                                                    </>
+                                                )}
+
+                                                {screen.id === 2 && (
+                                                    <>
+                                                        <div className='flex items-center gap-1.5 mb-1'>
+                                                            <div className='w-2 h-2 bg-white/90 rounded-full'></div>
+                                                            <div className='h-1 bg-white/70 rounded-sm flex-1'></div>
+                                                            <div className='w-1.5 h-1.5 bg-white/60 rounded-full'></div>
+                                                        </div>
+                                                        <div className='h-1 bg-white/80 rounded-sm w-2/3'></div>
+                                                    </>
+                                                )}
+
+                                                {screen.id === 3 && (
+                                                    <>
+                                                        <div className='flex items-center gap-1 mb-1'>
+                                                            {[...Array(4)].map(
+                                                                (_, i) => (
+                                                                    <div
+                                                                        key={i}
+                                                                        className='w-1.5 h-1.5 bg-white/80 rounded-sm'></div>
+                                                                )
+                                                            )}
+                                                        </div>
+                                                        <div className='h-1 bg-white/70 rounded-sm w-full'></div>
+                                                    </>
+                                                )}
+
+                                                {screen.id === 4 && (
+                                                    <>
+                                                        <div className='grid grid-cols-5 gap-1 mb-1'>
+                                                            {[...Array(5)].map(
+                                                                (_, i) => (
+                                                                    <div
+                                                                        key={i}
+                                                                        className='w-1 h-1 bg-white/70 rounded-sm'></div>
+                                                                )
+                                                            )}
+                                                        </div>
+                                                        <div className='h-1 bg-white/80 rounded-sm w-4/5'></div>
+                                                    </>
+                                                )}
+
+                                                {screen.id === 5 && (
+                                                    <>
+                                                        <div className='flex items-center gap-1.5 mb-1'>
+                                                            <div className='w-2 h-2 bg-white/90 rounded-full'></div>
+                                                            <div className='h-1 bg-white/70 rounded-sm flex-1'></div>
+                                                            <div className='w-1.5 h-1.5 bg-white/60 rounded-full'></div>
+                                                        </div>
+                                                        <div className='h-1 bg-white/80 rounded-sm w-3/4'></div>
+                                                    </>
+                                                )}
+
+                                                {screen.id === 6 && (
+                                                    <>
+                                                        <div className='flex items-center gap-1.5 mb-1'>
+                                                            <div className='w-2 h-2 bg-white/90 rounded-full'></div>
+                                                            <div className='h-1 bg-white/70 rounded-sm flex-1'></div>
+                                                            <div className='w-1.5 h-1.5 bg-white/60 rounded-full'></div>
+                                                        </div>
+                                                        <div className='h-1 bg-white/80 rounded-sm w-2/3'></div>
+                                                    </>
+                                                )}
                                             </div>
 
                                             {/* App Content */}
-                                            <div className='space-y-3'>
-                                                {screen.mockup.content.map(
-                                                    (item, itemIndex) => (
-                                                        <div
-                                                            key={itemIndex}
-                                                            className='bg-gray-50 rounded-xl p-3'>
-                                                            <div className='flex items-center justify-between'>
-                                                                <div className='flex items-center'>
-                                                                    <span className='text-lg mr-3'>
-                                                                        {
-                                                                            item.icon
-                                                                        }
-                                                                    </span>
-                                                                    <span className='font-medium text-sm'>
-                                                                        {
-                                                                            item.text
-                                                                        }
-                                                                    </span>
-                                                                </div>
-                                                                <span className='text-sm text-gray-600'>
-                                                                    {'price' in
-                                                                    item
-                                                                        ? item.price
-                                                                        : 'status' in
-                                                                          item
-                                                                        ? item.status
-                                                                        : item.rating}
-                                                                </span>
-                                                            </div>
+                                            <div className='p-2.5 space-y-2'>
+                                                {/* Clean Mockup Content */}
+                                                {screen.id === 1 && (
+                                                    <>
+                                                        {/* Service Selection UI */}
+                                                        <div className='bg-blue-50 rounded-lg p-1.5 border border-blue-200/50'>
+                                                            <div className='h-2 bg-blue-400 rounded-sm mb-1'></div>
+                                                            <div className='h-1.5 bg-blue-300 rounded-sm w-3/4'></div>
                                                         </div>
-                                                    )
+                                                        <div className='bg-purple-50 rounded-lg p-1.5 border border-purple-200/50'>
+                                                            <div className='h-2 bg-purple-400 rounded-sm mb-1'></div>
+                                                            <div className='h-1.5 bg-purple-300 rounded-sm w-2/3'></div>
+                                                        </div>
+                                                        <div className='bg-green-50 rounded-lg p-1.5 border border-green-200/50'>
+                                                            <div className='h-2 bg-green-400 rounded-sm mb-1'></div>
+                                                            <div className='h-1.5 bg-green-300 rounded-sm w-4/5'></div>
+                                                        </div>
+                                                    </>
+                                                )}
+
+                                                {screen.id === 2 && (
+                                                    <>
+                                                        {/* Progress Tracking UI */}
+                                                        <div className='bg-gray-50 rounded-lg p-1.5 border border-gray-200/50'>
+                                                            <div className='flex items-center gap-1 mb-1'>
+                                                                <div className='w-1.5 h-1.5 bg-green-400 rounded-full'></div>
+                                                                <div className='h-1 bg-gray-300 rounded-sm flex-1'></div>
+                                                            </div>
+                                                            <div className='h-1 bg-green-400 rounded-sm w-3/4'></div>
+                                                        </div>
+                                                        <div className='bg-blue-50 rounded-lg p-1.5 border border-blue-200/50'>
+                                                            <div className='flex items-center gap-1 mb-1'>
+                                                                <div className='w-1.5 h-1.5 bg-blue-400 rounded-full'></div>
+                                                                <div className='h-1 bg-gray-300 rounded-sm flex-1'></div>
+                                                            </div>
+                                                            <div className='h-1 bg-blue-400 rounded-sm w-1/2'></div>
+                                                        </div>
+                                                        <div className='bg-purple-50 rounded-lg p-1.5 border border-purple-200/50'>
+                                                            <div className='flex items-center gap-1 mb-1'>
+                                                                <div className='w-1.5 h-1.5 bg-purple-400 rounded-full'></div>
+                                                                <div className='h-1 bg-gray-300 rounded-sm flex-1'></div>
+                                                            </div>
+                                                            <div className='h-1 bg-purple-400 rounded-sm w-1/4'></div>
+                                                        </div>
+                                                    </>
+                                                )}
+
+                                                {screen.id === 3 && (
+                                                    <>
+                                                        {/* Rating UI */}
+                                                        <div className='bg-yellow-50 rounded-lg p-1.5 border border-yellow-200/50'>
+                                                            <div className='flex gap-0.5 mb-1'>
+                                                                {[
+                                                                    ...Array(5),
+                                                                ].map(
+                                                                    (_, i) => (
+                                                                        <div
+                                                                            key={
+                                                                                i
+                                                                            }
+                                                                            className='w-1 h-1 bg-yellow-400 rounded-sm'></div>
+                                                                    )
+                                                                )}
+                                                            </div>
+                                                            <div className='h-1 bg-yellow-300 rounded-sm w-full'></div>
+                                                        </div>
+                                                        <div className='bg-green-50 rounded-lg p-1.5 border border-green-200/50'>
+                                                            <div className='flex gap-0.5 mb-1'>
+                                                                {[
+                                                                    ...Array(5),
+                                                                ].map(
+                                                                    (_, i) => (
+                                                                        <div
+                                                                            key={
+                                                                                i
+                                                                            }
+                                                                            className='w-1 h-1 bg-green-400 rounded-sm'></div>
+                                                                    )
+                                                                )}
+                                                            </div>
+                                                            <div className='h-1 bg-green-300 rounded-sm w-full'></div>
+                                                        </div>
+                                                        <div className='bg-blue-50 rounded-lg p-1.5 border border-blue-200/50'>
+                                                            <div className='flex gap-0.5 mb-1'>
+                                                                {[
+                                                                    ...Array(5),
+                                                                ].map(
+                                                                    (_, i) => (
+                                                                        <div
+                                                                            key={
+                                                                                i
+                                                                            }
+                                                                            className='w-1 h-1 bg-blue-400 rounded-sm'></div>
+                                                                    )
+                                                                )}
+                                                            </div>
+                                                            <div className='h-1 bg-blue-300 rounded-sm w-full'></div>
+                                                        </div>
+                                                    </>
+                                                )}
+
+                                                {screen.id === 4 && (
+                                                    <>
+                                                        {/* Calendar UI */}
+                                                        <div className='bg-purple-50 rounded-lg p-1.5 border border-purple-200/50'>
+                                                            <div className='grid grid-cols-7 gap-0.5 mb-1'>
+                                                                {[
+                                                                    ...Array(7),
+                                                                ].map(
+                                                                    (_, i) => (
+                                                                        <div
+                                                                            key={
+                                                                                i
+                                                                            }
+                                                                            className='w-1 h-1 bg-purple-300 rounded-sm'></div>
+                                                                    )
+                                                                )}
+                                                            </div>
+                                                            <div className='h-1 bg-purple-400 rounded-sm w-2/3'></div>
+                                                        </div>
+                                                        <div className='bg-blue-50 rounded-lg p-1.5 border border-blue-200/50'>
+                                                            <div className='flex items-center gap-1 mb-1'>
+                                                                <div className='w-1.5 h-1.5 bg-blue-400 rounded-full'></div>
+                                                                <div className='h-1 bg-gray-300 rounded-sm flex-1'></div>
+                                                            </div>
+                                                            <div className='h-1 bg-blue-400 rounded-sm w-1/2'></div>
+                                                        </div>
+                                                        <div className='bg-green-50 rounded-lg p-1.5 border border-green-200/50'>
+                                                            <div className='flex items-center gap-1 mb-1'>
+                                                                <div className='w-1.5 h-1.5 bg-green-400 rounded-full'></div>
+                                                                <div className='h-1 bg-gray-300 rounded-sm flex-1'></div>
+                                                            </div>
+                                                            <div className='h-1 bg-green-400 rounded-sm w-3/4'></div>
+                                                        </div>
+                                                    </>
+                                                )}
+
+                                                {screen.id === 5 && (
+                                                    <>
+                                                        {/* Notification UI */}
+                                                        <div className='bg-red-50 rounded-lg p-1.5 border border-red-200/50'>
+                                                            <div className='flex items-center gap-1 mb-1'>
+                                                                <div className='w-1.5 h-1.5 bg-red-400 rounded-full'></div>
+                                                                <div className='h-1 bg-gray-300 rounded-sm flex-1'></div>
+                                                            </div>
+                                                            <div className='h-1 bg-red-400 rounded-sm w-2/3'></div>
+                                                        </div>
+                                                        <div className='bg-green-50 rounded-lg p-1.5 border border-green-200/50'>
+                                                            <div className='flex items-center gap-1 mb-1'>
+                                                                <div className='w-1.5 h-1.5 bg-green-400 rounded-full'></div>
+                                                                <div className='h-1 bg-gray-300 rounded-sm flex-1'></div>
+                                                            </div>
+                                                            <div className='h-1 bg-green-400 rounded-sm w-full'></div>
+                                                        </div>
+                                                        <div className='bg-blue-50 rounded-lg p-1.5 border border-blue-200/50'>
+                                                            <div className='flex items-center gap-1 mb-1'>
+                                                                <div className='w-1.5 h-1.5 bg-blue-400 rounded-full'></div>
+                                                                <div className='h-1 bg-gray-300 rounded-sm flex-1'></div>
+                                                            </div>
+                                                            <div className='h-1 bg-blue-400 rounded-sm w-4/5'></div>
+                                                        </div>
+                                                    </>
+                                                )}
+
+                                                {screen.id === 6 && (
+                                                    <>
+                                                        {/* Payment UI */}
+                                                        <div className='bg-indigo-50 rounded-lg p-1.5 border border-indigo-200/50'>
+                                                            <div className='flex items-center gap-1 mb-1'>
+                                                                <div className='w-1.5 h-1.5 bg-indigo-400 rounded-full'></div>
+                                                                <div className='h-1 bg-gray-300 rounded-sm flex-1'></div>
+                                                            </div>
+                                                            <div className='h-1 bg-indigo-400 rounded-sm w-1/3'></div>
+                                                        </div>
+                                                        <div className='bg-purple-50 rounded-lg p-1.5 border border-purple-200/50'>
+                                                            <div className='flex items-center gap-1 mb-1'>
+                                                                <div className='w-1.5 h-1.5 bg-purple-400 rounded-full'></div>
+                                                                <div className='h-1 bg-gray-300 rounded-sm flex-1'></div>
+                                                            </div>
+                                                            <div className='h-1 bg-purple-400 rounded-sm w-2/3'></div>
+                                                        </div>
+                                                        <div className='bg-green-50 rounded-lg p-1.5 border border-green-200/50'>
+                                                            <div className='flex items-center gap-1 mb-1'>
+                                                                <div className='w-1.5 h-1.5 bg-green-400 rounded-full'></div>
+                                                                <div className='h-1 bg-gray-300 rounded-sm flex-1'></div>
+                                                            </div>
+                                                            <div className='h-1 bg-green-400 rounded-sm w-1/5'></div>
+                                                        </div>
+                                                    </>
                                                 )}
                                             </div>
                                         </div>
