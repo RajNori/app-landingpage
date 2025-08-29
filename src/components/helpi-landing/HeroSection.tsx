@@ -29,7 +29,7 @@ export default function HeroSection({
 
     const handleBookNow = () => router.push('/services');
     const handleViewServices = () => router.push('/services');
-    const handleServiceBooking = (serviceType: string) => {
+    const handleServiceBooking = () => {
         router.push('/services');
         // Could add specific service filtering here later
     };
@@ -190,7 +190,7 @@ export default function HeroSection({
                                                     </div>
                                                 </div>
                                                 <button 
-                                                    onClick={() => handleServiceBooking('regular')}
+                                                    onClick={handleServiceBooking}
                                                     className='bg-[#511076] text-white px-3 py-1 rounded-lg text-sm font-medium hover:bg-[#6b2a8f] transition-colors'>
                                                     Book
                                                 </button>
@@ -212,7 +212,7 @@ export default function HeroSection({
                                                     </div>
                                                 </div>
                                                 <button 
-                                                    onClick={() => handleServiceBooking('deep')}
+                                                    onClick={handleServiceBooking}
                                                     className='bg-[#511076] text-white px-3 py-1 rounded-lg text-sm font-medium hover:bg-[#6b2a8f] transition-colors'>
                                                     Book
                                                 </button>
@@ -236,7 +236,7 @@ export default function HeroSection({
                                                     </div>
                                                 </div>
                                                 <button 
-                                                    onClick={() => handleServiceBooking('move')}
+                                                    onClick={handleServiceBooking}
                                                     className='bg-[#511076] text-white px-3 py-1 rounded-lg text-sm font-medium hover:bg-[#6b2a8f] transition-colors'>
                                                     Book
                                                 </button>
@@ -258,7 +258,7 @@ export default function HeroSection({
                                                     </div>
                                                 </div>
                                                 <button 
-                                                    onClick={() => handleServiceBooking('office')}
+                                                    onClick={handleServiceBooking}
                                                     className='bg-[#511076] text-white px-3 py-1 rounded-lg text-sm font-medium hover:bg-[#6b2a8f] transition-colors'>
                                                     Book
                                                 </button>
@@ -280,7 +280,7 @@ export default function HeroSection({
                                                     </div>
                                                 </div>
                                                 <button 
-                                                    onClick={() => handleServiceBooking('carpet')}
+                                                    onClick={handleServiceBooking}
                                                     className='bg-[#511076] text-white px-3 py-1 rounded-lg text-sm font-medium hover:bg-[#6b2a8f] transition-colors'>
                                                     Book
                                                 </button>
@@ -301,7 +301,9 @@ export default function HeroSection({
                                                         1-2 hours • $160
                                                     </div>
                                                 </div>
-                                                <button className='bg-[#511076] text-white px-3 py-1 rounded-lg text-sm font-medium'>
+                                                <button 
+                                                    onClick={handleServiceBooking}
+                                                    className='bg-[#511076] text-white px-3 py-1 rounded-lg text-sm font-medium hover:bg-[#6b2a8f] transition-colors'>
                                                     Book
                                                 </button>
                                             </div>
@@ -322,7 +324,9 @@ export default function HeroSection({
                                                         2-3 hours • $180
                                                     </div>
                                                 </div>
-                                                <button className='bg-[#511076] text-white px-3 py-1 rounded-lg text-sm font-medium'>
+                                                <button 
+                                                    onClick={handleServiceBooking}
+                                                    className='bg-[#511076] text-white px-3 py-1 rounded-lg text-sm font-medium hover:bg-[#6b2a8f] transition-colors'>
                                                     Book
                                                 </button>
                                             </div>
@@ -342,7 +346,9 @@ export default function HeroSection({
                                                         4-5 hours • $280
                                                     </div>
                                                 </div>
-                                                <button className='bg-[#511076] text-white px-3 py-1 rounded-lg text-sm font-medium'>
+                                                <button 
+                                                    onClick={handleServiceBooking}
+                                                    className='bg-[#511076] text-white px-3 py-1 rounded-lg text-sm font-medium hover:bg-[#6b2a8f] transition-colors'>
                                                     Book
                                                 </button>
                                             </div>
@@ -362,7 +368,9 @@ export default function HeroSection({
                                                         6-8 hours • $350
                                                     </div>
                                                 </div>
-                                                <button className='bg-[#511076] text-white px-3 py-1 rounded-lg text-sm font-medium'>
+                                                <button 
+                                                    onClick={handleServiceBooking}
+                                                    className='bg-[#511076] text-white px-3 py-1 rounded-lg text-sm font-medium hover:bg-[#6b2a8f] transition-colors'>
                                                     Book
                                                 </button>
                                             </div>

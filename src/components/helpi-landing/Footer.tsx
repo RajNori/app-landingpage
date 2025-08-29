@@ -10,7 +10,7 @@ const { footer } = HELPI_CONFIG;
 export default function Footer() {
     const router = useRouter();
 
-    const handleServiceClick = (service: string) => {
+    const handleServiceClick = () => {
         router.push('/services');
         // Could add specific service filtering here later
     };
@@ -65,7 +65,7 @@ export default function Footer() {
                         {footer.links.services.map((item) => (
                             <li key={item}>
                                 <button
-                                    onClick={() => handleServiceClick(item)}
+                                    onClick={handleServiceClick}
                                     className='text-sm text-gray-600 hover:text-[#511076] hover:underline transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-200 leading-relaxed text-left w-full cursor-pointer'>
                                     {item}
                                 </button>

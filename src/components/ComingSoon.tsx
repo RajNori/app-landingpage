@@ -11,7 +11,7 @@ interface ComingSoonProps {
 
 export default function ComingSoon({
     title,
-    message = "We're working hard to bring you this feature. Stay tuned!",
+    message = 'We&apos;re working hard to bring you this feature. Stay tuned!',
 }: ComingSoonProps) {
     const router = useRouter();
 
@@ -72,8 +72,8 @@ export default function ComingSoon({
                                 Be the first to know
                             </h3>
                             <p className='text-gray-600 mb-6'>
-                                Get notified when this feature launches. We'll
-                                keep you updated!
+                                Get notified when this feature launches.
+                                We&apos;ll keep you updated!
                             </p>
                             <div className='flex flex-col sm:flex-row gap-3 max-w-md mx-auto'>
                                 <input
