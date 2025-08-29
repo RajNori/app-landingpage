@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 import {
     FaLightbulb,
     FaUsers,
@@ -10,9 +11,13 @@ import {
     FaHandshake,
 } from 'react-icons/fa';
 import { MdBusinessCenter, MdTrendingUp } from 'react-icons/md';
-import Link from 'next/link';
 
 export default function AboutPage() {
+    const router = useRouter();
+
+    const handleBookNow = () => router.push('/services');
+    const handleLearnMore = () => router.push('/');
+
     return (
         <div className='bg-white min-h-screen'>
             {/* Hero Section */}
@@ -100,9 +105,9 @@ export default function AboutPage() {
                                         discovered that the Australian cleaning
                                         services market was ripe for disruption.
                                         The need for a better, more reliable
-                                        <strong>on-demand service</strong> was clear, and we had the
-                                        experience and insights to make it
-                                        happen.
+                                        <strong>on-demand service</strong> was
+                                        clear, and we had the experience and
+                                        insights to make it happen.
                                     </p>
                                 </div>
                             </div>
@@ -273,9 +278,11 @@ export default function AboutPage() {
                         </h2>
                         <p className='text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed'>
                             To revolutionize the cleaning services industry by
-                            creating an <strong>on-demand platform</strong> that benefits both customers and
-                            service providers, making quality cleaning
-                            accessible to every Australian household <strong>when they need it</strong>.
+                            creating an <strong>on-demand platform</strong> that
+                            benefits both customers and service providers,
+                            making quality cleaning accessible to every
+                            Australian household{' '}
+                            <strong>when they need it</strong>.
                         </p>
                     </motion.div>
 
@@ -340,19 +347,20 @@ export default function AboutPage() {
                         <p className='text-lg text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed'>
                             We&apos;re just getting started, and we&apos;d love
                             for you to be part of our story. Try Helpi today and
-                            experience the future of <strong>on-demand cleaning services</strong>.
+                            experience the future of{' '}
+                            <strong>on-demand cleaning services</strong>.
                         </p>
                         <div className='flex flex-col sm:flex-row gap-4 justify-center'>
-                            <Link
-                                href='/'
+                            <button
+                                onClick={handleBookNow}
                                 className='bg-[#511076] hover:bg-[#6b2a8f] text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-purple-200'>
                                 Book Your First Clean
-                            </Link>
-                            <Link
-                                href='/'
+                            </button>
+                            <button
+                                onClick={handleLearnMore}
                                 className='border-2 border-[#511076] text-[#511076] hover:bg-[#511076] hover:text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-purple-200'>
                                 Learn More
-                            </Link>
+                            </button>
                         </div>
                     </motion.div>
                 </div>

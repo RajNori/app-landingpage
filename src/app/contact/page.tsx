@@ -1,11 +1,12 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaClock } from 'react-icons/fa';
 import Link from 'next/link';
 
 export default function ContactPage() {
+    const [isMounted, setIsMounted] = useState(false);
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -20,6 +21,11 @@ export default function ContactPage() {
         message: string;
         errors?: string[];
     }>({ type: null, message: '' });
+
+    // Ensure form only renders after client-side hydration
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
 
     const handleInputChange = (
         e: React.ChangeEvent<
@@ -252,6 +258,7 @@ export default function ContactPage() {
                                     )}
                                 </div>
 
+                                {isMounted ? (
                                 <form
                                     id='contactForm'
                                     onSubmit={handleSubmit}
@@ -401,6 +408,12 @@ export default function ContactPage() {
                                         )}
                                     </button>
                                 </form>
+                                ) : (
+                                    <div className='text-center py-8'>
+                                        <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-[#511076] mx-auto'></div>
+                                        <p className='text-gray-600 mt-4'>Loading contact form...</p>
+                                    </div>
+                                )}
                             </div>
                         </motion.div>
                     </div>

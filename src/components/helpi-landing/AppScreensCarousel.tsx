@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { useKeenSlider } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
@@ -98,8 +99,15 @@ const appScreens = [
 ];
 
 export default function AppScreensCarousel() {
+    const router = useRouter();
     const [currentSlide, setCurrentSlide] = useState(0);
     const [loaded, setLoaded] = useState(false);
+
+    const handleAppStoreDownload = () => {
+        // For now, redirect to services page
+        // In production, this would link to app stores
+        router.push('/services');
+    };
 
     const [sliderRef, instanceRef] = useKeenSlider({
         initial: 0,
@@ -500,8 +508,8 @@ export default function AppScreensCarousel() {
                             Available on iOS and Android.
                         </p>
                         <div className='flex flex-row items-center gap-4 justify-center'>
-                            <a
-                                href='#'
+                            <button
+                                onClick={handleAppStoreDownload}
                                 aria-label='Download on the App Store'
                                 className='hover:opacity-80 transition-opacity duration-200 transform hover:scale-105'>
                                 <Image
@@ -511,9 +519,9 @@ export default function AppScreensCarousel() {
                                     alt='Download on the App Store'
                                     className='h-[56px] w-auto object-contain'
                                 />
-                            </a>
-                            <a
-                                href='#'
+                            </button>
+                            <button
+                                onClick={handleAppStoreDownload}
                                 aria-label='Get it on Google Play'
                                 className='hover:opacity-80 transition-opacity duration-200 transform hover:scale-105'>
                                 <Image
@@ -523,7 +531,7 @@ export default function AppScreensCarousel() {
                                     alt='Get it on Google Play'
                                     className='h-[182px] w-auto object-contain'
                                 />
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </motion.div>

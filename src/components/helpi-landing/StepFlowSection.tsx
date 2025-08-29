@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 import {
     FaCalendarCheck,
     FaUserCheck,
@@ -27,6 +28,10 @@ const stepIcons = {
 };
 
 export default function StepFlowSection({ steps }: StepFlowSectionProps) {
+    const router = useRouter();
+
+    const handleGetStarted = () => router.push('/services');
+
     return (
         <section className='py-20 px-4 bg-white'>
             <div className='max-w-7xl mx-auto'>
@@ -118,7 +123,9 @@ export default function StepFlowSection({ steps }: StepFlowSectionProps) {
                     transition={{ duration: 0.8, delay: 0.4 }}
                     viewport={{ once: true }}
                     className='text-center mt-16'>
-                    <button className='bg-[#511076] hover:bg-[#6b2a8f] text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-purple-200'>
+                    <button 
+                        onClick={handleGetStarted}
+                        className='bg-[#511076] hover:bg-[#6b2a8f] text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-purple-200'>
                         Get Started Now
                     </button>
                 </motion.div>

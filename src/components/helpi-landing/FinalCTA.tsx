@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
 interface FinalCTAProps {
@@ -16,6 +17,16 @@ export default function FinalCTA({
     primaryCTA,
     secondaryCTA,
 }: FinalCTAProps) {
+    const router = useRouter();
+
+    const handleBookNow = () => router.push('/services');
+    const handleGetQuote = () => router.push('/contact');
+    const handleDownload = () => {
+        // For now, redirect to services page
+        // In production, this would link to app stores
+        router.push('/services');
+    };
+
     const ctaClass =
         'bg-[#511076] hover:bg-[#6b2a8f] text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center gap-2 justify-center focus:outline-none focus:ring-4 focus:ring-purple-200';
     const outlineClass =
@@ -53,8 +64,12 @@ export default function FinalCTA({
                     transition={{ duration: 0.8, delay: 0.4 }}
                     viewport={{ once: true }}
                     className='flex flex-col sm:flex-row gap-4 justify-center mb-12'>
-                    <button className={ctaClass}>{primaryCTA}</button>
-                    <button className={outlineClass}>{secondaryCTA}</button>
+                    <button onClick={handleBookNow} className={ctaClass}>
+                        {primaryCTA}
+                    </button>
+                    <button onClick={handleGetQuote} className={outlineClass}>
+                        {secondaryCTA}
+                    </button>
                 </motion.div>
 
                 {/* Download App Badges */}
@@ -64,8 +79,8 @@ export default function FinalCTA({
                     transition={{ duration: 0.8, delay: 0.6 }}
                     viewport={{ once: true }}
                     className='flex flex-row items-center justify-center gap-4 mb-8'>
-                    <a
-                        href='#'
+                    <button
+                        onClick={handleDownload}
                         aria-label='Download on the App Store'
                         className='hover:opacity-80 transition-opacity duration-200 transform hover:scale-105'>
                         <Image
@@ -75,9 +90,9 @@ export default function FinalCTA({
                             alt='Download on the App Store'
                             className='h-[56px] w-auto object-contain'
                         />
-                    </a>
-                    <a
-                        href='#'
+                    </button>
+                    <button
+                        onClick={handleDownload}
                         aria-label='Get it on Google Play'
                         className='hover:opacity-80 transition-opacity duration-200 transform hover:scale-105'>
                         <Image
@@ -87,7 +102,7 @@ export default function FinalCTA({
                             alt='Get it on Google Play'
                             className='h-[182px] w-auto object-contain'
                         />
-                    </a>
+                    </button>
                 </motion.div>
 
                 <motion.div
@@ -110,11 +125,12 @@ export default function FinalCTA({
                         Download Helpi now
                     </span>
                 </div>
-                <button className='bg-[#511076] hover:bg-[#6b2a8f] text-white px-4 py-2 rounded-xl font-semibold text-sm shadow-lg transition-all duration-200'>
+                <button
+                    onClick={handleDownload}
+                    className='bg-[#511076] hover:bg-[#6b2a8f] text-white px-4 py-2 rounded-xl font-semibold text-sm shadow-lg transition-all duration-200'>
                     Download
                 </button>
             </div>
         </section>
     );
 }
- 

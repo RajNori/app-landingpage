@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 import {
     FaClock,
     FaShieldAlt,
@@ -31,8 +32,13 @@ const benefitIcons = {
 };
 
 export default function BenefitsGrid({ benefits }: BenefitsGridProps) {
+    const router = useRouter();
+
+    const handleBookNow = () => router.push('/services');
+    const handleGetQuote = () => router.push('/contact');
+
     return (
-        <section id="benefits" className='py-20 px-4 bg-white'>
+        <section id='benefits' className='py-20 px-4 bg-white'>
             <div className='max-w-7xl mx-auto'>
                 {/* Header */}
                 <motion.div
@@ -71,7 +77,7 @@ export default function BenefitsGrid({ benefits }: BenefitsGridProps) {
                                 <div className='bg-white rounded-2xl p-6 lg:p-8 h-full border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 hover:border-purple-200 relative overflow-hidden'>
                                     {/* Background gradient circle */}
                                     <div className='absolute -top-8 -right-8 w-24 h-24 bg-gradient-to-br from-purple-100 to-blue-100 rounded-full opacity-50 group-hover:opacity-70 transition-opacity duration-300' />
-                                    
+
                                     <div className='relative z-10 text-center'>
                                         {/* Icon */}
                                         <div className='w-16 h-16 flex items-center justify-center rounded-2xl bg-purple-50 text-[#511076] mx-auto mb-6 group-hover:bg-[#511076] group-hover:text-white transition-all duration-300 shadow-sm'>
@@ -113,10 +119,14 @@ export default function BenefitsGrid({ benefits }: BenefitsGridProps) {
                             choice.
                         </p>
                         <div className='flex flex-col sm:flex-row gap-4 justify-center'>
-                            <button className='bg-[#511076] hover:bg-[#6b2a8f] text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-purple-200'>
+                            <button 
+                                onClick={handleBookNow}
+                                className='bg-[#511076] text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-purple-200 hover:bg-[#6b2a8f]'>
                                 Book Your First Clean
                             </button>
-                            <button className='border-2 border-[#511076] text-[#511076] hover:bg-[#511076] hover:text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-purple-200'>
+                            <button 
+                                onClick={handleGetQuote}
+                                className='border-2 border-[#511076] text-[#511076] hover:bg-[#511076] hover:text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-purple-200'>
                                 Get a Quote
                             </button>
                         </div>
@@ -126,4 +136,3 @@ export default function BenefitsGrid({ benefits }: BenefitsGridProps) {
         </section>
     );
 }
- 

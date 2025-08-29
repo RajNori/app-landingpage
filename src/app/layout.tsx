@@ -38,7 +38,7 @@ export default function RootLayout({
             <body className={inter.className}>
                 <CartProvider>
                     <CartCountProvider />
-                    <div className='bg-white min-h-screen'>{children}</div>
+                    <main className='bg-white min-h-screen'>{children}</main>
                 </CartProvider>
             </body>
         </html>

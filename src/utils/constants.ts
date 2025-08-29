@@ -42,7 +42,8 @@ export const HELPI_CONFIG = {
         {
             icon: '🕒',
             title: 'Same-Day Service',
-            description: 'Book now, get cleaned today - available 7 days a week',
+            description:
+                'Book now, get cleaned today - available 7 days a week',
         },
         {
             icon: '🛡️',
@@ -53,7 +54,8 @@ export const HELPI_CONFIG = {
         {
             icon: '💰',
             title: 'Transparent Pricing',
-            description: "See exactly what you'll pay upfront - no surprises, no hidden costs",
+            description:
+                "See exactly what you'll pay upfront - no surprises, no hidden costs",
         },
         {
             icon: '🌟',
@@ -64,12 +66,14 @@ export const HELPI_CONFIG = {
         {
             icon: '🌿',
             title: 'Eco-Friendly Options',
-            description: 'Choose from our range of green cleaning products at no extra cost',
+            description:
+                'Choose from our range of green cleaning products at no extra cost',
         },
         {
             icon: '📱',
             title: 'Real-Time Tracking',
-            description: "Track your cleaner's arrival and service progress live",
+            description:
+                "Track your cleaner's arrival and service progress live",
         },
     ],
     stats: [
@@ -101,7 +105,7 @@ export const HELPI_CONFIG = {
     faqs: [
         {
             question: 'How quickly can I get a cleaner?',
-            answer: "We offer same-day service! Book in the morning and get cleaned in the afternoon. For urgent requests, we can often arrange a cleaner within 2-4 hours depending on availability in your area.",
+            answer: 'We offer same-day service! Book in the morning and get cleaned in the afternoon. For urgent requests, we can often arrange a cleaner within 2-4 hours depending on availability in your area.',
         },
         {
             question: 'Are your cleaners background-checked?',
@@ -145,9 +149,9 @@ export const HELPI_CONFIG = {
             ],
         },
         social: {
-            facebook: 'https://facebook.com/helpi',
-            instagram: 'https://instagram.com/helpi',
-            twitter: 'https://twitter.com/helpi',
+            facebook: 'https://www.facebook.com/gethelpi/',
+            instagram: 'https://www.instagram.com/gethelpi.app/',
+            twitter: 'https://twitter.com/gethelpi',
         },
     },
 } as const;

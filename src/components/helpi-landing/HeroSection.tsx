@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 import {
     FaShieldAlt,
     FaCheckCircle,
@@ -24,6 +25,15 @@ export default function HeroSection({
     primaryCTA,
     secondaryCTA,
 }: HeroSectionProps) {
+    const router = useRouter();
+
+    const handleBookNow = () => router.push('/services');
+    const handleViewServices = () => router.push('/services');
+    const handleServiceBooking = (serviceType: string) => {
+        router.push('/services');
+        // Could add specific service filtering here later
+    };
+
     return (
         <section className='relative min-h-screen flex items-center justify-center px-4 py-16 lg:py-20 overflow-hidden bg-gradient-to-br from-purple-50 via-white to-blue-50'>
             <div className='absolute inset-0 bg-white/60' />
@@ -87,6 +97,7 @@ export default function HeroSection({
                         }}
                         className='flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8'>
                         <button
+                            onClick={handleBookNow}
                             className='bg-[#511076] hover:bg-[#6b2a8f] text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 transform 
                      hover:scale-105 shadow-lg 
                      cursor-pointer 
@@ -94,6 +105,7 @@ export default function HeroSection({
                             {primaryCTA}
                         </button>
                         <button
+                            onClick={handleViewServices}
                             className='border-2 border-[#511076] text-[#511076] hover:bg-[#511076] hover:text-white 
                         cursor-pointer
                         font-semibold py-4 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-purple-200'>
@@ -177,7 +189,9 @@ export default function HeroSection({
                                                         2-3 hours • $180
                                                     </div>
                                                 </div>
-                                                <button className='bg-[#511076] text-white px-3 py-1 rounded-lg text-sm font-medium'>
+                                                <button 
+                                                    onClick={() => handleServiceBooking('regular')}
+                                                    className='bg-[#511076] text-white px-3 py-1 rounded-lg text-sm font-medium hover:bg-[#6b2a8f] transition-colors'>
                                                     Book
                                                 </button>
                                             </div>
@@ -197,7 +211,9 @@ export default function HeroSection({
                                                         4-5 hours • $280
                                                     </div>
                                                 </div>
-                                                <button className='bg-[#511076] text-white px-3 py-1 rounded-lg text-sm font-medium'>
+                                                <button 
+                                                    onClick={() => handleServiceBooking('deep')}
+                                                    className='bg-[#511076] text-white px-3 py-1 rounded-lg text-sm font-medium hover:bg-[#6b2a8f] transition-colors'>
                                                     Book
                                                 </button>
                                             </div>
@@ -210,14 +226,18 @@ export default function HeroSection({
                                                     📦
                                                 </span>
                                                 <div className='flex-1'>
-                                                    <div className='font-medium text-gray-900'>
-                                                        Move-in/out
-                                                    </div>
-                                                    <div className='text-sm text-gray-500'>
-                                                        6-8 hours • $350
+                                                    <div className='flex-1'>
+                                                        <div className='font-medium text-gray-900'>
+                                                            Move-in/out
+                                                        </div>
+                                                        <div className='text-sm text-gray-500'>
+                                                            6-8 hours • $350
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <button className='bg-[#511076] text-white px-3 py-1 rounded-lg text-sm font-medium'>
+                                                <button 
+                                                    onClick={() => handleServiceBooking('move')}
+                                                    className='bg-[#511076] text-white px-3 py-1 rounded-lg text-sm font-medium hover:bg-[#6b2a8f] transition-colors'>
                                                     Book
                                                 </button>
                                             </div>
@@ -237,7 +257,9 @@ export default function HeroSection({
                                                         3-4 hours • $220
                                                     </div>
                                                 </div>
-                                                <button className='bg-[#511076] text-white px-3 py-1 rounded-lg text-sm font-medium'>
+                                                <button 
+                                                    onClick={() => handleServiceBooking('office')}
+                                                    className='bg-[#511076] text-white px-3 py-1 rounded-lg text-sm font-medium hover:bg-[#6b2a8f] transition-colors'>
                                                     Book
                                                 </button>
                                             </div>
@@ -257,7 +279,9 @@ export default function HeroSection({
                                                         2-3 hours • $150
                                                     </div>
                                                 </div>
-                                                <button className='bg-[#511076] text-white px-3 py-1 rounded-lg text-sm font-medium'>
+                                                <button 
+                                                    onClick={() => handleServiceBooking('carpet')}
+                                                    className='bg-[#511076] text-white px-3 py-1 rounded-lg text-sm font-medium hover:bg-[#6b2a8f] transition-colors'>
                                                     Book
                                                 </button>
                                             </div>
