@@ -2,20 +2,25 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
-import { FaBars, FaTimes } from 'react-icons/fa';
+import { useRouter } from 'next/navigation';
+import { ShoppingCart, Menu, X } from 'lucide-react';
 
-export default function Navigation() {
+interface NavigationProps {
+    cartItemCount?: number;
+}
+
+export default function Navigation({ cartItemCount = 0 }: NavigationProps) {
+    // Ensure cart count is stable during SSR and hydration
+    const stableCartCount =
+        typeof window === 'undefined' || cartItemCount === undefined
+            ? 0
+            : cartItemCount;
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const router = useRouter();
 
-    const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-
-    const navItems = [
-        { name: 'Home', href: '/' },
-        { name: 'About', href: '/about' },
-        { name: 'Services', href: '/services' },
-        { name: 'Contact', href: '/contact' },
-    ];
+    const handleCartClick = () => {
+        router.push('/cart');
+    };
 
     return (
         <nav className='bg-white/95 backdrop-blur-sm border-b border-gray-100 sticky top-0 z-50'>
@@ -38,66 +43,123 @@ export default function Navigation() {
 
                     {/* Desktop Navigation */}
                     <div className='hidden md:flex items-center space-x-8'>
-                        {navItems.map((item) => (
-                            <Link
-                                key={item.name}
-                                href={item.href}
-                                className='text-gray-700 hover:text-[#511076] px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200'>
-                                {item.name}
-                            </Link>
-                        ))}
                         <Link
                             href='/'
-                            className='bg-[#511076] hover:bg-[#6b2a8f] text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors duration-200 transform hover:scale-105'>
-                            Book Instantly
+                            className='text-gray-700 hover:text-[#511076] px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200'>
+                            Home
+                        </Link>
+                        <Link
+                            href='/about'
+                            className='text-gray-700 hover:text-[#511076] px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200'>
+                            About
+                        </Link>
+                        <Link
+                            href='/services'
+                            className='text-gray-700 hover:text-[#511076] px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200'>
+                            Services
+                        </Link>
+                        <Link
+                            href='/contact'
+                            className='text-gray-700 hover:text-[#511076] px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200'>
+                            Contact
                         </Link>
                     </div>
 
-                    {/* Mobile menu button */}
+                    {/* Desktop Cart & CTA */}
+                    <div className='hidden md:flex items-center space-x-4'>
+                        {/* Cart Icon with Bubble */}
+                        <button
+                            onClick={handleCartClick}
+                            className='relative p-2 text-gray-700 hover:text-[#511076] transition-colors duration-200'
+                            aria-label='Shopping Cart'>
+                            <ShoppingCart className='w-6 h-6' />
+                            {stableCartCount > 0 && (
+                                <span className='absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium'>
+                                    {stableCartCount > 99
+                                        ? '99+'
+                                        : stableCartCount}
+                                </span>
+                            )}
+                        </button>
+
+                        <Link
+                            href='/services'
+                            className='bg-[#511076] hover:bg-[#6b2a8f] text-white px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 transform hover:scale-105'>
+                            Book Now
+                        </Link>
+                    </div>
+
+                    {/* Mobile Menu Button */}
                     <div className='md:hidden'>
                         <button
-                            onClick={toggleMenu}
+                            onClick={() => setIsMenuOpen(!isMenuOpen)}
                             className='text-gray-700 hover:text-[#511076] p-2 rounded-md transition-colors duration-200'
                             aria-label='Toggle menu'>
                             {isMenuOpen ? (
-                                <FaTimes size={20} />
+                                <X className='w-6 h-6' />
                             ) : (
-                                <FaBars size={20} />
+                                <Menu className='w-6 h-6' />
                             )}
                         </button>
                     </div>
                 </div>
-            </div>
 
-            {/* Mobile Navigation */}
-            <AnimatePresence>
+                {/* Mobile Menu */}
                 {isMenuOpen && (
-                    <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className='md:hidden bg-white border-t border-gray-100'>
-                        <div className='px-2 pt-2 pb-3 space-y-1'>
-                            {navItems.map((item) => (
-                                <Link
-                                    key={item.name}
-                                    href={item.href}
-                                    className='text-gray-700 hover:text-[#511076] block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200'
-                                    onClick={() => setIsMenuOpen(false)}>
-                                    {item.name}
-                                </Link>
-                            ))}
+                    <div className='md:hidden'>
+                        <div className='px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-100'>
                             <Link
                                 href='/'
-                                className='bg-[#511076] hover:bg-[#6b2a8f] text-white block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 mt-4'
+                                className='text-gray-700 hover:text-[#511076] block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200'
                                 onClick={() => setIsMenuOpen(false)}>
-                                Book Instantly
+                                Home
                             </Link>
+                            <Link
+                                href='/about'
+                                className='text-gray-700 hover:text-[#511076] block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200'
+                                onClick={() => setIsMenuOpen(false)}>
+                                About
+                            </Link>
+                            <Link
+                                href='/services'
+                                className='text-gray-700 hover:text-[#511076] block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200'
+                                onClick={() => setIsMenuOpen(false)}>
+                                Services
+                            </Link>
+                            <Link
+                                href='/contact'
+                                className='text-gray-700 hover:text-[#511076] block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200'
+                                onClick={() => setIsMenuOpen(false)}>
+                                Contact
+                            </Link>
+
+                            {/* Mobile Cart */}
+                            <div className='pt-4 border-t border-gray-200'>
+                                <button
+                                    onClick={() => {
+                                        handleCartClick();
+                                        setIsMenuOpen(false);
+                                    }}
+                                    className='w-full flex items-center justify-between px-3 py-2 text-gray-700 hover:text-[#511076] transition-colors duration-200'>
+                                    <span className='text-base font-medium'>
+                                        Cart
+                                    </span>
+                                    <div className='relative'>
+                                        <ShoppingCart className='w-5 h-5' />
+                                        {stableCartCount > 0 && (
+                                            <span className='absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center font-medium'>
+                                                {stableCartCount > 99
+                                                    ? '99+'
+                                                    : stableCartCount}
+                                            </span>
+                                        )}
+                                    </div>
+                                </button>
+                            </div>
                         </div>
-                    </motion.div>
+                    </div>
                 )}
-            </AnimatePresence>
+            </div>
         </nav>
     );
 }
