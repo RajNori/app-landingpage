@@ -7,6 +7,7 @@ import {
     FaBoxes,
     FaCouch,
     FaWindowMaximize,
+    FaCar,
 } from 'react-icons/fa';
 
 export interface Service {
@@ -129,6 +130,23 @@ export const SERVICES: Service[] = [
             'Streak-free finish',
         ],
     },
+    {
+        id: 'car_detailing',
+        icon: FaCar,
+        title: 'Car Detailing',
+        name: 'Car Detailing',
+        description: 'Professional car wash and detailing service',
+        duration: '2-3 hours',
+        price: 'From $120',
+        features: [
+            'Exterior wash and wax',
+            'Interior vacuum and clean',
+            'Wheel and tire detailing',
+            'Window cleaning',
+            'Chrome polishing',
+            'Professional equipment',
+        ],
+    },
 ];
 
 // Map price items to service packages
@@ -173,6 +191,7 @@ export function getPackagesByCategory(categoryId: string): ServicePackage[] {
         end_of_lease: ['eol_1br', 'eol_2br', 'eol_3br', 'eol_4br_plus'],
         carpet_cleaning: ['carpet_room'],
         window_cleaning: ['windows_job'],
+        car_detailing: ['car_exterior'],
     };
 
     const packageIds = categoryMap[categoryId] || [];
