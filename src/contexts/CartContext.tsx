@@ -24,6 +24,10 @@ interface CartContextType {
     ) => void;
     removeFromCart: (packageId: string) => void;
     updateCartItem: (packageId: string, quantity: number) => void;
+    updateCartItemAddons: (
+        packageId: string,
+        addons: Array<{ id: string; quantity: number }>
+    ) => void;
     clearCart: () => void;
     getCartTotal: () => number;
     getItemCount: () => number;
@@ -115,6 +119,20 @@ export function CartProvider({ children }: CartProviderProps) {
         []
     );
 
+    const updateCartItemAddons = useCallback(
+        (
+            packageId: string,
+            addons: Array<{ id: string; quantity: number }>
+        ) => {
+            setCartItems((prev) =>
+                prev.map((i) =>
+                    i.packageId === packageId ? { ...i, addons } : i
+                )
+            );
+        },
+        []
+    );
+
     const clearCart = useCallback(() => {
         setCartItems([]);
     }, []);
@@ -136,6 +154,7 @@ export function CartProvider({ children }: CartProviderProps) {
         addToCart,
         removeFromCart,
         updateCartItem,
+        updateCartItemAddons,
         clearCart,
         getCartTotal,
         getItemCount,

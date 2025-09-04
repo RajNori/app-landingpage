@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { PRICE_ITEMS } from '../../lib/pricing/config';
 import { formatAud, applyMinQty } from '../../lib/pricing';
+import { useCart } from '../../contexts/CartContext';
 
 interface CartItem {
     packageId: string;
@@ -28,23 +29,18 @@ interface CartItemWithDetails extends CartItem {
 
 export default function CartPage() {
     const router = useRouter();
-    const [cartItems, setCartItems] = useState<CartItem[]>([]);
+    const {
+        cartItems,
+        removeFromCart,
+        updateCartItem,
+        updateCartItemAddons,
+        clearCart,
+        getItemCount,
+    } = useCart();
     const [cartItemsWithDetails, setCartItemsWithDetails] = useState<
         CartItemWithDetails[]
     >([]);
     const [isCheckingOut, setIsCheckingOut] = useState(false);
-
-    // Load cart from localStorage
-    useEffect(() => {
-        const savedCart = localStorage.getItem('helpi-cart');
-        if (savedCart) {
-            try {
-                setCartItems(JSON.parse(savedCart));
-            } catch (error) {
-                console.error('Failed to parse cart:', error);
-            }
-        }
-    }, []);
 
     // Calculate cart details
     useEffect(() => {
@@ -84,94 +80,53 @@ export default function CartPage() {
         setCartItemsWithDetails(itemsWithDetails);
     }, [cartItems]);
 
-    const updateCartItem = (packageId: string, quantity: number) => {
-        const newCart = cartItems.map((item) =>
-            item.packageId === packageId ? { ...item, quantity } : item
-        );
-        setCartItems(newCart);
-        localStorage.setItem('helpi-cart', JSON.stringify(newCart));
-    };
-
-    const removeFromCart = (packageId: string) => {
-        const newCart = cartItems.filter(
-            (item) => item.packageId !== packageId
-        );
-        setCartItems(newCart);
-        localStorage.setItem('helpi-cart', JSON.stringify(newCart));
-    };
-
+    // Add addon functionality using the cart context
     const addAddon = (packageId: string, addonId: string) => {
-        const newCart = cartItems.map((item) => {
-            if (item.packageId === packageId) {
-                const existingAddons = item.addons || [];
-                const existingAddon = existingAddons.find(
-                    (a) => a.id === addonId
-                );
+        const currentItem = cartItems.find(
+            (item) => item.packageId === packageId
+        );
+        if (!currentItem) return;
 
-                if (existingAddon) {
-                    return {
-                        ...item,
-                        addons: existingAddons.map((a) =>
-                            a.id === addonId
-                                ? { ...a, quantity: a.quantity + 1 }
-                                : a
-                        ),
-                    };
-                } else {
-                    return {
-                        ...item,
-                        addons: [
-                            ...existingAddons,
-                            { id: addonId, quantity: 1 },
-                        ],
-                    };
-                }
-            }
-            return item;
-        });
-        setCartItems(newCart);
-        localStorage.setItem('helpi-cart', JSON.stringify(newCart));
+        const existingAddons = currentItem.addons || [];
+        const existingAddon = existingAddons.find((a) => a.id === addonId);
+
+        const updatedAddons = existingAddon
+            ? existingAddons.map((a) =>
+                  a.id === addonId ? { ...a, quantity: a.quantity + 1 } : a
+              )
+            : [...existingAddons, { id: addonId, quantity: 1 }];
+
+        updateCartItemAddons(packageId, updatedAddons);
     };
 
     const removeAddon = (packageId: string, addonId: string) => {
-        const newCart = cartItems.map((item) => {
-            if (item.packageId === packageId) {
-                const existingAddons = item.addons || [];
-                const existingAddon = existingAddons.find(
-                    (a) => a.id === addonId
-                );
+        const currentItem = cartItems.find(
+            (item) => item.packageId === packageId
+        );
+        if (!currentItem) return;
 
-                if (existingAddon && existingAddon.quantity > 1) {
-                    return {
-                        ...item,
-                        addons: existingAddons.map((a) =>
-                            a.id === addonId
-                                ? { ...a, quantity: a.quantity - 1 }
-                                : a
-                        ),
-                    };
-                } else if (existingAddon && existingAddon.quantity === 1) {
-                    return {
-                        ...item,
-                        addons: existingAddons.filter((a) => a.id !== addonId),
-                    };
-                }
-            }
-            return item;
-        });
-        setCartItems(newCart);
-        localStorage.setItem('helpi-cart', JSON.stringify(newCart));
+        const existingAddons = currentItem.addons || [];
+        const existingAddon = existingAddons.find((a) => a.id === addonId);
+
+        if (!existingAddon) return;
+
+        let updatedAddons;
+        if (existingAddon.quantity > 1) {
+            updatedAddons = existingAddons.map((a) =>
+                a.id === addonId ? { ...a, quantity: a.quantity - 1 } : a
+            );
+        } else {
+            updatedAddons = existingAddons.filter((a) => a.id !== addonId);
+        }
+
+        updateCartItemAddons(packageId, updatedAddons);
     };
 
-    const getCartTotal = () => {
+    const getCartTotalWithDetails = () => {
         return cartItemsWithDetails.reduce(
             (total, item) => total + item.lineTotal,
             0
         );
-    };
-
-    const getItemCount = () => {
-        return cartItems.reduce((total, item) => total + item.quantity, 0);
     };
 
     const handleCheckout = async () => {
@@ -229,9 +184,17 @@ export default function CartPage() {
             <div className='max-w-7xl mx-auto px-4'>
                 {/* Header */}
                 <div className='mb-8'>
-                    <h1 className='text-3xl font-bold text-gray-900 mb-2'>
-                        Shopping Cart
-                    </h1>
+                    <div className='flex justify-between items-center mb-2'>
+                        <h1 className='text-3xl font-bold text-gray-900'>
+                            Shopping Cart
+                        </h1>
+                        <button
+                            onClick={clearCart}
+                            className='text-red-600 hover:text-red-800 hover:bg-red-50 px-4 py-2 rounded-lg transition-colors font-medium flex items-center gap-2'>
+                            <Trash2 className='w-4 h-4' />
+                            Clear Cart
+                        </button>
+                    </div>
                     <p className='text-gray-600'>
                         {getItemCount()} item{getItemCount() !== 1 ? 's' : ''}{' '}
                         in your cart
@@ -461,12 +424,16 @@ export default function CartPage() {
                             <div className='border-t border-gray-200 pt-4 mb-6'>
                                 <div className='flex justify-between text-lg font-semibold'>
                                     <span>Total (incl. GST)</span>
-                                    <span>{formatAud(getCartTotal())}</span>
+                                    <span>
+                                        {formatAud(getCartTotalWithDetails())}
+                                    </span>
                                 </div>
                                 <p className='text-sm text-gray-500 mt-1'>
                                     GST:{' '}
                                     {formatAud(
-                                        Math.round(getCartTotal() * 0.1)
+                                        Math.round(
+                                            getCartTotalWithDetails() * 0.1
+                                        )
                                     )}
                                 </p>
                             </div>
