@@ -4,19 +4,22 @@ import { useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { FaCheckCircle, FaTimesCircle, FaSpinner } from 'react-icons/fa';
+import { useCart } from '../../contexts/CartContext';
 
 function CheckoutContent() {
     const searchParams = useSearchParams();
     const status = searchParams.get('status');
     const sessionId = searchParams.get('session_id');
+    const { clearCart } = useCart();
     // const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         if (status === 'success' && sessionId) {
-            // You could fetch session details here if needed
-            console.log('Payment successful, session:', sessionId);
+            // Clear the cart after successful payment
+            clearCart();
+            console.log('Payment successful, session:', sessionId, '- Cart cleared');
         }
-    }, [status, sessionId]);
+    }, [status, sessionId, clearCart]);
 
     const getStatusContent = () => {
         switch (status) {
