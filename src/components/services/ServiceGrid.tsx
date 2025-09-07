@@ -15,8 +15,10 @@ import {
     SERVICES,
     SERVICE_PACKAGES,
     getPackagesByCategory,
+    getServicePackage,
 } from '../../lib/catalog';
 import PackageCard from './PackageCard';
+import CompareModal from './CompareModal';
 
 type ViewMode = 'cards' | 'tiles';
 
@@ -29,6 +31,7 @@ export default function ServiceGrid() {
     const [viewMode, setViewMode] = useState<ViewMode>('cards');
     const [favorites, setFavorites] = useState<Set<string>>(new Set());
     const [compareList, setCompareList] = useState<Set<string>>(new Set());
+    const [isCompareModalOpen, setIsCompareModalOpen] = useState(false);
 
     const filteredPackages = selectedCategory
         ? getPackagesByCategory(selectedCategory)
@@ -56,6 +59,20 @@ export default function ServiceGrid() {
             }
             return newCompareList;
         });
+    };
+
+    const getComparePackages = () => {
+        return Array.from(compareList)
+            .map(id => getServicePackage(id))
+            .filter(Boolean) as typeof SERVICE_PACKAGES;
+    };
+
+    const handleCompareClick = () => {
+        setIsCompareModalOpen(true);
+    };
+
+    const handleRemoveFromCompare = (packageId: string) => {
+        toggleCompare(packageId);
     };
 
     // Get total items in cart using the built-in method
@@ -266,16 +283,10 @@ export default function ServiceGrid() {
                         <div className='flex gap-3'>
                             {compareList.size > 1 && (
                                 <button
-                                    onClick={() => {
-                                        // TODO: Implement compare modal
-                                        console.log(
-                                            'Compare:',
-                                            Array.from(compareList)
-                                        );
-                                    }}
+                                    onClick={handleCompareClick}
                                     className='flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition-colors font-medium'>
                                     <FaBalanceScale />
-                                    Compare
+                                    Compare ({compareList.size})
                                 </button>
                             )}
 
@@ -293,6 +304,14 @@ export default function ServiceGrid() {
                     </div>
                 </div>
             </motion.div>
+
+            {/* Compare Modal */}
+            <CompareModal
+                isOpen={isCompareModalOpen}
+                onClose={() => setIsCompareModalOpen(false)}
+                packages={getComparePackages()}
+                onRemovePackage={handleRemoveFromCompare}
+            />
         </div>
     );
 }
