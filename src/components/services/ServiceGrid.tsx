@@ -63,7 +63,7 @@ export default function ServiceGrid() {
 
     const getComparePackages = () => {
         return Array.from(compareList)
-            .map(id => getServicePackage(id))
+            .map((id) => getServicePackage(id))
             .filter(Boolean) as typeof SERVICE_PACKAGES;
     };
 

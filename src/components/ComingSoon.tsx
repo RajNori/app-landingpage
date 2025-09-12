@@ -75,7 +75,7 @@ export default function ComingSoon({
                                 Get notified when this feature launches.
                                 We&apos;ll keep you updated!
                             </p>
-                            <div className='flex flex-col sm:flex-row gap-3 max-w-md mx-auto'>
+                            {/* <div className='flex flex-col sm:flex-row gap-3 max-w-md mx-auto'>
                                 <input
                                     type='email'
                                     placeholder='your.email@example.com'
@@ -84,7 +84,7 @@ export default function ComingSoon({
                                 <button className='bg-[#511076] hover:bg-[#6b2a8f] text-white px-6 py-3 rounded-xl font-medium transition-all duration-200 transform hover:scale-105'>
                                     Notify Me
                                 </button>
-                            </div>
+                            </div> */}
                         </motion.div>
                     </motion.div>
                 </div>
