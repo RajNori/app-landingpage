@@ -1,0 +1,13 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Group with 40 degree clockwise rotation -->
+  <g transform="rotate(40 16 16)">
+    <!-- White square with rounded corners -->
+    <rect x="4" y="4" width="24" height="24" rx="4" ry="4" fill="white"/>
+    
+    <!-- Left triangle pointing right (base at left edge) -->
+    <path d="M8 12 L8 20 L14 16 L8 12 Z" fill="#511076"/>
+    
+    <!-- Right triangle pointing left (base at right edge) -->
+    <path d="M24 20 L24 12 L18 16 L24 20 Z" fill="#511076"/>
+  </g>
+</svg>
