@@ -2,20 +2,20 @@ export const testimonials = [
     {
         name: 'Sarah Mitchell',
         comment:
-            'Helpi has been a lifesaver for our busy family. The cleaners are always professional and our home looks amazing!',
-        location: 'Hawthorn, VIC',
+            'Helpi helps me find help fast when I need it most. I can book a cleaner last-minute when unexpected guests arrive - help on the way in minutes!',
+        location: 'Sydney, NSW',
     },
     {
         name: 'Michael Chen',
         comment:
-            'I love the flexibility - I can book last minute or schedule regular cleanings. The app is so easy to use.',
-        location: 'Brunswick, VIC',
+            'The find help quick service is incredible. I booked a deep clean at 9 AM and had someone here by 2 PM. The quality was outstanding.',
+        location: 'Melbourne, VIC',
     },
     {
         name: 'Emma Rodriguez',
         comment:
-            'Finally found a cleaning service I can trust. The quality is consistently excellent and pricing is fair.',
-        location: 'St Kilda, VIC',
+            'Finally found a cleaning service I can trust on-demand. No more waiting weeks for appointments - I find help fast when I need it.',
+        location: 'Brisbane, QLD',
     },
     {
         name: 'David Thompson',

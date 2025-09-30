@@ -168,7 +168,7 @@ export default function Footer() {
             <div className='max-w-7xl mx-auto px-4 mt-12 pt-8 border-t border-gray-100'>
                 <div className='flex flex-col sm:flex-row justify-between items-center gap-4'>
                     <div className='text-sm text-gray-500'>
-                        © {new Date().getFullYear()} Helpi. All rights reserved.
+                        © {new Date().getFullYear()} Helpi - Find Help Fast. All rights reserved.
                     </div>
                     <div className='flex gap-6 text-sm'>
                         <a

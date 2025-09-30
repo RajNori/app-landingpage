@@ -1,7 +1,7 @@
 export const HELPI_CONFIG = {
     brand: {
         name: 'Helpi',
-        tagline: 'Click. Book. Relax.',
+        tagline: 'Find Help Fast',
         description:
             'Australia&apos;s leading on-demand cleaning platform - professional cleaners at your fingertips',
         primaryColor: '#511076',
@@ -9,18 +9,18 @@ export const HELPI_CONFIG = {
         primaryColorDark: '#3d0a5a',
     },
     hero: {
-        title: 'Professional Cleaning, On-Demand',
+        title: 'Find Help Fast - Professional Cleaning On-Demand',
         subtitle:
-            'Need a cleaner now? Book trusted, vetted professionals in under 2 minutes. Available across Australia with same-day service and transparent pricing.',
-        primaryCTA: 'Book Now',
+            'Help on the way in minutes. Book trusted, vetted professionals instantly. Find help quick across Australia with same-day service and transparent pricing.',
+        primaryCTA: 'Find Help Fast',
         secondaryCTA: 'View Services',
         image: '/hero-cleaning.svg',
     },
     steps: [
         {
             icon: '📱',
-            title: 'Book in 2 Minutes',
-            text: 'Choose your service and get instant confirmation - no waiting, no calls',
+            title: 'Find Help Quick',
+            text: 'Choose your service and get instant confirmation - help on the way in minutes',
         },
         {
             icon: '👥',
@@ -41,9 +41,9 @@ export const HELPI_CONFIG = {
     benefits: [
         {
             icon: '🕒',
-            title: 'Same-Day Service',
+            title: 'Find Help Fast',
             description:
-                'Book now, get cleaned today - available 7 days a week',
+                'Help on the way today - book now, get cleaned today, available 7 days a week',
         },
         {
             icon: '🛡️',
@@ -55,13 +55,13 @@ export const HELPI_CONFIG = {
             icon: '💰',
             title: 'Transparent Pricing',
             description:
-                "See exactly what you'll pay upfront - no surprises, no hidden costs",
+                "See exactly what you&apos;ll pay upfront - no surprises, no hidden costs",
         },
         {
             icon: '🌟',
             title: '100% Satisfaction',
             description:
-                "Not happy? We'll re-clean for free or give you a full refund",
+                "Not happy? We&apos;ll re-clean for free or give you a full refund",
         },
         {
             icon: '🌿',
@@ -73,7 +73,7 @@ export const HELPI_CONFIG = {
             icon: '📱',
             title: 'Real-Time Tracking',
             description:
-                "Track your cleaner's arrival and service progress live",
+                "Track your cleaner&apos;s arrival and service progress live - help on the way",
         },
     ],
     stats: [
@@ -86,26 +86,26 @@ export const HELPI_CONFIG = {
         {
             name: 'Sarah Mitchell',
             comment:
-                'Helpi has been a lifesaver for our busy family. I can book a cleaner last-minute when unexpected guests arrive - it&apos;s so convenient!',
+                'Helpi helps me find help fast when I need it most. I can book a cleaner last-minute when unexpected guests arrive - help on the way in minutes!',
             location: 'Sydney, NSW',
         },
         {
             name: 'Michael Chen',
             comment:
-                'The on-demand service is incredible. I booked a deep clean at 9 AM and had someone here by 2 PM. The quality was outstanding.',
+                'The find help quick service is incredible. I booked a deep clean at 9 AM and had someone here by 2 PM. The quality was outstanding.',
             location: 'Melbourne, VIC',
         },
         {
             name: 'Emma Rodriguez',
             comment:
-                'Finally found a cleaning service I can trust on-demand. No more waiting weeks for appointments - I get cleaned when I need it.',
+                'Finally found a cleaning service I can trust on-demand. No more waiting weeks for appointments - I find help fast when I need it.',
             location: 'Brisbane, QLD',
         },
     ],
     faqs: [
         {
-            question: 'How quickly can I get a cleaner?',
-            answer: 'We offer same-day service! Book in the morning and get cleaned in the afternoon. For urgent requests, we can often arrange a cleaner within 2-4 hours depending on availability in your area.',
+            question: 'How quickly can I find help fast?',
+            answer: 'We offer same-day service! Book in the morning and get cleaned in the afternoon. For urgent requests, we can often arrange a cleaner within 2-4 hours - help on the way fast!',
         },
         {
             question: 'Are your cleaners background-checked?',
@@ -113,7 +113,7 @@ export const HELPI_CONFIG = {
         },
         {
             question: "What if I'm not satisfied with the cleaning?",
-            answer: "We offer a 100% satisfaction guarantee. If you're not happy with the service, contact us within 24 hours and we'll either re-clean for free or provide a full refund.",
+            answer: "We offer a 100% satisfaction guarantee. If you&apos;re not happy with the service, contact us within 24 hours and we&apos;ll either re-clean for free or provide a full refund.",
         },
         {
             question: 'Can I schedule recurring cleanings?',
@@ -125,10 +125,10 @@ export const HELPI_CONFIG = {
         },
     ],
     finalCTA: {
-        title: 'Ready for On-Demand Cleaning?',
+        title: 'Ready to Find Help Fast?',
         subtitle:
-            'Join thousands of Australian families who trust Helpi for instant, professional cleaning services',
-        primaryCTA: 'Book Your First Clean',
+            'Join thousands of Australian families who trust Helpi for instant, professional cleaning services. Help on the way when you need it most.',
+        primaryCTA: 'Find Help Fast',
         secondaryCTA: 'Get Quote',
     },
     footer: {

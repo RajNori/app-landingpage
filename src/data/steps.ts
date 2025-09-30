@@ -1,8 +1,8 @@
 export const steps = [
     {
         icon: '📱',
-        title: 'Book in 2 Minutes',
-        text: 'Choose your service and get instant confirmation - no waiting, no calls',
+        title: 'Find Help Quick',
+        text: 'Choose your service and get instant confirmation - help on the way in minutes',
     },
     {
         icon: '👥',

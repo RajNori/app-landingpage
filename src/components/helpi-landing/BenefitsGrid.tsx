@@ -51,8 +51,7 @@ export default function BenefitsGrid({ benefits }: BenefitsGridProps) {
                         Why Choose Helpi?
                     </h2>
                     <p className='text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed'>
-                        Experience the difference with our professional cleaning
-                        services
+                        Find help fast with our professional cleaning services - help on the way when you need it most
                     </p>
                 </motion.div>
 
@@ -110,11 +109,11 @@ export default function BenefitsGrid({ benefits }: BenefitsGridProps) {
                     className='text-center mt-16'>
                     <div className='bg-gradient-to-br from-purple-50 to-blue-50 rounded-2xl p-8 lg:p-10 shadow-lg border border-purple-100'>
                         <h3 className='text-2xl lg:text-3xl font-bold text-gray-900 mb-4'>
-                            Ready to Experience the Difference?
+                            Ready to Find Help Fast?
                         </h3>
                         <p className='text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed'>
                             Join thousands of Australian families who trust
-                            Helpi for their cleaning needs. Book your first
+                            Helpi for their cleaning needs. Help on the way when you need it most - book your first
                             clean today and see why we&apos;re the preferred
                             choice.
                         </p>
@@ -122,7 +121,7 @@ export default function BenefitsGrid({ benefits }: BenefitsGridProps) {
                             <button 
                                 onClick={handleBookNow}
                                 className='bg-[#511076] text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-purple-200 hover:bg-[#6b2a8f]'>
-                                Book Your First Clean
+                                Find Help Fast
                             </button>
                             <button 
                                 onClick={handleGetQuote}
