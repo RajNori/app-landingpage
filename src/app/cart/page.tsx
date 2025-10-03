@@ -149,7 +149,10 @@ export default function CartPage() {
                 const error = await response.json();
                 
                 // Check if it's an authentication error
-                if (error.error === 'No authenticated user' || error.error.includes('Unauthorized')) {
+                if (error.error === 'No authenticated user' || 
+                    error.error.includes('Unauthorized') ||
+                    error.details === 'No authenticated user' ||
+                    error.error === 'Failed to create checkout session') {
                     setShowAuthModal(true);
                 } else {
                     // Show other errors in a more user-friendly way
