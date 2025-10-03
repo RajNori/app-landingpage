@@ -165,8 +165,8 @@ export default function CartPage() {
             } else {
                 const error = await response.json();
                 
-                // Check if it's an authentication error
-                if (error.code === 'AUTH_REQUIRED' || error.error === 'Authentication required') {
+                // Check if it's an authentication error (401 status)
+                if (response.status === 401 || error.code === 'AUTH_REQUIRED' || error.error === 'Authentication required') {
                     setShowAuthModal(true);
                 } else {
                     // Show other errors in a more user-friendly way
@@ -186,10 +186,15 @@ export default function CartPage() {
         setAuthError(null);
         
         try {
-            // Wait for Clerk state to sync
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            // Reload Clerk session to ensure it's fresh
+            if (typeof window !== 'undefined') {
+                const clerk = (window as unknown as { Clerk?: { session?: { reload: () => Promise<void> } } }).Clerk;
+                if (clerk?.session?.reload) {
+                    await clerk.session.reload();
+                }
+            }
             
-            // Retry checkout
+            // Retry checkout immediately after session reload
             await handleCheckout();
         } catch (error) {
             console.error('Auth success error:', error);

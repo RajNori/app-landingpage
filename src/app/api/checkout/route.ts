@@ -21,13 +21,6 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        console.log('STRIPE_SECRET_KEY exists:', !!STRIPE_SECRET_KEY);
-        console.log('STRIPE_SECRET_KEY length:', STRIPE_SECRET_KEY?.length);
-        console.log(
-            'STRIPE_SECRET_KEY starts with sk_test_:',
-            STRIPE_SECRET_KEY?.startsWith('sk_test_')
-        );
-
         if (!STRIPE_SECRET_KEY) {
             return NextResponse.json(
                 { error: 'Stripe configuration missing' },
@@ -53,8 +46,8 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        // Get or create user - now safe since we verified userId
-        const user = await getOrCreateUser();
+        // Get or create user - pass userId directly
+        const user = await getOrCreateUser(userId);
 
         // Validate address belongs to user
         if (addressId) {
@@ -138,9 +131,7 @@ export async function POST(request: NextRequest) {
         }
 
         // Create Stripe checkout session
-        const stripe = new Stripe(STRIPE_SECRET_KEY, {
-            apiVersion: '2025-08-27.basil',
-        });
+        const stripe = new Stripe(STRIPE_SECRET_KEY);
 
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
@@ -148,7 +139,7 @@ export async function POST(request: NextRequest) {
             mode: 'payment',
             success_url: `${request.nextUrl.origin}/checkout?status=success&session_id={CHECKOUT_SESSION_ID}`,
             cancel_url: `${request.nextUrl.origin}/checkout?status=cancelled`,
-            customer_email: user.email,
+            ...(user.email && { customer_email: user.email }),
             metadata: {
                 user_id: user.id,
                 total_amount: totalCents.toString(),
