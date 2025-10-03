@@ -4,12 +4,23 @@ import { calculateCartTotal, applyMinQty } from '../../../lib/pricing/utils';
 import { Stripe } from 'stripe';
 import { getOrCreateUser } from '../../../lib/user-sync';
 import { prisma } from '../../../lib/db';
+import { auth } from '@clerk/nextjs/server';
 
 // This would be loaded from environment variables in production
 const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY;
 
 export async function POST(request: NextRequest) {
     try {
+        // Clerk auth check - verify userId exists
+        const { userId } = await auth();
+        
+        if (!userId) {
+            return NextResponse.json(
+                { error: 'Authentication required', code: 'AUTH_REQUIRED' },
+                { status: 401 }
+            );
+        }
+
         console.log('STRIPE_SECRET_KEY exists:', !!STRIPE_SECRET_KEY);
         console.log('STRIPE_SECRET_KEY length:', STRIPE_SECRET_KEY?.length);
         console.log(
@@ -42,7 +53,7 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        // Get or create user
+        // Get or create user - now safe since we verified userId
         const user = await getOrCreateUser();
 
         // Validate address belongs to user

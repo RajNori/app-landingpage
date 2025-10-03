@@ -129,9 +129,12 @@ export default function AuthModal({
                                 </p>
                                 {onAuthSuccess && (
                                     <button
-                                        onClick={() => {
+                                        onClick={async () => {
                                             onClose();
-                                            onAuthSuccess();
+                                            // Small delay to ensure Clerk state is updated
+                                            setTimeout(() => {
+                                                onAuthSuccess();
+                                            }, 100);
                                         }}
                                         className="w-full bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 flex items-center justify-center gap-3 shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
                                     >

@@ -16,6 +16,7 @@ import { PRICE_ITEMS } from '../../lib/pricing/config';
 import { formatAud, applyMinQty } from '../../lib/pricing';
 import { useCart } from '../../contexts/CartContext';
 import AuthModal from '../../components/auth/AuthModal';
+import { useAuth } from '@clerk/nextjs';
 
 interface CartItem {
     packageId: string;
@@ -30,6 +31,7 @@ interface CartItemWithDetails extends CartItem {
 
 export default function CartPage() {
     const router = useRouter();
+    const { isSignedIn, isLoaded } = useAuth();
     const {
         cartItems,
         removeFromCart,
@@ -43,6 +45,7 @@ export default function CartPage() {
     >([]);
     const [isCheckingOut, setIsCheckingOut] = useState(false);
     const [showAuthModal, setShowAuthModal] = useState(false);
+    const [authError, setAuthError] = useState<string | null>(null);
 
     // Calculate cart details
     useEffect(() => {
@@ -134,6 +137,20 @@ export default function CartPage() {
     const handleCheckout = async () => {
         if (cartItems.length === 0) return;
 
+        // Clear any previous auth errors
+        setAuthError(null);
+
+        // Check if Clerk is loaded and user is signed in
+        if (!isLoaded) {
+            setAuthError('Authentication system is loading, please wait...');
+            return;
+        }
+
+        if (!isSignedIn) {
+            setShowAuthModal(true);
+            return;
+        }
+
         setIsCheckingOut(true);
         try {
             const response = await fetch('/api/checkout', {
@@ -149,21 +166,34 @@ export default function CartPage() {
                 const error = await response.json();
                 
                 // Check if it's an authentication error
-                if (error.error === 'No authenticated user' || 
-                    error.error.includes('Unauthorized') ||
-                    error.details === 'No authenticated user' ||
-                    error.error === 'Failed to create checkout session') {
+                if (error.code === 'AUTH_REQUIRED' || error.error === 'Authentication required') {
                     setShowAuthModal(true);
                 } else {
                     // Show other errors in a more user-friendly way
-                    alert(`Unable to process checkout: ${error.error}`);
+                    setAuthError(`Unable to process checkout: ${error.error}`);
                 }
             }
         } catch (error) {
             console.error('Checkout error:', error);
-            alert('Unable to process checkout. Please try again.');
+            setAuthError('Unable to process checkout. Please try again.');
         } finally {
             setIsCheckingOut(false);
+        }
+    };
+
+    const handleAuthSuccess = async () => {
+        setShowAuthModal(false);
+        setAuthError(null);
+        
+        try {
+            // Wait for Clerk state to sync
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            // Retry checkout
+            await handleCheckout();
+        } catch (error) {
+            console.error('Auth success error:', error);
+            setAuthError('Authentication completed but checkout failed. Please try again.');
         }
     };
 
@@ -450,17 +480,26 @@ export default function CartPage() {
                                 </p>
                             </div>
 
-                            {/* Checkout Button */}
-                            <button
-                                onClick={handleCheckout}
-                                disabled={
-                                    isCheckingOut || cartItems.length === 0
-                                }
-                                className='w-full bg-[#511076] hover:bg-[#6b2a8f] disabled:bg-gray-400 text-white py-4 rounded-xl font-semibold text-lg transition-all duration-200 transform hover:scale-105 disabled:transform-none'>
-                                {isCheckingOut
-                                    ? 'Processing...'
-                                    : 'Proceed to Checkout'}
-                            </button>
+                                {/* Auth Error Display */}
+                                {authError && (
+                                    <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
+                                        <p className="text-red-600 text-sm">{authError}</p>
+                                    </div>
+                                )}
+
+                                {/* Checkout Button */}
+                                <button
+                                    onClick={handleCheckout}
+                                    disabled={
+                                        isCheckingOut || cartItems.length === 0 || !isLoaded
+                                    }
+                                    className='w-full bg-[#511076] hover:bg-[#6b2a8f] disabled:bg-gray-400 text-white py-4 rounded-xl font-semibold text-lg transition-all duration-200 transform hover:scale-105 disabled:transform-none'>
+                                    {!isLoaded
+                                        ? 'Loading...'
+                                        : isCheckingOut
+                                        ? 'Processing...'
+                                        : 'Proceed to Checkout'}
+                                </button>
 
                             {/* Trust Indicators */}
                             <div className='mt-6 pt-6 border-t border-gray-200'>
@@ -485,14 +524,14 @@ export default function CartPage() {
                 {/* Auth Modal */}
                 <AuthModal
                     isOpen={showAuthModal}
-                    onClose={() => setShowAuthModal(false)}
+                    onClose={() => {
+                        setShowAuthModal(false);
+                        setAuthError(null);
+                    }}
                     title="Sign In to Complete Your Order"
                     message="Please sign in to continue with your cleaning service booking and secure payment."
                     showSignUp={true}
-                    onAuthSuccess={() => {
-                        setShowAuthModal(false);
-                        handleCheckout();
-                    }}
+                    onAuthSuccess={handleAuthSuccess}
                 />
         </div>
     );
