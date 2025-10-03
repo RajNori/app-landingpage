@@ -15,6 +15,7 @@ import {
 import { PRICE_ITEMS } from '../../lib/pricing/config';
 import { formatAud, applyMinQty } from '../../lib/pricing';
 import { useCart } from '../../contexts/CartContext';
+import AuthModal from '../../components/auth/AuthModal';
 
 interface CartItem {
     packageId: string;
@@ -41,6 +42,7 @@ export default function CartPage() {
         CartItemWithDetails[]
     >([]);
     const [isCheckingOut, setIsCheckingOut] = useState(false);
+    const [showAuthModal, setShowAuthModal] = useState(false);
 
     // Calculate cart details
     useEffect(() => {
@@ -145,11 +147,18 @@ export default function CartPage() {
                 window.location.href = url;
             } else {
                 const error = await response.json();
-                alert(`Checkout failed: ${error.error}`);
+                
+                // Check if it's an authentication error
+                if (error.error === 'No authenticated user' || error.error.includes('Unauthorized')) {
+                    setShowAuthModal(true);
+                } else {
+                    // Show other errors in a more user-friendly way
+                    alert(`Unable to process checkout: ${error.error}`);
+                }
             }
         } catch (error) {
             console.error('Checkout error:', error);
-            alert('Checkout failed. Please try again.');
+            alert('Unable to process checkout. Please try again.');
         } finally {
             setIsCheckingOut(false);
         }
@@ -469,6 +478,15 @@ export default function CartPage() {
                     </div>
                 </div>
             </div>
+
+            {/* Auth Modal */}
+            <AuthModal
+                isOpen={showAuthModal}
+                onClose={() => setShowAuthModal(false)}
+                title="Sign In to Complete Your Order"
+                message="Please sign in to continue with your cleaning service booking and secure payment."
+                showSignUp={true}
+            />
         </div>
     );
 }

@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import { FaCheckCircle, FaTimesCircle, FaSpinner } from 'react-icons/fa';
 import { useCart } from '../../contexts/CartContext';
 import { SignedIn, SignedOut } from '@clerk/nextjs';
-import SignInRequired from '../../components/auth/SignInRequired';
+import AuthModal from '../../components/auth/AuthModal';
 
 function CheckoutContent() {
     const searchParams = useSearchParams();
@@ -174,9 +174,12 @@ export default function CheckoutPage() {
             </SignedIn>
 
             <SignedOut>
-                <SignInRequired
+                <AuthModal
+                    isOpen={true}
+                    onClose={() => {}}
                     title='Sign In to Complete Checkout'
                     message='You need to be signed in to complete your booking and payment.'
+                    showSignUp={true}
                 />
             </SignedOut>
         </>
