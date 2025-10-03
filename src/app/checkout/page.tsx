@@ -176,10 +176,11 @@ export default function CheckoutPage() {
             <SignedOut>
                 <AuthModal
                     isOpen={true}
-                    onClose={() => {}}
+                    onClose={() => window.location.href = '/cart'}
                     title='Sign In to Complete Checkout'
                     message='You need to be signed in to complete your booking and payment.'
                     showSignUp={true}
+                    onAuthSuccess={() => window.location.reload()}
                 />
             </SignedOut>
         </>

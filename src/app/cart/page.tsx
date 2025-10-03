@@ -482,14 +482,18 @@ export default function CartPage() {
                 </div>
             </div>
 
-            {/* Auth Modal */}
-            <AuthModal
-                isOpen={showAuthModal}
-                onClose={() => setShowAuthModal(false)}
-                title="Sign In to Complete Your Order"
-                message="Please sign in to continue with your cleaning service booking and secure payment."
-                showSignUp={true}
-            />
+                {/* Auth Modal */}
+                <AuthModal
+                    isOpen={showAuthModal}
+                    onClose={() => setShowAuthModal(false)}
+                    title="Sign In to Complete Your Order"
+                    message="Please sign in to continue with your cleaning service booking and secure payment."
+                    showSignUp={true}
+                    onAuthSuccess={() => {
+                        setShowAuthModal(false);
+                        handleCheckout();
+                    }}
+                />
         </div>
     );
 }

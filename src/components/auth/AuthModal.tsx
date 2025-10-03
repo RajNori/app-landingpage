@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { SignInButton, SignUpButton, UserButton, SignedIn, SignedOut } from '@clerk/nextjs';
 import { FaUser, FaArrowRight, FaTimes, FaLock, FaCheckCircle } from 'react-icons/fa';
+import { useEffect } from 'react';
 
 interface AuthModalProps {
     isOpen: boolean;
@@ -10,6 +11,7 @@ interface AuthModalProps {
     title?: string;
     message?: string;
     showSignUp?: boolean;
+    onAuthSuccess?: () => void;
 }
 
 export default function AuthModal({
@@ -17,8 +19,15 @@ export default function AuthModal({
     onClose,
     title = "Sign In Required",
     message = "Please sign in to continue with your order.",
-    showSignUp = true
+    showSignUp = true,
+    onAuthSuccess
 }: AuthModalProps) {
+    // Auto-close modal and retry checkout when user signs in
+    useEffect(() => {
+        if (isOpen && onAuthSuccess) {
+            // This will be handled by the SignedIn component
+        }
+    }, [isOpen, onAuthSuccess]);
 
     if (!isOpen) return null;
 
@@ -115,9 +124,21 @@ export default function AuthModal({
                                         }
                                     }}
                                 />
-                                <p className="text-sm text-gray-500 mt-2">
+                                <p className="text-sm text-gray-500 mt-2 mb-4">
                                     You can now complete your order
                                 </p>
+                                {onAuthSuccess && (
+                                    <button
+                                        onClick={() => {
+                                            onClose();
+                                            onAuthSuccess();
+                                        }}
+                                        className="w-full bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 flex items-center justify-center gap-3 shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
+                                    >
+                                        Complete Checkout
+                                        <FaArrowRight className="w-4 h-4" />
+                                    </button>
+                                )}
                             </div>
                         </SignedIn>
                     </motion.div>
