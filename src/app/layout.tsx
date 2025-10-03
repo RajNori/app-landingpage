@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { CartProvider } from '../contexts/CartContext';
 import CartCountProvider from '../components/CartCountProvider';
+import { ClerkProvider } from '@clerk/nextjs';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -19,11 +20,23 @@ export const metadata: Metadata = {
             { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
         ],
         apple: [
-            { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+            {
+                url: '/apple-touch-icon.png',
+                sizes: '180x180',
+                type: 'image/png',
+            },
         ],
         other: [
-            { url: '/android-chrome-192x192.png', sizes: '192x192', type: 'image/png' },
-            { url: '/android-chrome-512x512.png', sizes: '512x512', type: 'image/png' },
+            {
+                url: '/android-chrome-192x192.png',
+                sizes: '192x192',
+                type: 'image/png',
+            },
+            {
+                url: '/android-chrome-512x512.png',
+                sizes: '512x512',
+                type: 'image/png',
+            },
         ],
     },
     openGraph: {
@@ -47,13 +60,17 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <html lang='en'>
-            <body className={inter.className}>
-                <CartProvider>
-                    <CartCountProvider />
-                    <main className='bg-white min-h-screen'>{children}</main>
-                </CartProvider>
-            </body>
-        </html>
+        <ClerkProvider>
+            <html lang='en'>
+                <body className={inter.className}>
+                    <CartProvider>
+                        <CartCountProvider />
+                        <main className='bg-white min-h-screen'>
+                            {children}
+                        </main>
+                    </CartProvider>
+                </body>
+            </html>
+        </ClerkProvider>
     );
 }

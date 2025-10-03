@@ -1,0 +1,170 @@
+// Helpi Cleaning Services Database Schema
+// Integrated with Clerk authentication and Stripe payments
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User model synced with Clerk
+model User {
+  id                String    @id @default(cuid())
+  clerkId           String    @unique
+  email             String    @unique
+  firstName         String?
+  lastName          String?
+  phoneNumber       String?
+  profileImageUrl   String?
+  
+  // Address information
+  addresses         Address[]
+  
+  // Booking history
+  bookings          Booking[]
+  
+  // Timestamps
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  
+  @@map("users")
+}
+
+// Address model for service locations
+model Address {
+  id                String    @id @default(cuid())
+  userId            String
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Address details
+  street            String
+  city              String
+  state             String
+  postalCode        String
+  country           String    @default("Australia")
+  
+  // Additional details
+  apartment         String?
+  instructions      String?
+  isDefault         Boolean   @default(false)
+  
+  // Service location details
+  propertyType      PropertyType @default(HOUSE)
+  bedrooms          Int?
+  bathrooms         Int?
+  
+  // Related bookings
+  bookings          Booking[]
+  
+  // Timestamps
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  
+  @@map("addresses")
+}
+
+// Booking model for cleaning services
+model Booking {
+  id                String    @id @default(cuid())
+  userId            String
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  addressId         String
+  address           Address   @relation(fields: [addressId], references: [id])
+  
+  // Booking details
+  status            BookingStatus @default(PENDING)
+  serviceDate       DateTime
+  serviceTime       String    // "morning", "afternoon", "evening", or specific time
+  estimatedDuration Int       // in minutes
+  
+  // Service items
+  serviceItems      ServiceItem[]
+  
+  // Pricing
+  subtotalCents     Int       // Before GST
+  gstCents          Int       // GST amount
+  totalCents        Int       // Total including GST
+  
+  // Payment
+  stripeSessionId   String?   @unique
+  paymentStatus     PaymentStatus @default(PENDING)
+  
+  // Additional information
+  specialInstructions String?
+  emergencyContact   String?
+  
+  // Timestamps
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  
+  @@map("bookings")
+}
+
+// Service items within a booking
+model ServiceItem {
+  id                String    @id @default(cuid())
+  bookingId         String
+  booking           Booking   @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  
+  // Service details
+  packageId         String    // References the package from your pricing config
+  packageName       String
+  quantity          Int
+  unitPriceCents    Int       // Price per unit in cents
+  
+  // Add-ons
+  addons            ServiceAddon[]
+  
+  // Pricing
+  totalCents        Int       // Total for this service item including addons
+  
+  @@map("service_items")
+}
+
+// Add-ons for service items
+model ServiceAddon {
+  id                String    @id @default(cuid())
+  serviceItemId     String
+  serviceItem       ServiceItem @relation(fields: [serviceItemId], references: [id], onDelete: Cascade)
+  
+  // Addon details
+  addonId           String    // References addon from pricing config
+  addonName         String
+  quantity          Int
+  unitPriceCents    Int       // Price per unit in cents
+  
+  // Pricing
+  totalCents        Int       // Total for this addon
+  
+  @@map("service_addons")
+}
+
+// Enums
+enum PropertyType {
+  HOUSE
+  APARTMENT
+  TOWNHOUSE
+  OFFICE
+  COMMERCIAL
+}
+
+enum BookingStatus {
+  PENDING           // Just created, awaiting confirmation
+  CONFIRMED         // Confirmed by cleaner
+  IN_PROGRESS       // Service in progress
+  COMPLETED         // Service completed
+  CANCELLED         // Cancelled by user or cleaner
+  NO_SHOW           // User didn't show up
+}
+
+enum PaymentStatus {
+  PENDING           // Payment not yet processed
+  PROCESSING        // Payment being processed
+  PAID              // Payment successful
+  FAILED            // Payment failed
+  REFUNDED          // Payment refunded
+  PARTIALLY_REFUNDED // Partial refund
+}

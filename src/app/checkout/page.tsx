@@ -5,6 +5,8 @@ import { useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { FaCheckCircle, FaTimesCircle, FaSpinner } from 'react-icons/fa';
 import { useCart } from '../../contexts/CartContext';
+import { SignedIn, SignedOut } from '@clerk/nextjs';
+import SignInRequired from '../../components/auth/SignInRequired';
 
 function CheckoutContent() {
     const searchParams = useSearchParams();
@@ -17,7 +19,11 @@ function CheckoutContent() {
         if (status === 'success' && sessionId) {
             // Clear the cart after successful payment
             clearCart();
-            console.log('Payment successful, session:', sessionId, '- Cart cleared');
+            console.log(
+                'Payment successful, session:',
+                sessionId,
+                '- Cart cleared'
+            );
         }
     }, [status, sessionId, clearCart]);
 
@@ -155,13 +161,24 @@ function CheckoutContent() {
 
 export default function CheckoutPage() {
     return (
-        <Suspense
-            fallback={
-                <div className='min-h-screen flex items-center justify-center'>
-                    <FaSpinner className='w-8 h-8 animate-spin text-purple-600' />
-                </div>
-            }>
-            <CheckoutContent />
-        </Suspense>
+        <>
+            <SignedIn>
+                <Suspense
+                    fallback={
+                        <div className='min-h-screen flex items-center justify-center'>
+                            <FaSpinner className='w-8 h-8 animate-spin text-purple-600' />
+                        </div>
+                    }>
+                    <CheckoutContent />
+                </Suspense>
+            </SignedIn>
+
+            <SignedOut>
+                <SignInRequired
+                    title='Sign In to Complete Checkout'
+                    message='You need to be signed in to complete your booking and payment.'
+                />
+            </SignedOut>
+        </>
     );
 }
