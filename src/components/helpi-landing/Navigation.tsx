@@ -60,6 +60,11 @@ export default function Navigation({ cartItemCount = 0 }: NavigationProps) {
                             Services
                         </Link>
                         <Link
+                            href='/knowledgebase'
+                            className='text-gray-700 hover:text-[#511076] px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200'>
+                            Help
+                        </Link>
+                        <Link
                             href='/contact'
                             className='text-gray-700 hover:text-[#511076] px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200'>
                             Contact
@@ -129,6 +134,12 @@ export default function Navigation({ cartItemCount = 0 }: NavigationProps) {
                                 className='text-gray-700 hover:text-[#511076] block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200'
                                 onClick={() => setIsMenuOpen(false)}>
                                 Services
+                            </Link>
+                            <Link
+                                href='/knowledgebase'
+                                className='text-gray-700 hover:text-[#511076] block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200'
+                                onClick={() => setIsMenuOpen(false)}>
+                                Help
                             </Link>
                             <Link
                                 href='/contact'
