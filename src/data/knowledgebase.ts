@@ -738,6 +738,83 @@ export interface ArticleDetail {
 }
 
 export const ARTICLE_DETAILS: Record<string, Partial<ArticleDetail>> = {
+    'helpers-welcome-to-helpi': {
+        role: 'helpers',
+        slug: 'welcome-to-helpi',
+        toc: [
+            { id: 'purpose', label: 'Purpose' },
+            { id: 'overview', label: 'Platform Overview' },
+            { id: 'helpi-app', label: 'Helpi App (Helper Mobile App)' },
+            { id: 'client-app', label: 'Client App' },
+            { id: 'admin-dashboard', label: 'Admin Dashboard' },
+            { id: 'how-it-works', label: 'How It All Works Together' },
+            { id: 'getting-started', label: 'Getting Started' },
+        ],
+        content: [
+            {
+                id: 'purpose',
+                title: 'Purpose',
+                content:
+                    'Welcome to Helpi! This guide provides an overview of the Helpi platform ecosystem — a three-sided marketplace connecting Clients who need services with Helpers who provide them, all managed through a central Admin Dashboard. Understanding how these three components work together will help you navigate your journey as a Helper on the platform.',
+            },
+            {
+                id: 'overview',
+                title: 'Platform Overview',
+                content:
+                    'Helpi is a gig economy platform designed for on-demand service work. The platform consists of three main applications: The Helpi App (mobile app for Helpers like you), The Client App (mobile app for Clients requesting services), and The Admin Dashboard (web application for platform administrators). All three work together to create a seamless experience from job posting to completion and payment.',
+            },
+            {
+                id: 'helpi-app',
+                title: 'Helpi App (Helper Mobile App)',
+                content:
+                    'The Helpi App is your mobile companion for accepting and completing jobs. Key features include: Job Notifications — receive real-time alerts when jobs are available in your area, Job Browser — view available jobs, filter by service type, location, and pay rate, Navigation & Maps — built-in GPS navigation to job locations with geofence check-in/check-out, Job Management — accept jobs, track your work, submit completion proofs (photos, notes), Payment Tracking — view your earnings, payment history, and payout schedule, Profile Management — update your details, documents, and work preferences. The app is available for both iOS and Android devices.',
+            },
+            {
+                id: 'client-app',
+                title: 'Client App',
+                content:
+                    'Clients use the Client App to request services. What you need to know: Clients post jobs through their app, selecting service type, location, date, and time, Once you accept a job, Clients can track your arrival in real-time on their app, Clients receive notifications when you check in, complete work, and submit proofs, After job completion, Clients rate and pay through the app. As a Helper, you interact with Clients primarily through the in-app chat feature and during the job itself.',
+            },
+            {
+                id: 'admin-dashboard',
+                title: 'Admin Dashboard',
+                content:
+                    'The Admin Dashboard is a web-based tool used by Helpi administrators to manage the platform. Admins handle: Job Assignment — matching jobs to available Helpers based on location and skills, Verification — reviewing and approving Helper documents (ID, ABN, Police Check), Payment Processing — approving and processing Helper payouts, Quality Assurance — monitoring job quality, resolving disputes, and managing Client-Helper relationships, Platform Operations — managing services, rates, and overall platform health. While you do not access the dashboard directly, Admins use it to support you throughout your work on Helpi.',
+            },
+            {
+                id: 'how-it-works',
+                title: 'How It All Works Together',
+                content:
+                    'Step 1: Client posts a job through the Client App, selecting service type, location, and time. Step 2: Admin reviews the job in the Dashboard and assigns it to you (or you see it in your Helpi App and accept it). Step 3: You receive a notification in your Helpi App, accept the job, and navigate to the location. Step 4: You check in using geofence technology when you arrive at the job site. Step 5: You complete the work and submit proof (photos, notes) through your Helpi App. Step 6: Client reviews the completion and rates you through their Client App. Step 7: Admin verifies completion in the Dashboard and processes your payment. Step 8: Payment appears in your Helpi App earnings within the payment schedule. This workflow ensures accountability, safety, and timely payments for all parties.',
+            },
+            {
+                id: 'getting-started',
+                title: 'Getting Started',
+                content:
+                    'To begin working on Helpi: Download the Helpi App from the App Store (iOS) or Google Play Store (Android), Create your account using your phone number (OTP verification), Complete your profile with personal details, work preferences, and location, Upload required documents: Photo ID, ABN Certificate, National Police Check, Insurance Certificate, Wait for Admin approval (typically within 24 hours), Once verified, you will start receiving job notifications. The more complete and accurate your profile, the more jobs you will be eligible for. Keep your documents current and your availability updated to maximize your opportunities.',
+            },
+        ],
+        callouts: [
+            {
+                tone: 'info',
+                title: 'Tip: Stay Active',
+                content:
+                    'Keep your Helpi App notifications enabled and your location services active to receive job opportunities in your area.',
+            },
+            {
+                tone: 'warning',
+                title: 'Important: Document Verification',
+                content:
+                    'All documents must be verified by Admins before you can accept jobs. Ensure your documents are clear, current, and match your profile information.',
+            },
+        ],
+        troubleshooting: [
+            "Haven't received any jobs? Check that your profile is complete and documents are approved, verify your location settings are enabled, and ensure you're within an active service area.",
+            'Account not verified? Contact support through the app if verification takes longer than 48 hours — your documents may need review.',
+            "Can't see available jobs? Ensure your app is updated to the latest version and check your notification permissions.",
+            'Payment questions? View your earnings in the Helpi App under Payments, or contact Admin support for payout inquiries.',
+        ],
+    },
     'helpers-accept-checkin': {
         role: 'helpers',
         slug: 'accept-checkin',
