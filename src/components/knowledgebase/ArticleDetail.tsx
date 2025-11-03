@@ -37,9 +37,9 @@ const ACTION_ICONS: Record<string, string> = {
 };
 
 interface ArticleDetailProps {
-  role: UserRole;
-  slug: string;
-  onBack: () => void;
+    role: UserRole;
+    slug: string;
+    onBack: () => void;
 }
 
 export default function ArticleDetail({
@@ -47,117 +47,117 @@ export default function ArticleDetail({
     slug,
     onBack,
 }: ArticleDetailProps) {
-  const article = KMS_CONTENT.articles[role].find((x) => x.slug === slug);
-  
-  if (!article) return null;
+    const article = KMS_CONTENT.articles[role].find((x) => x.slug === slug);
 
-  // Try both key formats: with and without role prefix
-  const detail = ARTICLE_DETAILS[`${role}-${slug}`] || ARTICLE_DETAILS[slug];
-  const toc = detail?.toc || [];
-  const content = detail?.content || [];
-  const callouts = detail?.callouts || [];
-  const troubleshooting = detail?.troubleshooting || [];
+    if (!article) return null;
 
-  // Show placeholder if no detailed content exists
-  if (!detail || content.length === 0) {
-    return (
-      <article>
+    // Try both key formats: with and without role prefix
+    const detail = ARTICLE_DETAILS[`${role}-${slug}`] || ARTICLE_DETAILS[slug];
+    const toc = detail?.toc || [];
+    const content = detail?.content || [];
+    const callouts = detail?.callouts || [];
+    const troubleshooting = detail?.troubleshooting || [];
+
+    // Show placeholder if no detailed content exists
+    if (!detail || content.length === 0) {
+        return (
+            <article>
                 <div className='max-w-6xl mx-auto px-5 py-8'>
-          <button
-            onClick={onBack}
+                    <button
+                        onClick={onBack}
                         className='text-sm text-zinc-500 hover:text-zinc-700 mb-4'>
-            ← Back to results
-          </button>
+                        ← Back to results
+                    </button>
                     <div className='bg-white rounded-2xl border border-zinc-100 p-8 text-center'>
                         <h1 className='text-2xl font-bold text-zinc-900 mb-2'>
                             {article.title}
                         </h1>
                         <p className='text-zinc-600 mb-4'>{article.excerpt}</p>
                         <p className='text-sm text-zinc-500'>
-              Detailed content coming soon...
-            </p>
-          </div>
-        </div>
-      </article>
-    );
-  }
+                            Detailed content coming soon...
+                        </p>
+                    </div>
+                </div>
+            </article>
+        );
+    }
 
-  return (
-    <article>
-      {/* Breadcrumbs */}
+    return (
+        <article>
+            {/* Breadcrumbs */}
             <div className='max-w-6xl mx-auto px-5'>
-        <button
-          onClick={onBack}
+                <button
+                    onClick={onBack}
                     className='text-sm text-zinc-500 hover:text-zinc-700'>
-          ← Back to results
-        </button>
-      </div>
+                    ← Back to results
+                </button>
+            </div>
 
-      {/* Hero header */}
+            {/* Hero header */}
             <div className='mt-3 bg-gradient-to-r from-purple-600 to-purple-500 text-white'>
                 <div className='max-w-6xl mx-auto px-5 py-8'>
                     <div className='flex items-start gap-3'>
                         <div className='h-10 w-10 rounded-lg bg-white/15 flex items-center justify-center text-lg'>
-              📘
-            </div>
-            <div>
+                            📘
+                        </div>
+                        <div>
                             <div className='flex flex-wrap items-center gap-2 text-xs opacity-90'>
                                 <span className='px-2 py-0.5 rounded-full bg-white/15 border border-white/20'>
-                  {article.type}
-                </span>
+                                    {article.type}
+                                </span>
                                 <span className='px-2 py-0.5 rounded-full bg-white/15 border border-white/20'>
-                  {article.status}
-                </span>
+                                    {article.status}
+                                </span>
                                 <span className='opacity-90'>
                                     Updated {article.updated}
                                 </span>
-              </div>
+                            </div>
                             <h1 className='text-2xl md:text-3xl font-semibold tracking-tight mt-2'>
-                {article.title}
-              </h1>
+                                {article.title}
+                            </h1>
                             <p className='text-white/90 mt-2 text-sm max-w-2xl'>
-                {article.excerpt}
-              </p>
+                                {article.excerpt}
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
 
-      {/* Body grid */}
+            {/* Body grid */}
             <div className='max-w-6xl mx-auto px-5 py-8 grid grid-cols-12 gap-8'>
-        {/* Content */}
+                {/* Content */}
                 <div className='col-span-12 md:col-span-9 space-y-6'>
-          {/* Meta strip */}
+                    {/* Meta strip */}
                     <div className='rounded-xl border border-zinc-100 bg-white p-4 mb-2'>
                         <dl className='grid grid-cols-2 md:grid-cols-4 gap-y-2 text-sm'>
-              <div>
+                            <div>
                                 <dt className='text-zinc-500'>Role</dt>
                                 <dd className='font-medium capitalize'>
                                     {role}
                                 </dd>
-              </div>
-              <div>
+                            </div>
+                            <div>
                                 <dt className='text-zinc-500'>Article</dt>
                                 <dd className='font-medium'>{article.type}</dd>
-              </div>
-              <div>
+                            </div>
+                            <div>
                                 <dt className='text-zinc-500'>Status</dt>
                                 <dd className='font-medium'>
                                     {article.status}
                                 </dd>
-              </div>
-              <div>
+                            </div>
+                            <div>
                                 <dt className='text-zinc-500'>Last updated</dt>
                                 <dd className='font-medium'>
                                     {article.updated} ago
                                 </dd>
-              </div>
-            </dl>
-          </div>
+                            </div>
+                        </dl>
+                    </div>
 
-          {/* Steps timeline */}
+                    {/* Steps timeline */}
                     <div className='space-y-0'>
-          {content.map((section, index) => (
+                        {content.map((section, index) => (
                             <section
                                 key={section.id}
                                 id={section.id}
@@ -171,26 +171,26 @@ export default function ArticleDetail({
                                             : String(section.content)
                                     }
                                 />
-            </section>
-          ))}
+                            </section>
+                        ))}
                     </div>
 
-          {/* Callouts */}
-          {callouts.length > 0 && (
+                    {/* Callouts */}
+                    {callouts.length > 0 && (
                         <div className='grid md:grid-cols-2 gap-4 mb-8'>
-              {callouts.map((callout, index) => (
-                <Callout
-                  key={index}
-                  tone={callout.tone}
+                            {callouts.map((callout, index) => (
+                                <Callout
+                                    key={index}
+                                    tone={callout.tone}
                                     title={callout.title}>
-                  {callout.content}
-                </Callout>
-              ))}
-            </div>
-          )}
+                                    {callout.content}
+                                </Callout>
+                            ))}
+                        </div>
+                    )}
 
-          {/* Troubleshooting */}
-          {troubleshooting.length > 0 && (
+                    {/* Troubleshooting */}
+                    {troubleshooting.length > 0 && (
                         <section id='troubleshoot' className='mb-10'>
                             <div className='rounded-2xl border-2 border-orange-200 bg-gradient-to-br from-orange-50 to-amber-50/50 p-6 shadow-md relative overflow-hidden'>
                                 {/* Decorative accent */}
@@ -199,109 +199,115 @@ export default function ArticleDetail({
                                     <div className='flex items-center gap-3 mb-4'>
                                         <span className='text-2xl'>🔧</span>
                                         <h2 className='text-xl font-bold tracking-tight text-orange-900'>
-                  Troubleshooting
-                </h2>
+                                            Troubleshooting
+                                        </h2>
                                     </div>
                                     <div className='relative'>
-                                        <div className='absolute left-0 top-0 bottom-0 w-0.5 bg-orange-300 ml-2.5' />
-                                        <ul className='space-y-3 relative pl-8'>
-                  {troubleshooting.map((item, index) => (
-                                                <li
-                                                    key={index}
-                                                    className='flex items-start gap-3 text-sm text-orange-900 leading-relaxed'>
-                                                    <div className='flex-shrink-0 w-2 h-2 rounded-full bg-orange-500 mt-2 z-10' />
-                                                    <span className='flex-1'>{item}</span>
-                                                </li>
-                  ))}
-                </ul>
+                                        {/* Vertical line positioned to the left with padding */}
+                                        <div className='absolute left-0 top-0 bottom-0 w-0.5 bg-orange-300' />
+                                        <ul className='space-y-3 relative pl-5'>
+                                            {troubleshooting.map(
+                                                (item, index) => (
+                                                    <li
+                                                        key={index}
+                                                        className='flex items-start gap-3 text-sm text-orange-900 leading-relaxed'>
+                                                        {/* Bullet dot with padding from line */}
+                                                        <div className='flex-shrink-0 w-2 h-2 rounded-full bg-orange-500 mt-[6px]' />
+                                                        <span className='flex-1'>
+                                                            {item}
+                                                        </span>
+                                                    </li>
+                                                )
+                                            )}
+                                        </ul>
                                     </div>
                                 </div>
-              </div>
-            </section>
-          )}
+                            </div>
+                        </section>
+                    )}
 
-          {/* Bottom nav */}
+                    {/* Bottom nav */}
                     <div className='flex items-center gap-3 border-t border-zinc-100 pt-6'>
-            <button
-              onClick={onBack}
+                        <button
+                            onClick={onBack}
                             className='px-4 py-2 rounded-lg border border-zinc-200 hover:bg-zinc-50 text-sm'>
-              ← All articles
-            </button>
-            <a
+                            ← All articles
+                        </button>
+                        <a
                             href='#'
                             className='ml-auto text-sm text-purple-700 hover:underline'>
-              Suggest an edit
-            </a>
-          </div>
-        </div>
+                            Suggest an edit
+                        </a>
+                    </div>
+                </div>
 
-        {/* Sidebar TOC */}
+                {/* Sidebar TOC */}
                 <aside className='col-span-12 md:col-span-3'>
                     <div className='md:sticky md:top-24 space-y-4'>
                         <div className='rounded-xl border border-zinc-100 bg-white p-4'>
                             <div className='text-xs uppercase text-zinc-500 mb-2'>
-                On this page
-              </div>
+                                On this page
+                            </div>
                             <nav className='space-y-1'>
-                {toc.map((t) => (
-                  <a
-                    key={t.id}
-                    href={`#${t.id}`}
+                                {toc.map((t) => (
+                                    <a
+                                        key={t.id}
+                                        href={`#${t.id}`}
                                         className='block text-sm text-zinc-700 hover:text-purple-700'>
-                    {t.label}
-                  </a>
-                ))}
-              </nav>
-            </div>
+                                        {t.label}
+                                    </a>
+                                ))}
+                            </nav>
+                        </div>
                         <div className='rounded-xl border border-zinc-100 bg-white p-4'>
                             <div className='text-xs uppercase text-zinc-500 mb-2'>
                                 Related
                             </div>
                             <ul className='space-y-2 text-sm'>
-                {KMS_CONTENT.articles[role]
-                  .filter((x) => x.slug !== article.slug)
-                  .slice(0, 3)
-                  .map((x) => (
-                    <li key={x.slug}>
-                      <a
+                                {KMS_CONTENT.articles[role]
+                                    .filter((x) => x.slug !== article.slug)
+                                    .slice(0, 3)
+                                    .map((x) => (
+                                        <li key={x.slug}>
+                                            <a
                                                 className='block text-zinc-700 hover:text-purple-700'
                                                 href='#'>
-                        {x.title}
-                      </a>
-                    </li>
-                  ))}
-              </ul>
+                                                {x.title}
+                                            </a>
+                                        </li>
+                                    ))}
+                            </ul>
+                        </div>
+                    </div>
+                </aside>
             </div>
-          </div>
-        </aside>
-      </div>
 
-      {/* Feedback bar */}
+            {/* Feedback bar */}
             <div className='border-t border-zinc-100 bg-zinc-50'>
                 <div className='max-w-6xl mx-auto px-5 py-5 flex flex-wrap items-center gap-2'>
                     <span className='text-sm text-zinc-700'>
                         Was this helpful?
                     </span>
                     <button className='px-3 py-1.5 rounded-lg border border-zinc-200 bg-white hover:bg-zinc-50 text-sm'>
-            👍 Yes
-          </button>
+                        👍 Yes
+                    </button>
                     <button className='px-3 py-1.5 rounded-lg border border-zinc-200 bg-white hover:bg-zinc-50 text-sm'>
-            👎 No
-          </button>
-          <a
+                        👎 No
+                    </button>
+                    <a
                         className='ml-auto text-sm text-purple-700 hover:underline'
                         href='#'>
-            Report an issue
-          </a>
-        </div>
-      </div>
-    </article>
-  );
+                        Report an issue
+                    </a>
+                </div>
+            </div>
+        </article>
+    );
 }
 
 function StepCard({
-  index,
-  title,
+    index,
+    title,
     content,
 }: {
     index: number;
@@ -320,40 +326,54 @@ function StepCard({
     const formatContent = (content: string) => {
         // First, check if content contains special patterns that need visual treatment
         // We'll process the content in segments, detecting and formatting embedded patterns
-        
+
         // Pattern 1: "Key columns include:" or "Columns include:" - format as 2-column grid
         // Match until period followed by space and capital, or until next pattern keyword
-        const columnsPattern = /(Key columns|Columns|Fields)(\s+include)?:\s*([^.]+?)(?=\.\s+(?:Admin actions|Admin tasks|Key admin tasks|Tabs|You can|Best practice|Always|Never|Only|Use|Check)|\.\s*$|$)/gi;
-        
+        const columnsPattern =
+            /(Key columns|Columns|Fields)(\s+include)?:\s*([^.]+?)(?=\.\s+(?:Admin actions|Admin tasks|Key admin tasks|Tabs|You can|Best practice|Always|Never|Only|Use|Check)|\.\s*$|$)/gi;
+
         // Pattern 2: "Admin actions:" or "Admin tasks:" - format as action cards with icons
-        const actionsPattern = /(Admin actions|Admin tasks|Key admin tasks):\s*([^.]+?)(?=\.\s+(?:Only|Never|Always|Use|Check|Best practice|Tabs|Columns|Fields|Key columns)|\.\s*$|$)/gi;
-        
+        const actionsPattern =
+            /(Admin actions|Admin tasks|Key admin tasks):\s*([^.]+?)(?=\.\s+(?:Only|Never|Always|Use|Check|Best practice|Tabs|Columns|Fields|Key columns)|\.\s*$|$)/gi;
+
         // Pattern 3: "You can:" - format as action list with icons and dashes
-        const youCanPattern = /You can:\s*([^.]+?)(?=\.\s+(?:Best practice|Always|Never|Only|Admin actions|Tabs|Columns)|\.\s*$|$)/gi;
-        
+        const youCanPattern =
+            /You can:\s*([^.]+?)(?=\.\s+(?:Best practice|Always|Never|Only|Admin actions|Tabs|Columns)|\.\s*$|$)/gi;
+
         // Pattern 4: "Tabs:" - format as cards
-        const tabsPattern = /Tabs:\s*([^.]+?)(?=\.\s+(?:Admin actions|Admin tasks|You can|Columns|Fields|Key columns|Best practice)|\.\s*$|$)/gi;
-        
+        const tabsPattern =
+            /Tabs:\s*([^.]+?)(?=\.\s+(?:Admin actions|Admin tasks|You can|Columns|Fields|Key columns|Best practice)|\.\s*$|$)/gi;
+
         // Check if content has any of these patterns
         const hasColumns = columnsPattern.test(content);
         const hasActions = actionsPattern.test(content);
         const hasYouCan = youCanPattern.test(content);
         const hasTabs = tabsPattern.test(content);
-        
+
         // Reset regex lastIndex
         columnsPattern.lastIndex = 0;
         actionsPattern.lastIndex = 0;
         youCanPattern.lastIndex = 0;
         tabsPattern.lastIndex = 0;
-        
+
         // If we have special patterns, process them and split content accordingly
         if (hasColumns || hasActions || hasYouCan || hasTabs) {
-            const segments: Array<{ type: 'text' | 'columns' | 'actions' | 'youcan' | 'tabs'; content: string; label?: string }> = [];
+            const segments: Array<{
+                type: 'text' | 'columns' | 'actions' | 'youcan' | 'tabs';
+                content: string;
+                label?: string;
+            }> = [];
             let lastIndex = 0;
-            
+
             // Find all pattern matches and their positions
-            const matches: Array<{ type: 'columns' | 'actions' | 'youcan' | 'tabs'; start: number; end: number; label: string; content: string }> = [];
-            
+            const matches: Array<{
+                type: 'columns' | 'actions' | 'youcan' | 'tabs';
+                start: number;
+                end: number;
+                label: string;
+                content: string;
+            }> = [];
+
             // Find column matches
             let match;
             while ((match = columnsPattern.exec(content)) !== null) {
@@ -365,7 +385,7 @@ function StepCard({
                     content: match[3],
                 });
             }
-            
+
             // Find action matches
             while ((match = actionsPattern.exec(content)) !== null) {
                 matches.push({
@@ -376,7 +396,7 @@ function StepCard({
                     content: match[2],
                 });
             }
-            
+
             // Find "You can" matches
             while ((match = youCanPattern.exec(content)) !== null) {
                 matches.push({
@@ -387,7 +407,7 @@ function StepCard({
                     content: match[1],
                 });
             }
-            
+
             // Find tab matches
             while ((match = tabsPattern.exec(content)) !== null) {
                 matches.push({
@@ -398,30 +418,32 @@ function StepCard({
                     content: match[1],
                 });
             }
-            
+
             // Sort matches by position
             matches.sort((a, b) => a.start - b.start);
-            
+
             // Build segments
             matches.forEach((m) => {
                 // Add text before this match
                 if (m.start > lastIndex) {
-                    const textSegment = content.substring(lastIndex, m.start).trim();
+                    const textSegment = content
+                        .substring(lastIndex, m.start)
+                        .trim();
                     if (textSegment) {
                         segments.push({ type: 'text', content: textSegment });
                     }
                 }
-                
+
                 // Add the formatted pattern
                 segments.push({
                     type: m.type,
                     content: m.content,
                     label: m.label,
                 });
-                
+
                 lastIndex = m.end;
             });
-            
+
             // Add remaining text
             if (lastIndex < content.length) {
                 const textSegment = content.substring(lastIndex).trim();
@@ -429,7 +451,7 @@ function StepCard({
                     segments.push({ type: 'text', content: textSegment });
                 }
             }
-            
+
             // Render segments
             return (
                 <div className='space-y-6'>
@@ -440,20 +462,32 @@ function StepCard({
                             const items: string[] = [];
                             let currentItem = '';
                             let inParens = 0;
-                            
+
                             for (let i = 0; i < segment.content.length; i++) {
                                 const char = segment.content[i];
                                 if (char === '(') inParens++;
                                 else if (char === ')') inParens--;
-                                
-                                if (char === ',' && inParens === 0 && i + 1 < segment.content.length) {
+
+                                if (
+                                    char === ',' &&
+                                    inParens === 0 &&
+                                    i + 1 < segment.content.length
+                                ) {
                                     // Check if next non-space char is uppercase
-                                    const nextChar = segment.content.substring(i + 1).trim()[0];
-                                    if (nextChar && nextChar === nextChar.toUpperCase()) {
+                                    const nextChar = segment.content
+                                        .substring(i + 1)
+                                        .trim()[0];
+                                    if (
+                                        nextChar &&
+                                        nextChar === nextChar.toUpperCase()
+                                    ) {
                                         items.push(currentItem.trim());
                                         currentItem = '';
                                         // Skip the comma and following space
-                                        while (i + 1 < segment.content.length && /[\s,]/.test(segment.content[i + 1])) {
+                                        while (
+                                            i + 1 < segment.content.length &&
+                                            /[\s,]/.test(segment.content[i + 1])
+                                        ) {
                                             i++;
                                         }
                                         i--; // Adjust for loop increment
@@ -462,25 +496,45 @@ function StepCard({
                                 }
                                 currentItem += char;
                             }
-                            if (currentItem.trim()) items.push(currentItem.trim());
-                            
+                            if (currentItem.trim())
+                                items.push(currentItem.trim());
+
                             // Fallback to simple split if parsing failed
-                            const finalItems = items.length > 1 ? items : segment.content.split(',').map((item) => item.trim()).filter(Boolean);
-                            
+                            const finalItems =
+                                items.length > 1
+                                    ? items
+                                    : segment.content
+                                          .split(',')
+                                          .map((item) => item.trim())
+                                          .filter(Boolean);
+
                             const parsedItems = finalItems.map((item) => {
                                 // Match "Item (description)" or "Item: description"
-                                const parenMatch = item.match(/^(.+?)\s*\(([^)]+)\)\s*\.?$/);
-                                const colonMatch = item.match(/^(.+?):\s*(.+?)\s*\.?$/);
-                                
+                                const parenMatch = item.match(
+                                    /^(.+?)\s*\(([^)]+)\)\s*\.?$/
+                                );
+                                const colonMatch = item.match(
+                                    /^(.+?):\s*(.+?)\s*\.?$/
+                                );
+
                                 if (parenMatch) {
-                                    return { name: parenMatch[1].trim(), desc: parenMatch[2].trim() };
+                                    return {
+                                        name: parenMatch[1].trim(),
+                                        desc: parenMatch[2].trim(),
+                                    };
                                 } else if (colonMatch) {
-                                    return { name: colonMatch[1].trim(), desc: colonMatch[2].trim() };
+                                    return {
+                                        name: colonMatch[1].trim(),
+                                        desc: colonMatch[2].trim(),
+                                    };
                                 } else {
-                                    return { name: item.replace(/\.$/, '').trim(), desc: null };
+                                    return {
+                                        name: item.replace(/\.$/, '').trim(),
+                                        desc: null,
+                                    };
                                 }
                             });
-                            
+
                             return (
                                 <div key={idx} className='space-y-3'>
                                     <p className='text-base text-zinc-900 font-semibold leading-relaxed'>
@@ -505,26 +559,33 @@ function StepCard({
                                 </div>
                             );
                         }
-                        
+
                         if (segment.type === 'actions') {
                             // Parse action items
                             const items = segment.content
                                 .split(/,\s*(?=[A-Z])/)
                                 .map((item) => item.trim())
                                 .filter(Boolean);
-                            
+
                             return (
                                 <div key={idx} className='space-y-3'>
                                     <p className='text-base text-zinc-900 font-semibold leading-relaxed'>
                                         {segment.label}:
                                     </p>
                                     <div className='relative'>
-                                        <div className='absolute left-0 top-0 bottom-0 w-0.5 bg-purple-200 ml-2.5' />
-                                        <div className='space-y-3 relative pl-8'>
+                                        {/* Vertical line positioned to the left with padding */}
+                                        <div className='absolute left-0 top-0 bottom-0 w-0.5 bg-purple-200' />
+                                        <div className='space-y-3 relative pl-5'>
                                             {items.map((item, itemIdx) => {
-                                                const actionMatch = Object.keys(ACTION_ICONS).find(
-                                                    (action) =>
-                                                        item.toLowerCase().startsWith(action.toLowerCase() + ' ')
+                                                const actionMatch = Object.keys(
+                                                    ACTION_ICONS
+                                                ).find((action) =>
+                                                    item
+                                                        .toLowerCase()
+                                                        .startsWith(
+                                                            action.toLowerCase() +
+                                                                ' '
+                                                        )
                                                 );
                                                 return (
                                                     <div
@@ -532,7 +593,11 @@ function StepCard({
                                                         className='flex items-start gap-3 bg-purple-50/50 rounded-lg p-3 border border-purple-100 hover:bg-purple-50 hover:border-purple-200 transition-colors'>
                                                         {actionMatch && (
                                                             <span className='text-lg flex-shrink-0 mt-0.5'>
-                                                                {ACTION_ICONS[actionMatch]}
+                                                                {
+                                                                    ACTION_ICONS[
+                                                                        actionMatch
+                                                                    ]
+                                                                }
                                                             </span>
                                                         )}
                                                         <span className='text-sm text-zinc-700 leading-relaxed flex-1 font-medium'>
@@ -546,50 +611,76 @@ function StepCard({
                                 </div>
                             );
                         }
-                        
+
                         if (segment.type === 'youcan') {
                             // Parse "You can:" items with dashes (e.g., "Add New Services — define...")
                             const items = segment.content
                                 .split(/\s*—\s*(?=[A-Z])/)
                                 .map((item) => item.trim())
                                 .filter(Boolean);
-                            
+
                             return (
                                 <div key={idx} className='space-y-3'>
                                     <p className='text-base text-zinc-900 font-semibold leading-relaxed'>
                                         {segment.label}:
                                     </p>
                                     <div className='relative'>
-                                        <div className='absolute left-0 top-0 bottom-0 w-0.5 bg-purple-200 ml-2.5' />
-                                        <div className='space-y-4 relative pl-8'>
+                                        {/* Vertical line positioned to the left with padding */}
+                                        <div className='absolute left-0 top-0 bottom-0 w-0.5 bg-purple-200' />
+                                        <div className='space-y-4 relative pl-5'>
                                             {items.map((item, itemIdx) => {
                                                 // Split by dash if item has "Action — description" format
-                                                const dashMatch = item.match(/^(.+?)\s*—\s*(.+)$/);
+                                                const dashMatch =
+                                                    item.match(
+                                                        /^(.+?)\s*—\s*(.+)$/
+                                                    );
                                                 const actionMatch = dashMatch
-                                                    ? Object.keys(ACTION_ICONS).find((action) =>
-                                                          dashMatch[1].toLowerCase().startsWith(action.toLowerCase() + ' ')
+                                                    ? Object.keys(
+                                                          ACTION_ICONS
+                                                      ).find((action) =>
+                                                          dashMatch[1]
+                                                              .toLowerCase()
+                                                              .startsWith(
+                                                                  action.toLowerCase() +
+                                                                      ' '
+                                                              )
                                                       )
-                                                    : Object.keys(ACTION_ICONS).find((action) =>
-                                                          item.toLowerCase().startsWith(action.toLowerCase() + ' ')
+                                                    : Object.keys(
+                                                          ACTION_ICONS
+                                                      ).find((action) =>
+                                                          item
+                                                              .toLowerCase()
+                                                              .startsWith(
+                                                                  action.toLowerCase() +
+                                                                      ' '
+                                                              )
                                                       );
-                                                
+
                                                 return (
                                                     <div
                                                         key={itemIdx}
                                                         className='flex items-start gap-3 bg-gradient-to-r from-purple-50/80 to-transparent rounded-lg p-4 border border-purple-100 hover:border-purple-200 hover:shadow-sm transition-all'>
                                                         {actionMatch && (
                                                             <span className='text-xl flex-shrink-0 mt-0.5'>
-                                                                {ACTION_ICONS[actionMatch]}
+                                                                {
+                                                                    ACTION_ICONS[
+                                                                        actionMatch
+                                                                    ]
+                                                                }
                                                             </span>
                                                         )}
                                                         <div className='flex-1'>
                                                             {dashMatch ? (
                                                                 <>
                                                                     <div className='font-semibold text-zinc-900 text-sm mb-1'>
-                                                                        {dashMatch[1]}
+                                                                        {
+                                                                            dashMatch[1]
+                                                                        }
                                                                     </div>
                                                                     <div className='text-xs text-zinc-600 leading-relaxed'>
-                                                                        {dashMatch[2]}
+                                                                        {
+                                                                            dashMatch[2]
+                                                                        }
                                                                     </div>
                                                                 </>
                                                             ) : (
@@ -606,22 +697,30 @@ function StepCard({
                                 </div>
                             );
                         }
-                        
+
                         if (segment.type === 'tabs') {
                             // Parse tab items with descriptions
                             const items = segment.content
                                 .split(/,\s*(?=[A-Z][^,()]+(?:\(|:))/)
                                 .map((item) => item.trim())
                                 .filter(Boolean);
-                            
+
                             const parsedItems = items.map((item) => {
-                                const parenMatch = item.match(/^(.+?)\s*\(([^)]+)\)\s*\.?$/);
+                                const parenMatch = item.match(
+                                    /^(.+?)\s*\(([^)]+)\)\s*\.?$/
+                                );
                                 if (parenMatch) {
-                                    return { name: parenMatch[1].trim(), desc: parenMatch[2].trim() };
+                                    return {
+                                        name: parenMatch[1].trim(),
+                                        desc: parenMatch[2].trim(),
+                                    };
                                 }
-                                return { name: item.replace(/\.$/, '').trim(), desc: null };
+                                return {
+                                    name: item.replace(/\.$/, '').trim(),
+                                    desc: null,
+                                };
                             });
-                            
+
                             return (
                                 <div key={idx} className='space-y-3'>
                                     <p className='text-base text-zinc-900 font-semibold leading-relaxed'>
@@ -646,7 +745,7 @@ function StepCard({
                                 </div>
                             );
                         }
-                        
+
                         // Regular text segment
                         return (
                             <p
@@ -680,13 +779,15 @@ function StepCard({
             if (steps.length > 1) {
                 return (
                     <div className='relative'>
-                        <div className='absolute left-0 top-0 bottom-0 w-0.5 bg-purple-200 ml-3.5' />
-                        <div className='space-y-4 relative'>
+                        {/* Vertical line positioned to the left with padding */}
+                        <div className='absolute left-0 top-0 bottom-0 w-0.5 bg-purple-200' />
+                        <div className='space-y-4 relative pl-5'>
                             {steps.map((step, idx) => (
                                 <div
                                     key={idx}
-                                    className='flex gap-4 items-start relative pl-1'>
-                                    <div className='flex-shrink-0 w-7 h-7 rounded-lg bg-gradient-to-br from-purple-500 to-purple-600 text-white flex items-center justify-center text-sm font-bold shadow-sm z-10'>
+                                    className='flex gap-4 items-start'>
+                                    {/* Number badge with padding from line */}
+                                    <div className='flex-shrink-0 w-7 h-7 rounded-lg bg-gradient-to-br from-purple-500 to-purple-600 text-white flex items-center justify-center text-sm font-bold shadow-sm'>
                                         {step.num}
                                     </div>
                                     <p className='text-base text-zinc-700 leading-relaxed flex-1 pt-0.5'>
@@ -715,16 +816,18 @@ function StepCard({
             if (steps.length > 1) {
                 return (
                     <div className='relative'>
-                        <div className='absolute left-0 top-0 bottom-0 w-0.5 bg-purple-200 ml-3.5' />
-                        <div className='space-y-4 relative'>
+                        {/* Vertical line positioned to the left with padding */}
+                        <div className='absolute left-0 top-0 bottom-0 w-0.5 bg-purple-200' />
+                        <div className='space-y-4 relative pl-5'>
                             {steps.map((step, idx) => {
                                 const match = step.match(/^(\d+)[.:]\s+(.+)$/);
                                 if (match) {
-  return (
+                                    return (
                                         <div
                                             key={idx}
-                                            className='flex gap-4 items-start relative pl-1'>
-                                            <div className='flex-shrink-0 w-7 h-7 rounded-lg bg-gradient-to-br from-purple-500 to-purple-600 text-white flex items-center justify-center text-sm font-bold shadow-sm z-10'>
+                                            className='flex gap-4 items-start'>
+                                            {/* Number badge with padding from line */}
+                                            <div className='flex-shrink-0 w-7 h-7 rounded-lg bg-gradient-to-br from-purple-500 to-purple-600 text-white flex items-center justify-center text-sm font-bold shadow-sm'>
                                                 {match[1]}
                                             </div>
                                             <p className='text-base text-zinc-700 leading-relaxed flex-1 pt-0.5'>
@@ -786,7 +889,9 @@ function StepCard({
                     const formatItem = (item: string) => {
                         const actionMatch = Object.keys(ACTION_ICONS).find(
                             (action) =>
-                                item.toLowerCase().startsWith(action.toLowerCase() + ' ')
+                                item
+                                    .toLowerCase()
+                                    .startsWith(action.toLowerCase() + ' ')
                         );
                         if (actionMatch) {
                             return (
@@ -813,13 +918,15 @@ function StepCard({
                                 {beforeColon}
                             </p>
                             <div className='relative'>
-                                <div className='absolute left-0 top-0 bottom-0 w-0.5 bg-purple-200 ml-2.5' />
-                                <ul className='space-y-3 relative'>
+                                {/* Vertical line positioned to the left with padding */}
+                                <div className='absolute left-0 top-0 bottom-0 w-0.5 bg-purple-200' />
+                                <ul className='space-y-3 relative pl-5'>
                                     {items.map((item, idx) => (
                                         <li
                                             key={idx}
-                                            className='flex items-start gap-4 relative pl-1'>
-                                            <div className='flex-shrink-0 w-2 h-2 rounded-full bg-purple-500 mt-2 z-10' />
+                                            className='flex items-start gap-4'>
+                                            {/* Bullet dot with padding from line */}
+                                            <div className='flex-shrink-0 w-2 h-2 rounded-full bg-purple-500 mt-[6px]' />
                                             <div className='flex-1 pt-0.5'>
                                                 {formatItem(item)}
                                             </div>
@@ -845,13 +952,15 @@ function StepCard({
             if (items.length > 2) {
                 return (
                     <div className='relative'>
-                        <div className='absolute left-0 top-0 bottom-0 w-0.5 bg-purple-200 ml-2.5' />
-                        <ul className='space-y-3 relative'>
+                        {/* Vertical line positioned to the left with padding */}
+                        <div className='absolute left-0 top-0 bottom-0 w-0.5 bg-purple-200' />
+                        <ul className='space-y-3 relative pl-5'>
                             {items.map((item, idx) => (
                                 <li
                                     key={idx}
-                                    className='flex items-start gap-4 relative pl-1'>
-                                    <div className='flex-shrink-0 w-2 h-2 rounded-full bg-purple-500 mt-2 z-10' />
+                                    className='flex items-start gap-4'>
+                                    {/* Bullet dot with padding from line */}
+                                    <div className='flex-shrink-0 w-2 h-2 rounded-full bg-purple-500 mt-[6px]' />
                                     <span className='text-base text-zinc-700 leading-relaxed flex-1 pt-0.5'>
                                         {item}
                                     </span>
@@ -863,36 +972,497 @@ function StepCard({
             }
         }
 
+        // Handle "Admins handle:" pattern (same format as "Key features include:")
+        if (content.includes('Admins handle:')) {
+            const parts = content.split('Admins handle:');
+            if (parts.length === 2) {
+                const introText = parts[0].trim();
+                const featuresText = parts[1].trim();
+
+                // Extract closing sentence if it exists
+                const lastPeriodIndex = featuresText.lastIndexOf('.');
+                let closingSentence = '';
+                let cleanFeaturesText = featuresText;
+
+                if (
+                    lastPeriodIndex > 0 &&
+                    lastPeriodIndex < featuresText.length - 10
+                ) {
+                    const textAfterPeriod = featuresText
+                        .substring(lastPeriodIndex + 1)
+                        .trim();
+                    if (
+                        textAfterPeriod.length > 20 &&
+                        !textAfterPeriod.match(/^(While|As)/i)
+                    ) {
+                        closingSentence = '';
+                    } else if (textAfterPeriod.length > 0) {
+                        closingSentence = textAfterPeriod;
+                        cleanFeaturesText = featuresText.substring(
+                            0,
+                            lastPeriodIndex
+                        );
+                    }
+                }
+
+                const featureItems: Array<{
+                    category: string;
+                    description: string;
+                }> = [];
+
+                const categoryPattern =
+                    /([A-Z][A-Za-z]+(?:\s+[A-Z][A-Za-z]+)*(?:\s*&\s*[A-Z][A-Za-z]+)?)\s*—/g;
+                const categoryMatches: Array<{
+                    index: number;
+                    category: string;
+                }> = [];
+
+                let match;
+                while (
+                    (match = categoryPattern.exec(cleanFeaturesText)) !== null
+                ) {
+                    categoryMatches.push({
+                        index: match.index,
+                        category: match[1].trim(),
+                    });
+                }
+
+                for (let i = 0; i < categoryMatches.length; i++) {
+                    const currentMatch = categoryMatches[i];
+                    const nextMatch = categoryMatches[i + 1];
+
+                    const segmentStart = currentMatch.index;
+                    const segmentEnd = nextMatch
+                        ? nextMatch.index
+                        : cleanFeaturesText.length;
+
+                    // Extract the segment and ensure we start exactly at the category name
+                    let segment = cleanFeaturesText.substring(
+                        segmentStart,
+                        segmentEnd
+                    );
+
+                    // Remove any leading punctuation and whitespace to ensure clean start
+                    segment = segment.replace(/^[,\s]+/, '').trim();
+
+                    // Safety check: ensure we start at the category
+                    const categoryStartInSegment = segment.indexOf(
+                        currentMatch.category
+                    );
+                    if (categoryStartInSegment > 0) {
+                        segment = segment.substring(categoryStartInSegment);
+                    }
+
+                    const dashMatch = segment.match(
+                        /^([A-Z][A-Za-z\s&]+?)\s*—\s*(.+?)$/
+                    );
+                    if (dashMatch) {
+                        let category = dashMatch[1].trim();
+                        let description = dashMatch[2].trim();
+
+                        description = description.replace(/,\s*$/, '').trim();
+                        if (!nextMatch) {
+                            if (!description.match(/\.\s*[A-Z]/)) {
+                                description = description
+                                    .replace(/\.\s*$/, '')
+                                    .trim();
+                            }
+                        } else {
+                            description = description
+                                .replace(/\.\s*$/, '')
+                                .trim();
+                        }
+
+                        category = category.replace(/[.,]\s*$/, '').trim();
+
+                        if (category && description) {
+                            featureItems.push({ category, description });
+                        }
+                    }
+                }
+
+                if (featureItems.length > 1) {
+                    return (
+                        <div className='space-y-4'>
+                            {introText && (
+                                <p className='text-base text-zinc-700 leading-relaxed'>
+                                    {introText}
+                                </p>
+                            )}
+                            <div>
+                                <p className='text-base text-zinc-900 font-semibold leading-relaxed mb-3'>
+                                    Admins handle:
+                                </p>
+                                <div className='relative'>
+                                    <div className='absolute left-0 top-0 bottom-0 w-0.5 bg-purple-200' />
+                                    <ul className='space-y-3 relative pl-5'>
+                                        {featureItems.map((item, idx) => (
+                                            <li
+                                                key={idx}
+                                                className='flex items-start gap-4'>
+                                                <div className='flex-shrink-0 w-2 h-2 rounded-full bg-purple-500 mt-[6px]' />
+                                                <span className='text-base text-zinc-700 leading-relaxed flex-1 pt-0.5'>
+                                                    <span className='font-semibold text-zinc-900'>
+                                                        {item.category}
+                                                    </span>
+                                                    {' — '}
+                                                    <span>
+                                                        {item.description}
+                                                    </span>
+                                                </span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </div>
+                            {closingSentence && (
+                                <p className='text-base text-zinc-700 leading-relaxed'>
+                                    {closingSentence}
+                                </p>
+                            )}
+                        </div>
+                    );
+                }
+            }
+        }
+
+        // Handle "What you need to know:" pattern (comma-separated capitalized items)
+        if (content.includes('What you need to know:')) {
+            const parts = content.split('What you need to know:');
+            if (parts.length === 2) {
+                const introText = parts[0].trim();
+                const featuresText = parts[1].trim();
+
+                // Extract closing sentence
+                const lastPeriodIndex = featuresText.lastIndexOf('.');
+                let closingSentence = '';
+                let cleanFeaturesText = featuresText;
+
+                if (
+                    lastPeriodIndex > 0 &&
+                    lastPeriodIndex < featuresText.length - 10
+                ) {
+                    const textAfterPeriod = featuresText
+                        .substring(lastPeriodIndex + 1)
+                        .trim();
+                    if (textAfterPeriod.length > 30) {
+                        closingSentence = textAfterPeriod;
+                        cleanFeaturesText = featuresText.substring(
+                            0,
+                            lastPeriodIndex
+                        );
+                    }
+                }
+
+                // Split on commas followed by capital letters (item boundaries)
+                // Pattern: "Item text, NextItem text, AnotherItem text"
+                const items: string[] = [];
+                const itemPattern = /([A-Z][^,]+?)(?=,\s*[A-Z]|$)/g;
+                let match;
+                while ((match = itemPattern.exec(cleanFeaturesText)) !== null) {
+                    const item = match[1]
+                        .trim()
+                        .replace(/\.\s*$/, '')
+                        .trim();
+                    if (item) items.push(item);
+                }
+
+                // Fallback: simple comma split if regex doesn't work
+                if (items.length === 0) {
+                    const simpleItems = cleanFeaturesText
+                        .split(/, (?=[A-Z])/)
+                        .map((i) =>
+                            i
+                                .trim()
+                                .replace(/\.\s*$/, '')
+                                .trim()
+                        )
+                        .filter(Boolean);
+                    items.push(...simpleItems);
+                }
+
+                if (items.length > 1) {
+                    return (
+                        <div className='space-y-4'>
+                            {introText && (
+                                <p className='text-base text-zinc-700 leading-relaxed'>
+                                    {introText}
+                                </p>
+                            )}
+                            <div>
+                                <p className='text-base text-zinc-900 font-semibold leading-relaxed mb-3'>
+                                    What you need to know:
+                                </p>
+                                <div className='relative'>
+                                    <div className='absolute left-0 top-0 bottom-0 w-0.5 bg-purple-200' />
+                                    <ul className='space-y-3 relative pl-5'>
+                                        {items.map((item, idx) => (
+                                            <li
+                                                key={idx}
+                                                className='flex items-start gap-4'>
+                                                <div className='flex-shrink-0 w-2 h-2 rounded-full bg-purple-500 mt-[6px]' />
+                                                <span className='text-base text-zinc-700 leading-relaxed flex-1 pt-0.5'>
+                                                    {item}
+                                                </span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </div>
+                            {closingSentence && (
+                                <p className='text-base text-zinc-700 leading-relaxed'>
+                                    {closingSentence}
+                                </p>
+                            )}
+                        </div>
+                    );
+                }
+            }
+        }
+
         // Handle "Key features include:" pattern with dash-separated items
         if (content.includes('Key features include:')) {
             const parts = content.split('Key features include:');
             if (parts.length === 2) {
-                const items = parts[1]
-                    .split('—')
-                    .map((item) => item.trim())
-                    .filter(Boolean);
+                const introText = parts[0].trim();
+                const featuresText = parts[1].trim();
+
+                // Extract closing sentence if it exists (after last period that's not part of a feature)
+                const lastPeriodIndex = featuresText.lastIndexOf('.');
+                let closingSentence = '';
+                let cleanFeaturesText = featuresText;
+
+                // Check if there's a closing sentence (after the last feature)
+                if (
+                    lastPeriodIndex > 0 &&
+                    lastPeriodIndex < featuresText.length - 10
+                ) {
+                    // Likely a closing sentence if there's substantial text after the period
+                    const textAfterPeriod = featuresText
+                        .substring(lastPeriodIndex + 1)
+                        .trim();
+                    if (
+                        textAfterPeriod.length > 20 &&
+                        !textAfterPeriod.match(/^(iOS|Android)/i)
+                    ) {
+                        // Not a closing sentence, keep the period
+                        closingSentence = '';
+                    } else if (textAfterPeriod.length > 0) {
+                        closingSentence = textAfterPeriod;
+                        cleanFeaturesText = featuresText.substring(
+                            0,
+                            lastPeriodIndex
+                        );
+                    }
+                }
+
+                // Parse features: each feature is "CategoryName — description"
+                // Features are separated by ", " before the next category name
+                // Pattern: "Category — description, NextCategory — description"
+                const featureItems: Array<{
+                    category: string;
+                    description: string;
+                }> = [];
+
+                // Find all feature boundaries by matching "CategoryName —" patterns
+                // Category names are 1-3 capitalized words, may include "&"
+                // Pattern: "Category Name [& Another] — description"
+                // Match em-dash (—) or regular dash (-) after category
+                const categoryPattern =
+                    /([A-Z][A-Za-z]+(?:\s+[A-Z][A-Za-z]+)*(?:\s*&\s*[A-Z][A-Za-z]+)?)\s*[—–-]\s*/g;
+                const categoryMatches: Array<{
+                    index: number;
+                    category: string;
+                    fullMatch: string;
+                }> = [];
+
+                let match;
+                // Reset regex lastIndex to start from beginning
+                categoryPattern.lastIndex = 0;
+                while (
+                    (match = categoryPattern.exec(cleanFeaturesText)) !== null
+                ) {
+                    categoryMatches.push({
+                        index: match.index,
+                        category: match[1].trim(),
+                        fullMatch: match[0], // Include the dash for reference
+                    });
+                }
+
+                // Extract each feature segment
+                for (let i = 0; i < categoryMatches.length; i++) {
+                    const currentMatch = categoryMatches[i];
+                    const nextMatch = categoryMatches[i + 1];
+
+                    // Get the segment from current category to next category (or end)
+                    // The match.index points directly to the start of the category name
+                    const segmentStart = currentMatch.index;
+                    const segmentEnd = nextMatch
+                        ? nextMatch.index
+                        : cleanFeaturesText.length;
+
+                    // Extract segment starting from the category
+                    let segment = cleanFeaturesText.substring(
+                        segmentStart,
+                        segmentEnd
+                    );
+
+                    // The segment should start with the category name, but might have leading comma/space
+                    // from the previous description. Remove any leading punctuation/whitespace.
+                    segment = segment.replace(/^[,\s]+/, '').trim();
+
+                    // Verify the segment starts with our category (safety check)
+                    if (!segment.startsWith(currentMatch.category)) {
+                        // Try to find the category in the segment
+                        const categoryPos = segment.indexOf(
+                            currentMatch.category
+                        );
+                        if (categoryPos > 0) {
+                            // Extract from category position
+                            segment = segment.substring(categoryPos);
+                        } else if (categoryPos === -1) {
+                            // Category not found - skip this item
+                            continue;
+                        }
+                    }
+
+                    // Parse "CategoryName — description" format
+                    // The regex should match the full pattern: CategoryName — description
+                    // Handle em-dash (—), en-dash (–), or regular dash (-)
+                    const dashMatch = segment.match(
+                        /^([A-Z][A-Za-z\s&]+?)\s*[—–-]\s*([\s\S]+?)$/
+                    );
+                    if (dashMatch) {
+                        let category = dashMatch[1].trim();
+                        let description = dashMatch[2].trim();
+
+                        // Remove trailing comma if present (separator between features)
+                        description = description.replace(/,\s*$/, '').trim();
+
+                        // Remove trailing period for non-final items
+                        if (nextMatch) {
+                            // Not the last item - remove trailing period
+                            description = description
+                                .replace(/\.\s*$/, '')
+                                .trim();
+                        } else {
+                            // Last item - only remove period if it's not part of closing sentence
+                            if (!description.match(/\.\s+[A-Z]/)) {
+                                description = description
+                                    .replace(/\.\s*$/, '')
+                                    .trim();
+                            }
+                        }
+
+                        // Clean category (should not have trailing punctuation)
+                        category = category.replace(/[.,]\s*$/, '').trim();
+
+                        if (category && description) {
+                            featureItems.push({ category, description });
+                        }
+                    } else {
+                        // Fallback: if regex doesn't match, try to extract manually using different dash types
+                        // Try em-dash first, then en-dash, then regular dash
+                        let dashIndex = segment.indexOf(' — ');
+                        if (dashIndex === -1)
+                            dashIndex = segment.indexOf(' – ');
+                        if (dashIndex === -1)
+                            dashIndex = segment.indexOf(' - ');
+
+                        if (dashIndex > 0) {
+                            const cat = segment.substring(0, dashIndex).trim();
+                            // Extract description after dash (all dash types are 3 chars: space + dash + space)
+                            const descStart = dashIndex + 3;
+                            let desc = segment.substring(descStart).trim();
+                            desc = desc
+                                .replace(/,\s*$/, '')
+                                .replace(/\.\s*$/, '')
+                                .trim();
+                            if (cat && desc) {
+                                featureItems.push({
+                                    category: cat,
+                                    description: desc,
+                                });
+                            }
+                        }
+                    }
+                }
+
+                // Fallback if regex didn't match: try simpler split approach
+                if (featureItems.length === 0) {
+                    const features = cleanFeaturesText
+                        .split(/,\s*(?=[A-Z][A-Za-z\s&]+?—)/)
+                        .map((f) => f.trim())
+                        .filter(Boolean);
+
+                    features.forEach((feature) => {
+                        const dashMatch = feature.match(/^(.+?)\s*—\s*(.+?)$/);
+                        if (dashMatch) {
+                            featureItems.push({
+                                category: dashMatch[1].trim(),
+                                description: dashMatch[2]
+                                    .trim()
+                                    .replace(/,\s*$/, '')
+                                    .replace(/\.$/, ''),
+                            });
+                        }
+                    });
+                }
+
+                const items = featureItems;
+
                 if (items.length > 1) {
                     return (
                         <div className='space-y-4'>
-                            <p className='text-base text-zinc-900 font-semibold leading-relaxed mb-3'>
-                                Key features include:
-                            </p>
-                            <div className='relative'>
-                                <div className='absolute left-0 top-0 bottom-0 w-0.5 bg-purple-200 ml-2.5' />
-                                <ul className='space-y-3 relative'>
-                                    {items.map((item, idx) => (
-                                        <li
-                                            key={idx}
-                                            className='flex items-start gap-4 relative pl-1'>
-                                            <div className='flex-shrink-0 w-2 h-2 rounded-full bg-purple-500 mt-2 z-10' />
-                                            <span className='text-base text-zinc-700 leading-relaxed flex-1 pt-0.5'>
-                                                {item}
-                                            </span>
-                                        </li>
-                                    ))}
-                                </ul>
-      </div>
-    </div>
+                            {/* Intro text */}
+                            {introText && (
+                                <p className='text-base text-zinc-700 leading-relaxed'>
+                                    {introText}
+                                </p>
+                            )}
+                            <div>
+                                <p className='text-base text-zinc-900 font-semibold leading-relaxed mb-3'>
+                                    Key features include:
+                                </p>
+                                <div className='relative'>
+                                    {/* Vertical line positioned to the left with padding */}
+                                    <div className='absolute left-0 top-0 bottom-0 w-0.5 bg-purple-200' />
+                                    <ul className='space-y-3 relative pl-5'>
+                                        {items.map((item, idx) => (
+                                            <li
+                                                key={idx}
+                                                className='flex items-start gap-4'>
+                                                {/* Bullet dot with padding from line */}
+                                                <div className='flex-shrink-0 w-2 h-2 rounded-full bg-purple-500 mt-[6px]' />
+                                                <span className='text-base text-zinc-700 leading-relaxed flex-1 pt-0.5'>
+                                                    {item.category ? (
+                                                        <>
+                                                            <span className='font-semibold text-zinc-900'>
+                                                                {item.category}
+                                                            </span>
+                                                            {' — '}
+                                                            <span>
+                                                                {
+                                                                    item.description
+                                                                }
+                                                            </span>
+                                                        </>
+                                                    ) : (
+                                                        item.description
+                                                    )}
+                                                </span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </div>
+                            {/* Closing sentence */}
+                            {closingSentence && (
+                                <p className='text-base text-zinc-700 leading-relaxed'>
+                                    {closingSentence}
+                                </p>
+                            )}
+                        </div>
                     );
                 }
             }
@@ -927,7 +1497,11 @@ function StepCard({
                                                         idx === 0
                                                             ? 'font-semibold text-zinc-900'
                                                             : 'text-zinc-700'
-                                                    } ${cellIdx === 0 ? 'font-medium' : ''}`}>
+                                                    } ${
+                                                        cellIdx === 0
+                                                            ? 'font-medium'
+                                                            : ''
+                                                    }`}>
                                                     {cell}
                                                 </td>
                                             ))}
@@ -963,7 +1537,9 @@ function StepCard({
                         </p>
                         <div className='grid md:grid-cols-2 gap-3'>
                             {items.map((item, idx) => {
-                                const match = item.match(/^(.+?)\s*[(:]\s*(.+?)[)]?$/);
+                                const match = item.match(
+                                    /^(.+?)\s*[(:]\s*(.+?)[)]?$/
+                                );
                                 if (match) {
                                     return (
                                         <div
@@ -995,14 +1571,18 @@ function StepCard({
         }
 
         // Default: regular paragraph with better typography and action highlighting
-        const highlightedContent = content.split(/(\b(Add|Edit|Delete|View|Search|Approve|Reject|Verify|Update|Create|Assign|Monitor|Close)\s+[A-Z][^.!?]*[.!?])/g);
+        const highlightedContent = content.split(
+            /(\b(Add|Edit|Delete|View|Search|Approve|Reject|Verify|Update|Create|Assign|Monitor|Close)\s+[A-Z][^.!?]*[.!?])/g
+        );
         if (highlightedContent.length > 1) {
             return (
                 <div className='space-y-3'>
                     {highlightedContent.map((part, idx) => {
                         const actionMatch = Object.keys(ACTION_ICONS).find(
                             (action) =>
-                                part.toLowerCase().startsWith(action.toLowerCase() + ' ')
+                                part
+                                    .toLowerCase()
+                                    .startsWith(action.toLowerCase() + ' ')
                         );
                         if (actionMatch) {
                             return (
@@ -1078,16 +1658,16 @@ function StepCard({
                 <div className='ml-16'>{formatContent(content)}</div>
             </div>
         </article>
-  );
+    );
 }
 
 function Callout({
-  tone = 'info',
-  title,
-  children,
+    tone = 'info',
+    title,
+    children,
 }: React.PropsWithChildren<{ tone?: 'info' | 'warning'; title: string }>) {
-  const toneMap =
-    tone === 'warning'
+    const toneMap =
+        tone === 'warning'
             ? {
                   wrap: 'bg-gradient-to-br from-amber-50 to-amber-100/50 border-amber-300 shadow-md',
                   icon: '⚠️',
@@ -1102,21 +1682,24 @@ function Callout({
                   textColor: 'text-indigo-800',
                   chip: 'bg-indigo-500',
               };
-  return (
-        <div className={`rounded-2xl border-2 p-6 ${toneMap.wrap} relative overflow-hidden`}>
+    return (
+        <div
+            className={`rounded-2xl border-2 p-6 ${toneMap.wrap} relative overflow-hidden`}>
             {/* Decorative corner accent */}
             <div className='absolute top-0 right-0 w-24 h-24 bg-white/20 rounded-bl-full -mr-12 -mt-12' />
             <div className='relative flex items-start gap-4'>
                 <div className='flex-shrink-0 text-2xl'>{toneMap.icon}</div>
                 <div className='flex-1'>
-                    <div className={`font-semibold text-base mb-2 ${toneMap.titleColor}`}>
+                    <div
+                        className={`font-semibold text-base mb-2 ${toneMap.titleColor}`}>
                         {title}
                     </div>
-                    <div className={`text-sm leading-relaxed ${toneMap.textColor}`}>
+                    <div
+                        className={`text-sm leading-relaxed ${toneMap.textColor}`}>
                         {children}
                     </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 }

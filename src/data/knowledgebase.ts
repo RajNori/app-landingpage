@@ -767,7 +767,7 @@ export const ARTICLE_DETAILS: Record<string, Partial<ArticleDetail>> = {
                 id: 'helpi-app',
                 title: 'Helpi App (Helper Mobile App)',
                 content:
-                    'The Helpi App is your mobile companion for accepting and completing jobs. Key features include: Job Notifications — receive real-time alerts when jobs are available in your area, Job Browser — view available jobs, filter by service type, location, and pay rate, Navigation & Maps — built-in GPS navigation to job locations with geofence check-in/check-out, Job Management — accept jobs, track your work, submit completion proofs (photos, notes), Payment Tracking — view your earnings, payment history, and payout schedule, Profile Management — update your details, documents, and work preferences. The app is available for both iOS and Android devices.',
+                    'The Helpi App is your mobile companion for accepting and completing jobs. Key features include: Job Notifications — receive real-time alerts when jobs are available in your area, Job Browser — view available jobs, filter by service type, location, and pay rate, Navigation & Maps — built-in GPS navigation to job locations with geofence check-in and check-out, Job Management — accept jobs, track your work, and submit completion proofs (photos, notes), Payment Tracking — view your earnings, payment history, and payout schedule, Profile Management — update your details, documents, and work preferences. The app is available for both iOS and Android devices.',
             },
             {
                 id: 'client-app',
