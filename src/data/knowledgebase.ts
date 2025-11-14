@@ -714,6 +714,20 @@ export const KMS_CONTENT: KMSData = {
     },
 };
 
+// Structured content types
+export interface FeatureItem {
+    category: string;
+    description: string;
+}
+
+export interface StructuredContentSegment {
+    type: 'columns';
+    label: string;
+    items: FeatureItem[];
+    intro?: string;
+    closing?: string;
+}
+
 // Article detail content
 export interface ArticleDetail {
     slug: string;
@@ -727,7 +741,7 @@ export interface ArticleDetail {
     content: Array<{
         id: string;
         title: string;
-        content: string | React.ReactNode;
+        content: string | React.ReactNode | StructuredContentSegment;
     }>;
     callouts?: Array<{
         tone: 'info' | 'warning';
@@ -766,8 +780,45 @@ export const ARTICLE_DETAILS: Record<string, Partial<ArticleDetail>> = {
             {
                 id: 'helpi-app',
                 title: 'Helpi App (Helper Mobile App)',
-                content:
-                    'The Helpi App is your mobile companion for accepting and completing jobs. Key features include: Job Notifications — receive real-time alerts when jobs are available in your area, Job Browser — view available jobs, filter by service type, location, and pay rate, Navigation & Maps — built-in GPS navigation to job locations with geofence check-in and check-out, Job Management — accept jobs, track your work, and submit completion proofs (photos, notes), Payment Tracking — view your earnings, payment history, and payout schedule, Profile Management — update your details, documents, and work preferences. The app is available for both iOS and Android devices.',
+                content: {
+                    type: 'columns',
+                    label: 'Key features include',
+                    intro: 'The Helpi App is your mobile companion for accepting and completing jobs.',
+                    closing:
+                        'The app is available for both iOS and Android devices.',
+                    items: [
+                        {
+                            category: 'Job Notifications',
+                            description:
+                                'Receive real-time alerts when jobs are available in your area.',
+                        },
+                        {
+                            category: 'Job Browser',
+                            description:
+                                'View available jobs, filter by service type, location, and pay rate.',
+                        },
+                        {
+                            category: 'Navigation & Maps',
+                            description:
+                                'Built-in GPS navigation to job locations with geofence check-in and check-out.',
+                        },
+                        {
+                            category: 'Job Management',
+                            description:
+                                'Accept jobs, track your work, and submit completion proofs (photos, notes).',
+                        },
+                        {
+                            category: 'Payment Tracking',
+                            description:
+                                'View your earnings, payment history, and payout schedule.',
+                        },
+                        {
+                            category: 'Profile Management',
+                            description:
+                                'Update your details, documents, and work preferences.',
+                        },
+                    ],
+                },
             },
             {
                 id: 'client-app',

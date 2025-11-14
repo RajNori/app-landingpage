@@ -1,6 +1,11 @@
 'use client';
 
-import { KMS_CONTENT, ARTICLE_DETAILS, UserRole } from '@/data/knowledgebase';
+import {
+    KMS_CONTENT,
+    ARTICLE_DETAILS,
+    UserRole,
+    StructuredContentSegment,
+} from '@/data/knowledgebase';
 
 // Icon mapping for modules and common terms
 const MODULE_ICONS: Record<string, string> = {
@@ -165,11 +170,7 @@ export default function ArticleDetail({
                                 <StepCard
                                     index={index}
                                     title={section.title}
-                                    content={
-                                        typeof section.content === 'string'
-                                            ? section.content
-                                            : String(section.content)
-                                    }
+                                    content={section.content}
                                 />
                             </section>
                         ))}
@@ -312,8 +313,81 @@ function StepCard({
 }: {
     index: number;
     title: string;
-    content: string;
+    content: string | StructuredContentSegment | React.ReactNode;
 }) {
+    // Handle structured content first
+    if (typeof content === 'object' && content !== null && 'type' in content) {
+        const structured = content as StructuredContentSegment;
+        if (structured.type === 'columns') {
+            return (
+                <article className='relative bg-white rounded-xl border overflow-hidden mb-8 transition-all hover:shadow-lg border-zinc-200 shadow-sm'>
+                    <div className='absolute left-0 top-0 w-1.5 h-full bg-gradient-to-b from-purple-500 via-purple-400 to-purple-600' />
+                    <div className='p-6 pl-8'>
+                        <div className='flex items-start gap-4 mb-5'>
+                            <div className='relative flex-shrink-0'>
+                                <div className='w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-purple-600 text-white flex items-center justify-center text-base font-bold shadow-lg'>
+                                    {index + 1}
+                                </div>
+                                <div className='absolute -top-1 -right-1 w-5 h-5 rounded-full bg-white border-2 border-purple-500 flex items-center justify-center'>
+                                    <span className='text-[10px] font-bold text-purple-600'>
+                                        {index + 1}
+                                    </span>
+                                </div>
+                            </div>
+                            <div className='flex-1'>
+                                <h2 className='text-xl font-bold tracking-tight text-zinc-900 pt-1.5'>
+                                    {title}
+                                </h2>
+                            </div>
+                        </div>
+                        <div className='ml-16 space-y-5'>
+                            {structured.intro && (
+                                <p className='text-base text-zinc-700 leading-relaxed mb-1'>
+                                    {structured.intro}
+                                </p>
+                            )}
+                            <div className='space-y-3'>
+                                <p className='text-base text-zinc-900 font-semibold leading-relaxed'>
+                                    {structured.label}:
+                                </p>
+                                <div className='relative'>
+                                    <div className='absolute left-0 top-0 bottom-0 w-0.5 bg-purple-200' />
+                                    <ul className='space-y-3 relative pl-5'>
+                                        {structured.items.map((item, idx) => (
+                                            <li
+                                                key={idx}
+                                                className='flex items-start gap-4'>
+                                                <div className='flex-shrink-0 w-2 h-2 rounded-full bg-purple-500 mt-[6px]' />
+                                                <span className='text-base text-zinc-700 leading-relaxed flex-1 pt-0.5'>
+                                                    <span className='font-semibold text-zinc-900'>
+                                                        {item.category}
+                                                    </span>
+                                                    {' — '}
+                                                    <span>
+                                                        {item.description}
+                                                    </span>
+                                                </span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </div>
+                            {structured.closing && (
+                                <p className='text-base text-zinc-700 leading-relaxed mt-2 pt-2 border-t border-zinc-100'>
+                                    {structured.closing}
+                                </p>
+                            )}
+                        </div>
+                    </div>
+                </article>
+            );
+        }
+    }
+
+    // Convert to string for legacy string-based parsing
+    const contentString =
+        typeof content === 'string' ? content : String(content);
+
     // Detect if this is a module section (Dashboard, Users, Services, etc.)
     const isModuleSection = Object.keys(MODULE_ICONS).some(
         (key) => title.includes(key) || title === key
@@ -327,37 +401,55 @@ function StepCard({
         // First, check if content contains special patterns that need visual treatment
         // We'll process the content in segments, detecting and formatting embedded patterns
 
-        // Pattern 1: "Key columns include:" or "Columns include:" - format as 2-column grid
-        // Match until period followed by space and capital, or until next pattern keyword
-        const columnsPattern =
-            /(Key columns|Columns|Fields)(\s+include)?:\s*([^.]+?)(?=\.\s+(?:Admin actions|Admin tasks|Key admin tasks|Tabs|You can|Best practice|Always|Never|Only|Use|Check)|\.\s*$|$)/gi;
+        // Define pattern labels to search for (order matters - more specific first)
+        const patternLabels = [
+            {
+                type: 'columns' as const,
+                regex: /(Key columns|Columns|Fields)(\s+include)?:\s*/gi,
+                label: (m: RegExpMatchArray) => m[1],
+            },
+            {
+                type: 'actions' as const,
+                regex: /(Admin actions|Admin tasks|Key admin tasks):\s*/gi,
+                label: (m: RegExpMatchArray) => m[1],
+            },
+            {
+                type: 'youcan' as const,
+                regex: /You can:\s*/gi,
+                label: () => 'You can',
+            },
+            { type: 'tabs' as const, regex: /Tabs:\s*/gi, label: () => 'Tabs' },
+        ];
 
-        // Pattern 2: "Admin actions:" or "Admin tasks:" - format as action cards with icons
-        const actionsPattern =
-            /(Admin actions|Admin tasks|Key admin tasks):\s*([^.]+?)(?=\.\s+(?:Only|Never|Always|Use|Check|Best practice|Tabs|Columns|Fields|Key columns)|\.\s*$|$)/gi;
+        // Find all pattern label positions
+        interface PatternMatch {
+            type: 'columns' | 'actions' | 'youcan' | 'tabs';
+            labelStart: number;
+            contentStart: number;
+            label: string;
+        }
 
-        // Pattern 3: "You can:" - format as action list with icons and dashes
-        const youCanPattern =
-            /You can:\s*([^.]+?)(?=\.\s+(?:Best practice|Always|Never|Only|Admin actions|Tabs|Columns)|\.\s*$|$)/gi;
+        const patternMatches: PatternMatch[] = [];
 
-        // Pattern 4: "Tabs:" - format as cards
-        const tabsPattern =
-            /Tabs:\s*([^.]+?)(?=\.\s+(?:Admin actions|Admin tasks|You can|Columns|Fields|Key columns|Best practice)|\.\s*$|$)/gi;
+        // Find all pattern labels in the content
+        patternLabels.forEach((pattern) => {
+            const regex = new RegExp(pattern.regex.source, pattern.regex.flags);
+            let match;
+            while ((match = regex.exec(content)) !== null) {
+                patternMatches.push({
+                    type: pattern.type,
+                    labelStart: match.index,
+                    contentStart: match.index + match[0].length, // Start after the label and colon
+                    label: pattern.label(match),
+                });
+            }
+        });
 
-        // Check if content has any of these patterns
-        const hasColumns = columnsPattern.test(content);
-        const hasActions = actionsPattern.test(content);
-        const hasYouCan = youCanPattern.test(content);
-        const hasTabs = tabsPattern.test(content);
+        // Sort by position
+        patternMatches.sort((a, b) => a.labelStart - b.labelStart);
 
-        // Reset regex lastIndex
-        columnsPattern.lastIndex = 0;
-        actionsPattern.lastIndex = 0;
-        youCanPattern.lastIndex = 0;
-        tabsPattern.lastIndex = 0;
-
-        // If we have special patterns, process them and split content accordingly
-        if (hasColumns || hasActions || hasYouCan || hasTabs) {
+        // If we found patterns, process them
+        if (patternMatches.length > 0) {
             const segments: Array<{
                 type: 'text' | 'columns' | 'actions' | 'youcan' | 'tabs';
                 content: string;
@@ -365,86 +457,61 @@ function StepCard({
             }> = [];
             let lastIndex = 0;
 
-            // Find all pattern matches and their positions
-            const matches: Array<{
-                type: 'columns' | 'actions' | 'youcan' | 'tabs';
-                start: number;
-                end: number;
-                label: string;
-                content: string;
-            }> = [];
-
-            // Find column matches
-            let match;
-            while ((match = columnsPattern.exec(content)) !== null) {
-                matches.push({
-                    type: 'columns',
-                    start: match.index,
-                    end: match.index + match[0].length,
-                    label: match[1],
-                    content: match[3],
-                });
-            }
-
-            // Find action matches
-            while ((match = actionsPattern.exec(content)) !== null) {
-                matches.push({
-                    type: 'actions',
-                    start: match.index,
-                    end: match.index + match[0].length,
-                    label: match[1],
-                    content: match[2],
-                });
-            }
-
-            // Find "You can" matches
-            while ((match = youCanPattern.exec(content)) !== null) {
-                matches.push({
-                    type: 'youcan',
-                    start: match.index,
-                    end: match.index + match[0].length,
-                    label: 'You can',
-                    content: match[1],
-                });
-            }
-
-            // Find tab matches
-            while ((match = tabsPattern.exec(content)) !== null) {
-                matches.push({
-                    type: 'tabs',
-                    start: match.index,
-                    end: match.index + match[0].length,
-                    label: 'Tabs',
-                    content: match[1],
-                });
-            }
-
-            // Sort matches by position
-            matches.sort((a, b) => a.start - b.start);
-
-            // Build segments
-            matches.forEach((m) => {
-                // Add text before this match
-                if (m.start > lastIndex) {
+            // For each pattern, extract content until the next pattern or end of string
+            patternMatches.forEach((patternMatch, idx) => {
+                // Add text segment before this pattern
+                if (patternMatch.labelStart > lastIndex) {
                     const textSegment = content
-                        .substring(lastIndex, m.start)
+                        .substring(lastIndex, patternMatch.labelStart)
                         .trim();
                     if (textSegment) {
                         segments.push({ type: 'text', content: textSegment });
                     }
                 }
 
-                // Add the formatted pattern
+                // Find where this pattern's content ends (start of next pattern or end of content)
+                const nextPatternStart =
+                    idx < patternMatches.length - 1
+                        ? patternMatches[idx + 1].labelStart
+                        : content.length;
+
+                // Extract content between this pattern's content start and next pattern
+                let patternContent = content
+                    .substring(patternMatch.contentStart, nextPatternStart)
+                    .trim();
+
+                // Clean up: remove trailing period if it's followed by a space and the next pattern starts with a capital
+                // This handles cases like "...columns. Admin actions:" where the period belongs to the columns content
+                if (patternContent.endsWith('.')) {
+                    const afterPeriod = content
+                        .substring(
+                            patternMatch.contentStart + patternContent.length,
+                            nextPatternStart
+                        )
+                        .trim();
+                    // If there's a space and then a capital letter (likely start of next pattern), keep the period
+                    // Otherwise, it might be part of the content
+                    if (afterPeriod && /^\s+[A-Z]/.test(afterPeriod)) {
+                        // Period is likely a sentence end, keep it
+                    } else {
+                        // Remove trailing period if it seems to be just punctuation
+                        patternContent = patternContent
+                            .replace(/\.\s*$/, '')
+                            .trim();
+                    }
+                }
+
+                // Add the pattern segment
                 segments.push({
-                    type: m.type,
-                    content: m.content,
-                    label: m.label,
+                    type: patternMatch.type,
+                    content: patternContent,
+                    label: patternMatch.label,
                 });
 
-                lastIndex = m.end;
+                lastIndex = nextPatternStart;
             });
 
-            // Add remaining text
+            // Add remaining text after last pattern
             if (lastIndex < content.length) {
                 const textSegment = content.substring(lastIndex).trim();
                 if (textSegment) {
@@ -459,47 +526,64 @@ function StepCard({
                         if (segment.type === 'columns') {
                             // Parse items with descriptions in parentheses or after colons
                             // Split by comma, but be smart about it - look for comma followed by capital letter
+                            // This handles cases like "Email (login), Mobile (verified), Role (Admin, Helper, or Client)"
                             const items: string[] = [];
                             let currentItem = '';
                             let inParens = 0;
+                            let inQuotes = false;
 
                             for (let i = 0; i < segment.content.length; i++) {
                                 const char = segment.content[i];
+
+                                // Track parentheses for nested content
                                 if (char === '(') inParens++;
                                 else if (char === ')') inParens--;
 
+                                // Track quotes (though less common in this context)
+                                if (char === '"' || char === "'")
+                                    inQuotes = !inQuotes;
+
+                                // Check for comma that might be a separator
                                 if (
                                     char === ',' &&
                                     inParens === 0 &&
+                                    !inQuotes &&
                                     i + 1 < segment.content.length
                                 ) {
-                                    // Check if next non-space char is uppercase
-                                    const nextChar = segment.content
-                                        .substring(i + 1)
-                                        .trim()[0];
-                                    if (
-                                        nextChar &&
-                                        nextChar === nextChar.toUpperCase()
-                                    ) {
-                                        items.push(currentItem.trim());
-                                        currentItem = '';
-                                        // Skip the comma and following space
-                                        while (
-                                            i + 1 < segment.content.length &&
-                                            /[\s,]/.test(segment.content[i + 1])
+                                    // Look ahead to find the next non-whitespace character
+                                    const remaining = segment.content.substring(
+                                        i + 1
+                                    );
+                                    const nextNonSpaceMatch =
+                                        remaining.match(/^\s*([^\s,])/);
+
+                                    if (nextNonSpaceMatch) {
+                                        const nextChar = nextNonSpaceMatch[1];
+                                        // Split if next char is uppercase (likely start of new item)
+                                        // OR if we've accumulated a substantial item (more than 3 chars)
+                                        if (
+                                            nextChar ===
+                                                nextChar.toUpperCase() &&
+                                            currentItem.trim().length > 0
                                         ) {
-                                            i++;
+                                            items.push(currentItem.trim());
+                                            currentItem = '';
+                                            // Skip the comma and any following whitespace
+                                            i +=
+                                                nextNonSpaceMatch[0].length - 1; // -1 because loop will increment
+                                            continue;
                                         }
-                                        i--; // Adjust for loop increment
-                                        continue;
                                     }
                                 }
                                 currentItem += char;
                             }
-                            if (currentItem.trim())
-                                items.push(currentItem.trim());
 
-                            // Fallback to simple split if parsing failed
+                            // Add the last item
+                            if (currentItem.trim()) {
+                                items.push(currentItem.trim());
+                            }
+
+                            // Fallback to simple split if parsing failed or only got one item
                             const finalItems =
                                 items.length > 1
                                     ? items
@@ -561,9 +645,10 @@ function StepCard({
                         }
 
                         if (segment.type === 'actions') {
-                            // Parse action items
+                            // Parse action items - split on comma followed by capital letter
+                            // This handles: "Search users, View and edit, Deactivate accounts"
                             const items = segment.content
-                                .split(/,\s*(?=[A-Z])/)
+                                .split(/,\s*(?=[A-Z][a-z])/) // Match comma-space followed by capital+lowercase (word start)
                                 .map((item) => item.trim())
                                 .filter(Boolean);
 
@@ -613,9 +698,10 @@ function StepCard({
                         }
 
                         if (segment.type === 'youcan') {
-                            // Parse "You can:" items with dashes (e.g., "Add New Services — define...")
+                            // Parse "You can:" items with em-dashes (e.g., "Add New Services — define...")
+                            // Split on em-dash (—) or en-dash (–) followed by capital letter
                             const items = segment.content
-                                .split(/\s*—\s*(?=[A-Z])/)
+                                .split(/\s*[—–]\s*(?=[A-Z][a-z])/) // Match em-dash or en-dash followed by capital+lowercase
                                 .map((item) => item.trim())
                                 .filter(Boolean);
 
@@ -699,9 +785,10 @@ function StepCard({
                         }
 
                         if (segment.type === 'tabs') {
-                            // Parse tab items with descriptions
+                            // Parse tab items with descriptions (e.g., "Pending (new documents), Active (approved)")
+                            // Split on comma followed by capital letter (start of next tab name)
                             const items = segment.content
-                                .split(/,\s*(?=[A-Z][^,()]+(?:\(|:))/)
+                                .split(/,\s*(?=[A-Z][a-z])/) // Match comma-space followed by capital+lowercase (tab name start)
                                 .map((item) => item.trim())
                                 .filter(Boolean);
 
@@ -1083,14 +1170,16 @@ function StepCard({
 
                 if (featureItems.length > 1) {
                     return (
-                        <div className='space-y-4'>
+                        <div className='space-y-5'>
+                            {/* Intro text - no bullet, clear paragraph */}
                             {introText && (
-                                <p className='text-base text-zinc-700 leading-relaxed'>
+                                <p className='text-base text-zinc-700 leading-relaxed mb-1'>
                                     {introText}
                                 </p>
                             )}
-                            <div>
-                                <p className='text-base text-zinc-900 font-semibold leading-relaxed mb-3'>
+                            {/* Feature list section with clear separation */}
+                            <div className='space-y-3'>
+                                <p className='text-base text-zinc-900 font-semibold leading-relaxed'>
                                     Admins handle:
                                 </p>
                                 <div className='relative'>
@@ -1115,8 +1204,9 @@ function StepCard({
                                     </ul>
                                 </div>
                             </div>
+                            {/* Closing sentence - clearly separated */}
                             {closingSentence && (
-                                <p className='text-base text-zinc-700 leading-relaxed'>
+                                <p className='text-base text-zinc-700 leading-relaxed mt-2 pt-2 border-t border-zinc-100'>
                                     {closingSentence}
                                 </p>
                             )}
@@ -1183,14 +1273,16 @@ function StepCard({
 
                 if (items.length > 1) {
                     return (
-                        <div className='space-y-4'>
+                        <div className='space-y-5'>
+                            {/* Intro text - no bullet, clear paragraph */}
                             {introText && (
-                                <p className='text-base text-zinc-700 leading-relaxed'>
+                                <p className='text-base text-zinc-700 leading-relaxed mb-1'>
                                     {introText}
                                 </p>
                             )}
-                            <div>
-                                <p className='text-base text-zinc-900 font-semibold leading-relaxed mb-3'>
+                            {/* Feature list section with clear separation */}
+                            <div className='space-y-3'>
+                                <p className='text-base text-zinc-900 font-semibold leading-relaxed'>
                                     What you need to know:
                                 </p>
                                 <div className='relative'>
@@ -1209,8 +1301,9 @@ function StepCard({
                                     </ul>
                                 </div>
                             </div>
+                            {/* Closing sentence - clearly separated */}
                             {closingSentence && (
-                                <p className='text-base text-zinc-700 leading-relaxed'>
+                                <p className='text-base text-zinc-700 leading-relaxed mt-2 pt-2 border-t border-zinc-100'>
                                     {closingSentence}
                                 </p>
                             )}
@@ -1221,207 +1314,79 @@ function StepCard({
         }
 
         // Handle "Key features include:" pattern with dash-separated items
+        // Simplified parser: find all "CategoryName — description" patterns directly
         if (content.includes('Key features include:')) {
             const parts = content.split('Key features include:');
             if (parts.length === 2) {
                 const introText = parts[0].trim();
-                const featuresText = parts[1].trim();
+                let featuresText = parts[1].trim();
 
-                // Extract closing sentence if it exists (after last period that's not part of a feature)
-                const lastPeriodIndex = featuresText.lastIndexOf('.');
+                // Extract closing sentence (typically starts with "The app" or similar)
                 let closingSentence = '';
-                let cleanFeaturesText = featuresText;
-
-                // Check if there's a closing sentence (after the last feature)
-                if (
-                    lastPeriodIndex > 0 &&
-                    lastPeriodIndex < featuresText.length - 10
-                ) {
-                    // Likely a closing sentence if there's substantial text after the period
-                    const textAfterPeriod = featuresText
-                        .substring(lastPeriodIndex + 1)
-                        .trim();
-                    if (
-                        textAfterPeriod.length > 20 &&
-                        !textAfterPeriod.match(/^(iOS|Android)/i)
-                    ) {
-                        // Not a closing sentence, keep the period
-                        closingSentence = '';
-                    } else if (textAfterPeriod.length > 0) {
-                        closingSentence = textAfterPeriod;
-                        cleanFeaturesText = featuresText.substring(
-                            0,
-                            lastPeriodIndex
-                        );
-                    }
+                const closingPattern = /\.\s+(The\s+[^—]+?\.)$/i;
+                const closingMatch = featuresText.match(closingPattern);
+                if (closingMatch && closingMatch.index !== undefined) {
+                    closingSentence = closingMatch[1].trim();
+                    featuresText = featuresText.substring(
+                        0,
+                        closingMatch.index + 1
+                    );
                 }
 
-                // Parse features: each feature is "CategoryName — description"
-                // Features are separated by ", " before the next category name
-                // Pattern: "Category — description, NextCategory — description"
+                // Parse "Category — description" patterns
+                // Strategy: Split on the pattern ", [Capital Letter]... —" to separate features
+                // Then parse each segment as "Category — description"
                 const featureItems: Array<{
                     category: string;
                     description: string;
                 }> = [];
 
-                // Find all feature boundaries by matching "CategoryName —" patterns
-                // Category names are 1-3 capitalized words, may include "&"
-                // Pattern: "Category Name [& Another] — description"
-                // Match em-dash (—) or regular dash (-) after category
-                const categoryPattern =
-                    /([A-Z][A-Za-z]+(?:\s+[A-Z][A-Za-z]+)*(?:\s*&\s*[A-Z][A-Za-z]+)?)\s*[—–-]\s*/g;
-                const categoryMatches: Array<{
-                    index: number;
-                    category: string;
-                    fullMatch: string;
-                }> = [];
+                // Split on comma followed by space, then capital letter(s), then dash
+                // This pattern identifies the start of a new category
+                const segments = featuresText.split(
+                    /,\s+(?=[A-Z][A-Za-z]+(?:\s+[A-Z][A-Za-z]+)*(?:\s*[&]\s*[A-Z][A-Za-z]+)?\s*[—–-])/
+                );
 
-                let match;
-                // Reset regex lastIndex to start from beginning
-                categoryPattern.lastIndex = 0;
-                while (
-                    (match = categoryPattern.exec(cleanFeaturesText)) !== null
-                ) {
-                    categoryMatches.push({
-                        index: match.index,
-                        category: match[1].trim(),
-                        fullMatch: match[0], // Include the dash for reference
-                    });
-                }
-
-                // Extract each feature segment
-                for (let i = 0; i < categoryMatches.length; i++) {
-                    const currentMatch = categoryMatches[i];
-                    const nextMatch = categoryMatches[i + 1];
-
-                    // Get the segment from current category to next category (or end)
-                    // The match.index points directly to the start of the category name
-                    const segmentStart = currentMatch.index;
-                    const segmentEnd = nextMatch
-                        ? nextMatch.index
-                        : cleanFeaturesText.length;
-
-                    // Extract segment starting from the category
-                    let segment = cleanFeaturesText.substring(
-                        segmentStart,
-                        segmentEnd
-                    );
-
-                    // The segment should start with the category name, but might have leading comma/space
-                    // from the previous description. Remove any leading punctuation/whitespace.
-                    segment = segment.replace(/^[,\s]+/, '').trim();
-
-                    // Verify the segment starts with our category (safety check)
-                    if (!segment.startsWith(currentMatch.category)) {
-                        // Try to find the category in the segment
-                        const categoryPos = segment.indexOf(
-                            currentMatch.category
-                        );
-                        if (categoryPos > 0) {
-                            // Extract from category position
-                            segment = segment.substring(categoryPos);
-                        } else if (categoryPos === -1) {
-                            // Category not found - skip this item
-                            continue;
-                        }
-                    }
-
-                    // Parse "CategoryName — description" format
-                    // The regex should match the full pattern: CategoryName — description
-                    // Handle em-dash (—), en-dash (–), or regular dash (-)
+                segments.forEach((segment) => {
+                    // Each segment should be "Category — description"
                     const dashMatch = segment.match(
-                        /^([A-Z][A-Za-z\s&]+?)\s*[—–-]\s*([\s\S]+?)$/
+                        /^([A-Z][A-Za-z]+(?:\s+[A-Z][A-Za-z]+)*(?:\s*[&]\s*[A-Z][A-Za-z]+)?)\s*[—–-]\s*(.+)$/
                     );
                     if (dashMatch) {
-                        let category = dashMatch[1].trim();
+                        const category = dashMatch[1].trim().replace(/\.$/, '');
                         let description = dashMatch[2].trim();
 
-                        // Remove trailing comma if present (separator between features)
+                        // Remove trailing comma/period (unless it's the closing sentence)
                         description = description.replace(/,\s*$/, '').trim();
-
-                        // Remove trailing period for non-final items
-                        if (nextMatch) {
-                            // Not the last item - remove trailing period
+                        if (!description.match(/\.\s+The\s/i)) {
                             description = description
                                 .replace(/\.\s*$/, '')
                                 .trim();
-                        } else {
-                            // Last item - only remove period if it's not part of closing sentence
-                            if (!description.match(/\.\s+[A-Z]/)) {
-                                description = description
-                                    .replace(/\.\s*$/, '')
-                                    .trim();
-                            }
                         }
-
-                        // Clean category (should not have trailing punctuation)
-                        category = category.replace(/[.,]\s*$/, '').trim();
 
                         if (category && description) {
-                            featureItems.push({ category, description });
-                        }
-                    } else {
-                        // Fallback: if regex doesn't match, try to extract manually using different dash types
-                        // Try em-dash first, then en-dash, then regular dash
-                        let dashIndex = segment.indexOf(' — ');
-                        if (dashIndex === -1)
-                            dashIndex = segment.indexOf(' – ');
-                        if (dashIndex === -1)
-                            dashIndex = segment.indexOf(' - ');
-
-                        if (dashIndex > 0) {
-                            const cat = segment.substring(0, dashIndex).trim();
-                            // Extract description after dash (all dash types are 3 chars: space + dash + space)
-                            const descStart = dashIndex + 3;
-                            let desc = segment.substring(descStart).trim();
-                            desc = desc
-                                .replace(/,\s*$/, '')
-                                .replace(/\.\s*$/, '')
-                                .trim();
-                            if (cat && desc) {
-                                featureItems.push({
-                                    category: cat,
-                                    description: desc,
-                                });
-                            }
-                        }
-                    }
-                }
-
-                // Fallback if regex didn't match: try simpler split approach
-                if (featureItems.length === 0) {
-                    const features = cleanFeaturesText
-                        .split(/,\s*(?=[A-Z][A-Za-z\s&]+?—)/)
-                        .map((f) => f.trim())
-                        .filter(Boolean);
-
-                    features.forEach((feature) => {
-                        const dashMatch = feature.match(/^(.+?)\s*—\s*(.+?)$/);
-                        if (dashMatch) {
                             featureItems.push({
-                                category: dashMatch[1].trim(),
-                                description: dashMatch[2]
-                                    .trim()
-                                    .replace(/,\s*$/, '')
-                                    .replace(/\.$/, ''),
+                                category: category,
+                                description: description,
                             });
                         }
-                    });
-                }
+                    }
+                });
 
                 const items = featureItems;
 
                 if (items.length > 1) {
                     return (
-                        <div className='space-y-4'>
-                            {/* Intro text */}
+                        <div className='space-y-5'>
+                            {/* Intro text - no bullet, clear paragraph */}
                             {introText && (
-                                <p className='text-base text-zinc-700 leading-relaxed'>
+                                <p className='text-base text-zinc-700 leading-relaxed mb-1'>
                                     {introText}
                                 </p>
                             )}
-                            <div>
-                                <p className='text-base text-zinc-900 font-semibold leading-relaxed mb-3'>
+                            {/* Feature list section with clear separation */}
+                            <div className='space-y-3'>
+                                <p className='text-base text-zinc-900 font-semibold leading-relaxed'>
                                     Key features include:
                                 </p>
                                 <div className='relative'>
@@ -1456,9 +1421,9 @@ function StepCard({
                                     </ul>
                                 </div>
                             </div>
-                            {/* Closing sentence */}
+                            {/* Closing sentence - clearly separated */}
                             {closingSentence && (
-                                <p className='text-base text-zinc-700 leading-relaxed'>
+                                <p className='text-base text-zinc-700 leading-relaxed mt-2 pt-2 border-t border-zinc-100'>
                                     {closingSentence}
                                 </p>
                             )}
@@ -1655,7 +1620,7 @@ function StepCard({
                 </div>
 
                 {/* Content */}
-                <div className='ml-16'>{formatContent(content)}</div>
+                <div className='ml-16'>{formatContent(contentString)}</div>
             </div>
         </article>
     );
