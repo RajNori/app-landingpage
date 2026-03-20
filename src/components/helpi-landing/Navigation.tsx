@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { ShoppingCart, Menu, X } from 'lucide-react';
 import AuthSection from '../auth/AuthSection';
@@ -28,16 +29,19 @@ export default function Navigation({ cartItemCount = 0 }: NavigationProps) {
             <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
                 <div className='flex justify-between items-center h-16'>
                     {/* Logo */}
-                    <Link href='/' className='flex items-center'>
-                        <div className='w-10 h-10 bg-[#511076] rounded-xl flex items-center justify-center mr-3'>
-                            <span className='text-white font-bold text-xl'>
-                                H
-                            </span>
-                        </div>
+                    <Link href='/' className='flex items-center gap-2 sm:gap-3'>
+                        <Image
+                            src='/helpi-icon-round.png'
+                            alt='Helpi'
+                            width={40}
+                            height={40}
+                            className='h-10 w-10 object-contain rounded-xl flex-shrink-0'
+                            priority
+                        />
                         <span className='text-xl font-bold text-gray-900'>
                             Helpi
                         </span>
-                        <span className='text-sm text-[#511076] font-medium ml-2 hidden sm:block'>
+                        <span className='text-sm text-[#511076] font-medium ml-1 hidden sm:block'>
                             On-Demand
                         </span>
                     </Link>

@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
+import Image from 'next/image';
 import { KMS_CONTENT, UserRole } from '@/data/knowledgebase';
 import ArticleCard from '@/components/knowledgebase/ArticleCard';
 import ArticleDetail from '@/components/knowledgebase/ArticleDetail';
@@ -47,7 +48,13 @@ export default function KnowledgeBasePage() {
                 <div className='max-w-6xl mx-auto px-5 py-4 flex items-center gap-4'>
                     {/* Logo */}
                     <div className='flex items-center gap-3 mr-auto'>
-                        <div className='h-8 w-8 rounded-lg bg-purple-600' />
+                        <Image
+                            src='/helpi-icon.png'
+                            alt='Helpi'
+                            width={32}
+                            height={32}
+                            className='h-8 w-8 object-contain rounded-lg flex-shrink-0'
+                        />
                         <span className='font-semibold tracking-tight'>
                             Helpi Knowledge
                         </span>
