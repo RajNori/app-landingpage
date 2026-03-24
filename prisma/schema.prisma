@@ -168,3 +168,33 @@ enum PaymentStatus {
   REFUNDED          // Payment refunded
   PARTIALLY_REFUNDED // Partial refund
 }
+
+model BlogPost {
+  id              String         @id @default(cuid())
+  externalId      String         @unique
+  source          String         @default("third-party")
+  title           String
+  slug            String         @unique
+  excerpt         String?
+  contentHtml     String?
+  contentMarkdown String?
+  coverImageUrl   String?
+  authorName      String         @default("Helpi Team")
+  tags            String[]       @default([])
+  status          BlogPostStatus @default(DRAFT)
+  publishedAt     DateTime?
+  checksum        String?
+  syncVersion     Int            @default(1)
+  lastSyncedAt    DateTime?
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  @@index([status, publishedAt])
+  @@map("blog_posts")
+}
+
+enum BlogPostStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
