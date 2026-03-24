@@ -47,33 +47,43 @@ const DUMMY_BLOG_POST: PublishedBlogPostDetail = {
 };
 
 export async function getPublishedBlogPosts(): Promise<PublishedBlogPost[]> {
-    const posts = await prisma.blogPost.findMany({
-        where: { status: BlogPostStatus.PUBLISHED },
-        orderBy: { publishedAt: 'desc' },
-        select: {
-            id: true,
-            title: true,
-            slug: true,
-            excerpt: true,
-            coverImageUrl: true,
-            authorName: true,
-            tags: true,
-            publishedAt: true,
-            updatedAt: true,
-        },
-    });
+    try {
+        const posts = await prisma.blogPost.findMany({
+            where: { status: BlogPostStatus.PUBLISHED },
+            orderBy: { publishedAt: 'desc' },
+            select: {
+                id: true,
+                title: true,
+                slug: true,
+                excerpt: true,
+                coverImageUrl: true,
+                authorName: true,
+                tags: true,
+                publishedAt: true,
+                updatedAt: true,
+            },
+        });
 
-    return posts.length > 0 ? posts : [DUMMY_BLOG_POST];
+        return posts.length > 0 ? posts : [DUMMY_BLOG_POST];
+    } catch (error) {
+        console.error('Blog query failed, using fallback post:', error);
+        return [DUMMY_BLOG_POST];
+    }
 }
 
 export async function getPublishedBlogPostBySlug(
     slug: string
 ): Promise<PublishedBlogPostDetail | null> {
-    const post = await prisma.blogPost.findFirst({
-        where: { slug, status: BlogPostStatus.PUBLISHED },
-    });
+    try {
+        const post = await prisma.blogPost.findFirst({
+            where: { slug, status: BlogPostStatus.PUBLISHED },
+        });
 
-    if (post) return post;
+        if (post) return post;
+    } catch (error) {
+        console.error('Blog detail query failed, using fallback post:', error);
+    }
+
     if (slug === DUMMY_BLOG_POST.slug) return DUMMY_BLOG_POST;
     return null;
 }
