@@ -20,6 +20,7 @@ const appScreens = [
                 { icon: '✨', text: 'Deep Cleaning', price: '$280' },
                 { icon: '📦', text: 'Move-in/out', price: '$350' },
             ],
+            note: 'All Prices Exclude GST',
         },
     },
     {
@@ -66,6 +67,7 @@ const appScreens = [
                 { icon: '🏠', text: 'Regular Cleaning', status: '$180' },
                 { icon: '⏰', text: 'Next: March 15', status: '2:00 PM' },
             ],
+            note: 'All Prices Exclude GST',
         },
     },
     {
@@ -94,6 +96,7 @@ const appScreens = [
                 { icon: '📊', text: 'This month', status: '$540' },
                 { icon: '🎁', text: 'Loyalty discount', status: '10% off' },
             ],
+            note: 'All Prices Exclude GST',
         },
     },
 ];
@@ -455,6 +458,11 @@ export default function AppScreensCarousel() {
                                                     </>
                                                 )}
                                             </div>
+                                            {'note' in screen.mockup && (
+                                                <p className='mt-3 text-[11px] text-gray-500'>
+                                                    {screen.mockup.note}
+                                                </p>
+                                            )}
                                         </div>
                                     </div>
 

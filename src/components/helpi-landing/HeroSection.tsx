@@ -376,6 +376,9 @@ export default function HeroSection({
                                             </div>
                                         </div>
                                     </div>
+                                    <p className='px-4 pb-3 text-[11px] text-gray-500'>
+                                        All Prices Exclude GST
+                                    </p>
                                 </div>
 
                                 {/* Fixed Bottom - Horizontal Helper Tiles */}
