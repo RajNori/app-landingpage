@@ -16,7 +16,7 @@ export default function ServicesPage() {
                         transition={{ duration: 0.8 }}
                         className='mb-8'>
                         <h1 className='text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6'>
-                            Professional Cleaning Services
+                            General Cleaning Services
                         </h1>
                         <p className='text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed'>
                             Expert cleaning services tailored to your needs. All

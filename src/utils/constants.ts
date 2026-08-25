@@ -9,7 +9,7 @@ export const HELPI_CONFIG = {
         primaryColorDark: '#3d0a5a',
     },
     hero: {
-        title: 'Find Help Fast - Professional Cleaning On-Demand',
+        title: 'Find Help Fast - Vetted Helpers On-Demand',
         subtitle:
             'Help on the way in minutes. Book trusted, vetted professionals instantly. Find help quick across Australia with same-day service and transparent pricing.',
         primaryCTA: 'Find Help Fast',
