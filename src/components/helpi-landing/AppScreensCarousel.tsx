@@ -2,8 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { useRouter } from 'next/navigation';
-import Image from 'next/image';
+import { scrollToAppDownload } from '@/utils/scroll';
 import { useKeenSlider } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
 
@@ -102,15 +101,8 @@ const appScreens = [
 ];
 
 export default function AppScreensCarousel() {
-    const router = useRouter();
     const [currentSlide, setCurrentSlide] = useState(0);
     const [loaded, setLoaded] = useState(false);
-
-    const handleAppStoreDownload = () => {
-        // For now, redirect to services page
-        // In production, this would link to app stores
-        router.push('/services');
-    };
 
     const [sliderRef, instanceRef] = useKeenSlider({
         initial: 0,
@@ -515,30 +507,11 @@ export default function AppScreensCarousel() {
                             Get the full Helpi experience on your mobile device.
                             Available on iOS and Android.
                         </p>
-                        <div className='flex flex-row items-center gap-4 justify-center'>
+                        <div className='flex justify-center'>
                             <button
-                                onClick={handleAppStoreDownload}
-                                aria-label='Download on the App Store'
-                                className='hover:opacity-80 transition-opacity duration-200 transform hover:scale-105'>
-                                <Image
-                                    src='/badges/app-store-badge.svg'
-                                    width={160}
-                                    height={56}
-                                    alt='Download on the App Store'
-                                    className='h-[56px] w-auto object-contain'
-                                />
-                            </button>
-                            <button
-                                onClick={handleAppStoreDownload}
-                                aria-label='Get it on Google Play'
-                                className='hover:opacity-80 transition-opacity duration-200 transform hover:scale-105'>
-                                <Image
-                                    src='/badges/google-play-badge.svg'
-                                    width={520}
-                                    height={182}
-                                    alt='Get it on Google Play'
-                                    className='h-[182px] w-auto object-contain'
-                                />
+                                onClick={scrollToAppDownload}
+                                className='bg-[#511076] hover:bg-[#6b2a8f] text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-purple-200 cursor-pointer'>
+                                Get the App
                             </button>
                         </div>
                     </div>

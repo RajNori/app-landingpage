@@ -1,8 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import { APP_DOWNLOAD_SECTION_ID, scrollToAppDownload } from '@/utils/scroll';
 
 interface FinalCTAProps {
     title: string;
@@ -17,20 +17,10 @@ export default function FinalCTA({
     primaryCTA,
     secondaryCTA,
 }: FinalCTAProps) {
-    const router = useRouter();
-
-    const handleBookNow = () => router.push('/services');
-    const handleGetQuote = () => router.push('/contact');
-    const handleDownload = () => {
-        // For now, redirect to services page
-        // In production, this would link to app stores
-        router.push('/services');
-    };
-
     const ctaClass =
-        'bg-[#511076] hover:bg-[#6b2a8f] text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center gap-2 justify-center focus:outline-none focus:ring-4 focus:ring-purple-200';
+        'bg-[#511076] hover:bg-[#6b2a8f] text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center gap-2 justify-center focus:outline-none focus:ring-4 focus:ring-purple-200 cursor-pointer';
     const outlineClass =
-        'border-2 border-[#511076] text-[#511076] hover:bg-[#511076] hover:text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 flex items-center gap-2 justify-center focus:outline-none focus:ring-4 focus:ring-purple-200';
+        'border-2 border-[#511076] text-[#511076] hover:bg-[#511076] hover:text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 flex items-center gap-2 justify-center focus:outline-none focus:ring-4 focus:ring-purple-200 cursor-pointer';
 
     return (
         <section className='py-20 px-4 bg-gradient-to-br from-purple-50 via-white to-blue-50 relative overflow-hidden'>
@@ -64,45 +54,38 @@ export default function FinalCTA({
                     transition={{ duration: 0.8, delay: 0.4 }}
                     viewport={{ once: true }}
                     className='flex flex-col sm:flex-row gap-4 justify-center mb-12'>
-                    <button onClick={handleBookNow} className={ctaClass}>
+                    <button onClick={scrollToAppDownload} className={ctaClass}>
                         {primaryCTA}
                     </button>
-                    <button onClick={handleGetQuote} className={outlineClass}>
+                    <button
+                        onClick={scrollToAppDownload}
+                        className={outlineClass}>
                         {secondaryCTA}
                     </button>
                 </motion.div>
 
                 {/* Download App Badges */}
                 <motion.div
+                    id={APP_DOWNLOAD_SECTION_ID}
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.6 }}
                     viewport={{ once: true }}
-                    className='flex flex-row items-center justify-center gap-4 mb-8'>
-                    <button
-                        onClick={handleDownload}
-                        aria-label='Download on the App Store'
-                        className='hover:opacity-80 transition-opacity duration-200 transform hover:scale-105'>
-                        <Image
-                            src='/badges/app-store-badge.svg'
-                            width={160}
-                            height={56}
-                            alt='Download on the App Store'
-                            className='h-[56px] w-auto object-contain'
-                        />
-                    </button>
-                    <button
-                        onClick={handleDownload}
-                        aria-label='Get it on Google Play'
-                        className='hover:opacity-80 transition-opacity duration-200 transform hover:scale-105'>
-                        <Image
-                            src='/badges/google-play-badge.svg'
-                            width={520}
-                            height={182}
-                            alt='Get it on Google Play'
-                            className='h-[182px] w-auto object-contain'
-                        />
-                    </button>
+                    className='flex flex-row items-center justify-center gap-4 mb-8 scroll-mt-24'>
+                    <Image
+                        src='/badges/app-store-badge.svg'
+                        width={160}
+                        height={56}
+                        alt='Download on the App Store'
+                        className='h-[56px] w-auto object-contain'
+                    />
+                    <Image
+                        src='/badges/google-play-badge.svg'
+                        width={520}
+                        height={182}
+                        alt='Get it on Google Play'
+                        className='h-[182px] w-auto object-contain'
+                    />
                 </motion.div>
 
                 <motion.div
@@ -126,9 +109,9 @@ export default function FinalCTA({
                     </span>
                 </div>
                 <button
-                    onClick={handleDownload}
-                    className='bg-[#511076] hover:bg-[#6b2a8f] text-white px-4 py-2 rounded-xl font-semibold text-sm shadow-lg transition-all duration-200'>
-                    Download
+                    onClick={scrollToAppDownload}
+                    className='bg-[#511076] hover:bg-[#6b2a8f] text-white px-4 py-2 rounded-xl font-semibold text-sm shadow-lg transition-all duration-200 cursor-pointer'>
+                    Get the App
                 </button>
             </div>
         </section>

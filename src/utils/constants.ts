@@ -3,7 +3,7 @@ export const HELPI_CONFIG = {
         name: 'Helpi',
         tagline: 'Find Help Fast',
         description:
-            'Australia&apos;s leading on-demand cleaning platform - professional cleaners at your fingertips',
+            "Australia's leading on-demand cleaning platform - professional cleaners at your fingertips",
         primaryColor: '#511076',
         primaryColorLight: '#6b2a8f',
         primaryColorDark: '#3d0a5a',
@@ -12,8 +12,8 @@ export const HELPI_CONFIG = {
         title: 'Find Help Fast - Vetted Helpers On-Demand',
         subtitle:
             'Help on the way in minutes. Book trusted, vetted professionals instantly. Find help quick across Australia with same-day service and transparent pricing.',
-        primaryCTA: 'Find Help Fast',
-        secondaryCTA: 'View Services',
+        primaryCTA: 'Book Now',
+        secondaryCTA: 'Get the App',
         image: '/hero-cleaning.svg',
     },
     steps: [
@@ -55,13 +55,13 @@ export const HELPI_CONFIG = {
             icon: '💰',
             title: 'Transparent Pricing',
             description:
-                "See exactly what you&apos;ll pay upfront - no surprises, no hidden costs",
+                "See exactly what you'll pay upfront - no surprises, no hidden costs",
         },
         {
             icon: '🌟',
             title: '100% Satisfaction',
             description:
-                "Not happy? We&apos;ll re-clean for free or give you a full refund",
+                "Not happy? We'll re-clean for free or give you a full refund",
         },
         {
             icon: '🌿',
@@ -73,7 +73,7 @@ export const HELPI_CONFIG = {
             icon: '📱',
             title: 'Real-Time Tracking',
             description:
-                "Track your cleaner&apos;s arrival and service progress live - help on the way",
+                "Track your cleaner's arrival and service progress live - help on the way",
         },
     ],
     stats: [
@@ -113,7 +113,7 @@ export const HELPI_CONFIG = {
         },
         {
             question: "What if I'm not satisfied with the cleaning?",
-            answer: "We offer a 100% satisfaction guarantee. If you&apos;re not happy with the service, contact us within 24 hours and we&apos;ll either re-clean for free or provide a full refund.",
+            answer: "We offer a 100% satisfaction guarantee. If you're not happy with the service, contact us within 24 hours and we'll either re-clean for free or provide a full refund.",
         },
         {
             question: 'Can I schedule recurring cleanings?',
@@ -128,8 +128,8 @@ export const HELPI_CONFIG = {
         title: 'Ready to Find Help Fast?',
         subtitle:
             'Join thousands of Australian families who trust Helpi for instant, professional cleaning services. Help on the way when you need it most.',
-        primaryCTA: 'Find Help Fast',
-        secondaryCTA: 'Get Quote',
+        primaryCTA: 'Book Now',
+        secondaryCTA: 'Get the App',
     },
     footer: {
         links: {

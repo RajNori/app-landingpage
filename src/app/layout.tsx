@@ -1,9 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import { CartProvider } from '../contexts/CartContext';
-import CartCountProvider from '../components/CartCountProvider';
-import { ClerkProvider } from '@clerk/nextjs';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -60,17 +57,10 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <ClerkProvider>
-            <html lang='en'>
-                <body className={inter.className} suppressHydrationWarning>
-                    <CartProvider>
-                        <CartCountProvider />
-                        <main className='bg-white min-h-screen'>
-                            {children}
-                        </main>
-                    </CartProvider>
-                </body>
-            </html>
-        </ClerkProvider>
+        <html lang='en'>
+            <body className={inter.className} suppressHydrationWarning>
+                <main className='bg-white min-h-screen'>{children}</main>
+            </body>
+        </html>
     );
 }

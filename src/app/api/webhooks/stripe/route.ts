@@ -3,13 +3,24 @@ import { headers } from 'next/headers';
 import Stripe from 'stripe';
 import { prisma } from '@/lib/db';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-    apiVersion: '2025-08-27.basil',
-});
-
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
+const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY;
+const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
 export async function POST(request: NextRequest) {
+    if (!STRIPE_SECRET_KEY || !webhookSecret) {
+        console.error(
+            'Please add STRIPE_SECRET_KEY and STRIPE_WEBHOOK_SECRET to .env.local'
+        );
+        return NextResponse.json(
+            { error: 'Webhook is not configured' },
+            { status: 503 }
+        );
+    }
+
+    const stripe = new Stripe(STRIPE_SECRET_KEY, {
+        apiVersion: '2025-08-27.basil',
+    });
+
     try {
         const body = await request.text();
         const headersList = await headers();

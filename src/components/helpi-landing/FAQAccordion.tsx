@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useRouter } from 'next/navigation';
 import { FaPlus, FaMinus, FaQuestionCircle } from 'react-icons/fa';
 
 interface FAQ {
@@ -15,14 +14,11 @@ interface FAQAccordionProps {
 }
 
 export default function FAQAccordion({ faqs }: FAQAccordionProps) {
-    const router = useRouter();
     const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
     const toggleAccordion = (index: number) => {
         setExpandedIndex(expandedIndex === index ? null : index);
     };
-
-    const handleContactSupport = () => router.push('/contact');
 
     return (
         <section className='py-20 px-4 bg-gray-50'>
@@ -114,16 +110,14 @@ export default function FAQAccordion({ faqs }: FAQAccordionProps) {
                             <h3 className='text-2xl font-bold text-gray-900 mb-4'>
                                 Still have questions?
                             </h3>
-                            <p className='text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed'>
+                            <p className='text-gray-600 mb-6 max-w-2xl mx-auto leading-relaxed'>
                                 Our support team is here to help you 24/7. Get
                                 in touch and we&apos;ll get back to you as soon
                                 as possible.
                             </p>
-                            <button
-                                onClick={handleContactSupport}
-                                className='bg-[#511076] hover:bg-[#6b2a8f] text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-purple-200'>
-                                Contact Support
-                            </button>
+                            <p className='text-base font-medium text-[#511076]'>
+                                support@gethelpi.com
+                            </p>
                         </div>
                     </div>
                 </motion.div>

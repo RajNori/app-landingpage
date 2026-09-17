@@ -13,12 +13,12 @@ export const benefits = [
     {
         icon: '💰',
         title: 'Transparent Pricing',
-        description: "See exactly what you&apos;ll pay upfront - no surprises, no hidden costs",
+        description: "See exactly what you'll pay upfront - no surprises, no hidden costs",
     },
     {
         icon: '🌟',
         title: '100% Satisfaction',
-        description: "Not happy? We&apos;ll re-clean for free or give you a full refund",
+        description: "Not happy? We'll re-clean for free or give you a full refund",
     },
     {
         icon: '🌿',
@@ -28,6 +28,6 @@ export const benefits = [
     {
         icon: '📱',
         title: 'Real-Time Tracking',
-        description: "Track your cleaner&apos;s arrival and service progress live - help on the way",
+        description: "Track your cleaner's arrival and service progress live - help on the way",
     },
 ];

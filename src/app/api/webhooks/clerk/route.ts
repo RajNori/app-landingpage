@@ -6,11 +6,15 @@ import { prisma } from '@/lib/db';
 // Webhook secret from Clerk Dashboard
 const WEBHOOK_SECRET = process.env.CLERK_WEBHOOK_SECRET;
 
-if (!WEBHOOK_SECRET) {
-    throw new Error('Please add CLERK_WEBHOOK_SECRET to .env.local');
-}
-
 export async function POST(request: NextRequest) {
+    if (!WEBHOOK_SECRET) {
+        console.error('Please add CLERK_WEBHOOK_SECRET to .env.local');
+        return NextResponse.json(
+            { error: 'Webhook is not configured' },
+            { status: 503 }
+        );
+    }
+
     try {
         // Get the headers
         const headerPayload = await headers();
@@ -31,7 +35,7 @@ export async function POST(request: NextRequest) {
         const body = JSON.stringify(payload);
 
         // Create a new Svix instance with your secret.
-        const wh = new Webhook(WEBHOOK_SECRET!);
+        const wh = new Webhook(WEBHOOK_SECRET);
 
         let evt: {
             type: string;

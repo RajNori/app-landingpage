@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useRouter } from 'next/navigation';
+import { scrollToAppDownload } from '@/utils/scroll';
 import {
     FaClock,
     FaShieldAlt,
@@ -32,11 +32,6 @@ const benefitIcons = {
 };
 
 export default function BenefitsGrid({ benefits }: BenefitsGridProps) {
-    const router = useRouter();
-
-    const handleBookNow = () => router.push('/services');
-    const handleGetQuote = () => router.push('/contact');
-
     return (
         <section id='benefits' className='py-20 px-4 bg-white'>
             <div className='max-w-7xl mx-auto'>
@@ -117,16 +112,11 @@ export default function BenefitsGrid({ benefits }: BenefitsGridProps) {
                             clean today and see why we&apos;re the preferred
                             choice.
                         </p>
-                        <div className='flex flex-col sm:flex-row gap-4 justify-center'>
-                            <button 
-                                onClick={handleBookNow}
-                                className='bg-[#511076] text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-purple-200 hover:bg-[#6b2a8f]'>
-                                Find Help Fast
-                            </button>
-                            <button 
-                                onClick={handleGetQuote}
-                                className='border-2 border-[#511076] text-[#511076] hover:bg-[#511076] hover:text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-purple-200'>
-                                Get a Quote
+                        <div className='flex justify-center'>
+                            <button
+                                onClick={scrollToAppDownload}
+                                className='bg-[#511076] text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-purple-200 hover:bg-[#6b2a8f] cursor-pointer'>
+                                Get the App
                             </button>
                         </div>
                     </div>

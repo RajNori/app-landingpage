@@ -2,6 +2,31 @@
 
 A modern, responsive Next.js landing page for Helpi's on-demand cleaning services platform. Features a complete booking flow with service filtering, shopping cart functionality, and Stripe payment integration.
 
+## 🚧 Current Status: Landing Page Only
+
+**The deployed site currently ships the homepage on its own.** The booking, cart, and auth features documented below are built and still in the repository, but they are switched off until the app is ready. Everything in this section is reversible.
+
+### What's live
+
+- The homepage (`/`) with all of its sections: hero, how it works, benefits, app screens carousel, stats, testimonials, FAQ, and final CTA.
+- Two calls to action, `Book Now` and `Get the App`, which both smooth-scroll to the app store badges in the final section. The shared scroll helper and the target element id live in [src/utils/scroll.ts](src/utils/scroll.ts).
+- The carousel and FAQ accordion controls.
+- Three social links in [src/components/helpi-landing/Footer.tsx](src/components/helpi-landing/Footer.tsx), plus the support email and copyright.
+
+There is no internal navigation anywhere on the homepage. The other informational routes (`/about`, `/blog`, `/contact`, and the legal pages) still build and are reachable by direct URL, but nothing links to them.
+
+### What's switched off, and how to restore it
+
+| Disabled | How it was done | To re-enable |
+|----------|-----------------|--------------|
+| `/cart`, `/checkout`, `/services` | Renamed to `src/app/_cart`, `src/app/_checkout`, `src/app/_services`. The leading underscore makes them [Next.js private folders](https://nextjs.org/docs/app/building-your-application/routing/colocation#private-folders), so they are excluded from routing and the build. The page code itself is unchanged. | Rename the folders to drop the underscore. |
+| `CartProvider`, `ClerkProvider` | Removed from [src/app/layout.tsx](src/app/layout.tsx). [CartContext.tsx](src/contexts/CartContext.tsx) and `CartCountProvider` are untouched. | Re-add the providers to the root layout, or wrap only the routes that need them. |
+| Clerk middleware | `src/middleware.ts` was deleted. Without it, the `/api` routes that read the signed-in user (`/api/bookings`, `/api/users/*`, `/api/checkout`) will fail if called. They are unreachable from the UI. | Restore it from the last commit that had it: `git checkout 3cb4983 -- src/middleware.ts`. |
+
+### Build no longer requires auth or payment keys
+
+The Clerk and Stripe webhook routes used to read their secrets at module scope and throw on import, which failed `npm run build` whenever the environment variables were absent. They now validate inside the request handler and return `503 Webhook is not configured` instead, so a production build succeeds without Clerk or Stripe keys. The webhooks themselves still need their secrets set to do real work.
+
 ## ✨ Features
 
 ### 🏠 Service Management
@@ -185,11 +210,11 @@ Visit `/debug/hydration` to verify SSR/CSR consistency
 | Page | Description | Features |
 |------|-------------|----------|
 | `/` | Landing page | Hero, features, testimonials, CTA |
-| `/services` | Service catalog | Filtering, packages, pricing |
-| `/cart` | Shopping cart | Item management, totals, checkout |
-| `/checkout` | Payment status | Success/error handling |
-| `/about` | Company info | About Helpi and services |
-| `/contact` | Contact form | Customer inquiries |
+| `/services` | Service catalog | Filtering, packages, pricing — **currently disabled**, see [Current Status](#-current-status-landing-page-only) |
+| `/cart` | Shopping cart | Item management, totals, checkout — **currently disabled** |
+| `/checkout` | Payment status | Success/error handling — **currently disabled** |
+| `/about` | Company info | About Helpi and services (no longer linked from the homepage) |
+| `/contact` | Contact form | Customer inquiries (no longer linked from the homepage) |
 
 ## 🔧 Development Tools
 
@@ -247,5 +272,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**Helpi** - Professional cleaning services at your fingertips 🏠✨# Production Deployment Fri Oct  3 13:18:43 AEST 2025
-# Force deployment Fri Oct  3 14:02:00 AEST 2025
+**Helpi** - Professional cleaning services at your fingertips 🏠✨
