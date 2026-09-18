@@ -54,12 +54,12 @@ export default function ComingSoon({
                                 <FaHome className='w-5 h-5' />
                                 Back to Home
                             </button>
-                            <button
-                                onClick={() => router.push('/contact')}
+                            <a
+                                href='mailto:support@gethelpi.com'
                                 className='border-2 border-[#511076] text-[#511076] hover:bg-[#511076] hover:text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-purple-200 flex items-center justify-center gap-2'>
                                 <FaEnvelope className='w-5 h-5' />
                                 Contact Us
-                            </button>
+                            </a>
                         </div>
 
                         {/* Newsletter Signup */}
