@@ -109,15 +109,16 @@ export default function AppScreensCarousel() {
         loop: true,
         mode: 'free-snap',
         slides: {
-            perView: 1.2,
+            origin: 'center',
+            perView: 1.15,
             spacing: 16,
         },
         breakpoints: {
             '(min-width: 640px)': {
-                slides: { perView: 2.2, spacing: 20 },
+                slides: { origin: 'auto', perView: 2.2, spacing: 20 },
             },
             '(min-width: 1024px)': {
-                slides: { perView: 3.2, spacing: 24 },
+                slides: { origin: 'auto', perView: 3.2, spacing: 24 },
             },
         },
         slideChanged(slider) {
@@ -172,7 +173,7 @@ export default function AppScreensCarousel() {
                                         delay: index * 0.1,
                                     }}
                                     viewport={{ once: true }}
-                                    className='min-w-[280px] sm:min-w-[300px] snap-start rounded-xl shadow-lg p-6 bg-white border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1'>
+                                    className='snap-start rounded-xl shadow-lg p-6 bg-white border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1'>
                                     {/* Mock Phone */}
                                     <div className='relative mx-auto border-gray-300 dark:border-gray-800 bg-gray-300 dark:bg-gray-800 border-[3.5px] rounded-[0.625rem] h-[180px] w-[90px] shadow-2xl mb-4'>
                                         <div className='h-[8px] w-[0.75px] bg-gray-300 dark:bg-gray-800 absolute -start-[4.25px] top-[18px] rounded-s-lg'></div>

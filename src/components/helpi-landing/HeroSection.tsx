@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { scrollToAppDownload } from '@/utils/scroll';
+import type { IconType } from 'react-icons';
 import {
     FaShieldAlt,
     FaCheckCircle,
@@ -10,7 +11,43 @@ import {
     FaHeadset,
     FaGift,
     FaChartBar,
+    FaHome,
+    FaMagic,
+    FaBoxOpen,
+    FaBuilding,
+    FaCouch,
+    FaThLarge,
 } from 'react-icons/fa';
+
+interface HeroService {
+    name: string;
+    meta: string;
+    Icon: IconType;
+}
+
+interface HeroAction {
+    label: string;
+    Icon: IconType;
+}
+
+const HERO_SERVICES: HeroService[] = [
+    { name: 'Regular Cleaning', meta: '2-3 hours • $180', Icon: FaHome },
+    { name: 'Deep Cleaning', meta: '4-5 hours • $280', Icon: FaMagic },
+    { name: 'Move-in/out', meta: '6-8 hours • $350', Icon: FaBoxOpen },
+    { name: 'Office Cleaning', meta: '3-4 hours • $220', Icon: FaBuilding },
+    { name: 'Carpet Cleaning', meta: '2-3 hours • $150', Icon: FaCouch },
+    { name: 'Window Cleaning', meta: '1-2 hours • $160', Icon: FaThLarge },
+];
+
+const HERO_ACTIONS: HeroAction[] = [
+    { label: 'Schedule', Icon: FaCalendarAlt },
+    { label: 'Reviews', Icon: FaStar },
+    { label: 'Support', Icon: FaHeadset },
+    { label: 'Offers', Icon: FaGift },
+    { label: 'History', Icon: FaChartBar },
+];
+
+const HERO_SERVICE_LOOP: HeroService[] = [...HERO_SERVICES, ...HERO_SERVICES];
 
 interface HeroSectionProps {
     title: string;
@@ -135,289 +172,15 @@ export default function HeroSection({
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' }}
                     className='relative order-1 lg:order-2'>
-                    <div className='relative w-full h-[350px] md:h-[450px] lg:h-[550px] bg-gradient-to-br from-purple-100 to-blue-100 rounded-3xl p-6 lg:p-8 shadow-2xl'>
+                    <div className='hero-phone-stage relative w-full bg-gradient-to-br from-purple-100 to-blue-100 rounded-3xl p-4 sm:p-6 lg:p-8 shadow-2xl'>
                         <div className='absolute inset-0 bg-white/20 rounded-3xl backdrop-blur-sm' />
 
-                        {/* Phone Mockup */}
-                        <div className='relative z-10 w-full h-full flex items-center justify-center'>
-                            <div className='w-[240px] md:w-[260px] h-[480px] md:h-[500px] rounded-[2rem] shadow-2xl bg-white flex flex-col overflow-hidden'>
-                                {/* Status Bar */}
-                                <div className='h-10 flex items-center justify-between px-4 text-xs bg-[#f5f5f5] border-b'>
-                                    <span>9:41</span>
-                                    <div className='flex gap-1 items-center'>
-                                        <span>📶</span>
-                                        <span>📡</span>
-                                        <span>🔋</span>
-                                    </div>
-                                </div>
-
-                                {/* App Header */}
-                                <div className='bg-[#511076] text-white p-4'>
-                                    <div className='flex items-center justify-between'>
-                                        <span className='font-semibold text-lg'>
-                                            Helpi
-                                        </span>
-                                        <span className='text-sm bg-white/20 px-2 py-1 rounded-full'>
-                                            Book Now
-                                        </span>
-                                    </div>
-                                </div>
-
-                                {/* Vertically Scrolling Services */}
-                                <div className='flex-1 overflow-hidden relative'>
-                                    <div className='animate-scroll-up flex flex-col gap-2 p-4'>
-                                        {/* Service Tile 1 */}
-                                        <div className='bg-gray-50 rounded-xl p-3 border border-gray-100'>
-                                            <div className='flex items-center'>
-                                                <span className='text-2xl mr-3'>
-                                                    🏠
-                                                </span>
-                                                <div className='flex-1'>
-                                                    <div className='font-medium text-gray-900'>
-                                                        Regular Cleaning
-                                                    </div>
-                                                    <div className='text-sm text-gray-500'>
-                                                        2-3 hours • $180
-                                                    </div>
-                                                </div>
-                                                <span className='bg-[#511076] text-white px-3 py-1 rounded-lg text-sm font-medium'>
-                                                    Book
-                                                </span>
-                                            </div>
-                                        </div>
-
-                                        {/* Service Tile 2 */}
-                                        <div className='bg-gray-50 rounded-xl p-3 border border-gray-100'>
-                                            <div className='flex items-center'>
-                                                <span className='text-2xl mr-3'>
-                                                    ✨
-                                                </span>
-                                                <div className='flex-1'>
-                                                    <div className='font-medium text-gray-900'>
-                                                        Deep Cleaning
-                                                    </div>
-                                                    <div className='text-sm text-gray-500'>
-                                                        4-5 hours • $280
-                                                    </div>
-                                                </div>
-                                                <span className='bg-[#511076] text-white px-3 py-1 rounded-lg text-sm font-medium'>
-                                                    Book
-                                                </span>
-                                            </div>
-                                        </div>
-
-                                        {/* Service Tile 3 */}
-                                        <div className='bg-gray-50 rounded-xl p-3 border border-gray-100'>
-                                            <div className='flex items-center'>
-                                                <span className='text-2xl mr-3'>
-                                                    📦
-                                                </span>
-                                                <div className='flex-1'>
-                                                    <div className='flex-1'>
-                                                        <div className='font-medium text-gray-900'>
-                                                            Move-in/out
-                                                        </div>
-                                                        <div className='text-sm text-gray-500'>
-                                                            6-8 hours • $350
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <span className='bg-[#511076] text-white px-3 py-1 rounded-lg text-sm font-medium'>
-                                                    Book
-                                                </span>
-                                            </div>
-                                        </div>
-
-                                        {/* Service Tile 4 */}
-                                        <div className='bg-gray-50 rounded-xl p-3 border border-gray-100'>
-                                            <div className='flex items-center'>
-                                                <span className='text-2xl mr-3'>
-                                                    🏢
-                                                </span>
-                                                <div className='flex-1'>
-                                                    <div className='font-medium text-gray-900'>
-                                                        Office Cleaning
-                                                    </div>
-                                                    <div className='text-sm text-gray-500'>
-                                                        3-4 hours • $220
-                                                    </div>
-                                                </div>
-                                                <span className='bg-[#511076] text-white px-3 py-1 rounded-lg text-sm font-medium'>
-                                                    Book
-                                                </span>
-                                            </div>
-                                        </div>
-
-                                        {/* Service Tile 5 */}
-                                        <div className='bg-gray-50 rounded-xl p-3 border border-gray-100'>
-                                            <div className='flex items-center'>
-                                                <span className='text-2xl mr-3'>
-                                                    🧹
-                                                </span>
-                                                <div className='flex-1'>
-                                                    <div className='font-medium text-gray-900'>
-                                                        Carpet Cleaning
-                                                    </div>
-                                                    <div className='text-sm text-gray-500'>
-                                                        2-3 hours • $150
-                                                    </div>
-                                                </div>
-                                                <span className='bg-[#511076] text-white px-3 py-1 rounded-lg text-sm font-medium'>
-                                                    Book
-                                                </span>
-                                            </div>
-                                        </div>
-
-                                        {/* Service Tile 6 */}
-                                        <div className='bg-gray-50 rounded-xl p-3 border border-gray-100'>
-                                            <div className='flex items-center'>
-                                                <span className='text-2xl mr-3'>
-                                                    🪟
-                                                </span>
-                                                <div className='flex-1'>
-                                                    <div className='font-medium text-gray-900'>
-                                                        Window Cleaning
-                                                    </div>
-                                                    <div className='text-sm text-gray-500'>
-                                                        1-2 hours • $160
-                                                    </div>
-                                                </div>
-                                                <span className='bg-[#511076] text-white px-3 py-1 rounded-lg text-sm font-medium'>
-                                                    Book
-                                                </span>
-                                            </div>
-                                        </div>
-
-                                        {/* Duplicate tiles for seamless loop */}
-                                        {/* Service Tile 1 (Duplicate) */}
-                                        <div className='bg-gray-50 rounded-xl p-3 border border-gray-100'>
-                                            <div className='flex items-center'>
-                                                <span className='text-2xl mr-3'>
-                                                    🏠
-                                                </span>
-                                                <div className='flex-1'>
-                                                    <div className='font-medium text-gray-900'>
-                                                        Regular Cleaning
-                                                    </div>
-                                                    <div className='text-sm text-gray-500'>
-                                                        2-3 hours • $180
-                                                    </div>
-                                                </div>
-                                                <span className='bg-[#511076] text-white px-3 py-1 rounded-lg text-sm font-medium'>
-                                                    Book
-                                                </span>
-                                            </div>
-                                        </div>
-
-                                        {/* Service Tile 2 (Duplicate) */}
-                                        <div className='bg-gray-50 rounded-xl p-3 border border-gray-100'>
-                                            <div className='flex items-center'>
-                                                <span className='text-2xl mr-3'>
-                                                    ✨
-                                                </span>
-                                                <div className='flex-1'>
-                                                    <div className='font-medium text-gray-900'>
-                                                        Deep Cleaning
-                                                    </div>
-                                                    <div className='text-sm text-gray-500'>
-                                                        4-5 hours • $280
-                                                    </div>
-                                                </div>
-                                                <span className='bg-[#511076] text-white px-3 py-1 rounded-lg text-sm font-medium'>
-                                                    Book
-                                                </span>
-                                            </div>
-                                        </div>
-
-                                        {/* Service Tile 2 (Duplicate) */}
-                                        <div className='bg-gray-50 rounded-xl p-3 border border-gray-100'>
-                                            <div className='flex items-center'>
-                                                <span className='text-2xl mr-3'>
-                                                    📦
-                                                </span>
-                                                <div className='flex-1'>
-                                                    <div className='font-medium text-gray-900'>
-                                                        Move-in/out
-                                                    </div>
-                                                    <div className='text-sm text-gray-500'>
-                                                        6-8 hours • $350
-                                                    </div>
-                                                </div>
-                                                <span className='bg-[#511076] text-white px-3 py-1 rounded-lg text-sm font-medium'>
-                                                    Book
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <p className='px-4 pb-3 text-[11px] text-gray-500'>
-                                        All Prices Exclude GST
-                                    </p>
-                                </div>
-
-                                {/* Fixed Bottom - Horizontal Helper Tiles */}
-                                <div className='bg-gray-50 border-t border-gray-200 p-3'>
-                                    <div className='text-xs font-medium text-gray-600 mb-2'>
-                                        Quick Actions
-                                    </div>
-                                    <div className='flex gap-2 overflow-x-auto scrollbar-hide'>
-                                        <div className='flex-shrink-0 bg-white rounded-lg p-2 border border-gray-200 min-w-[80px] text-center hover:shadow-md transition-shadow'>
-                                            <FaCalendarAlt className='text-lg mb-1 text-[#511076] mx-auto' />
-                                            <div className='text-xs text-gray-700'>
-                                                Schedule
-                                            </div>
-                                        </div>
-                                        <div className='flex-shrink-0 bg-white rounded-lg p-2 border border-gray-200 min-w-[80px] text-center hover:shadow-md transition-shadow'>
-                                            <FaStar className='text-lg mb-1 text-[#511076] mx-auto' />
-                                            <div className='text-xs text-gray-700'>
-                                                Reviews
-                                            </div>
-                                        </div>
-                                        <div className='flex-shrink-0 bg-white rounded-lg p-2 border border-gray-200 min-w-[80px] text-center hover:shadow-md transition-shadow'>
-                                            <FaHeadset className='text-lg mb-1 text-[#511076] mx-auto' />
-                                            <div className='text-xs text-gray-700'>
-                                                Support
-                                            </div>
-                                        </div>
-                                        <div className='flex-shrink-0 bg-white rounded-lg p-2 border border-gray-200 min-w-[80px] text-center hover:shadow-md transition-shadow'>
-                                            <FaGift className='text-lg mb-1 text-[#511076] mx-auto' />
-                                            <div className='text-xs text-gray-700'>
-                                                Offers
-                                            </div>
-                                        </div>
-                                        <div className='flex-shrink-0 bg-white rounded-lg p-2 border border-gray-200 min-w-[80px] text-center hover:shadow-md transition-shadow'>
-                                            <FaChartBar className='text-lg mb-1 text-[#511076] mx-auto' />
-                                            <div className='text-xs text-gray-700'>
-                                                History
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                        <div className='relative z-10 flex h-full w-full items-center justify-center'>
+                            <div className='hero-phone-frame' aria-hidden='true'>
+                                <HeroPhoneScreen />
                             </div>
                         </div>
                     </div>
-
-                    {/* Floating elements */}
-                    <motion.div
-                        animate={{ y: [-10, 10, -10] }}
-                        transition={{
-                            duration: 3,
-                            repeat: Infinity,
-                            ease: 'easeInOut',
-                        }}
-                        className='absolute -top-4 -right-4 w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center shadow-lg'>
-                        <span className='text-2xl'>🧹</span>
-                    </motion.div>
-
-                    <motion.div
-                        animate={{ y: [10, -10, 10] }}
-                        transition={{
-                            duration: 4,
-                            repeat: Infinity,
-                            ease: 'easeInOut',
-                        }}
-                        className='absolute -bottom-4 -left-4 w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center shadow-lg'>
-                        <span className='text-xl'>✨</span>
-                    </motion.div>
                 </motion.div>
             </div>
 
@@ -447,5 +210,148 @@ export default function HeroSection({
                 </motion.div>
             </motion.div>
         </section>
+    );
+}
+
+function HeroPhoneScreen() {
+    return (
+        <div className='hero-phone flex flex-col overflow-hidden rounded-[48px] bg-[#1c1c1e] p-[10px] text-gray-900 shadow-2xl'>
+            <div className='relative isolate flex min-h-0 flex-1 flex-col overflow-hidden rounded-[38px] bg-white'>
+                <div className='hero-phone-chrome bg-white'>
+                    <div className='flex h-11 items-end justify-between px-6 pb-1.5 text-[15px] font-semibold leading-none'>
+                        <span>9:41</span>
+                        <div className='flex items-center gap-1.5 text-black'>
+                            <CellularIcon />
+                            <WifiIcon />
+                            <BatteryIcon />
+                        </div>
+                    </div>
+
+                    <div className='flex items-center justify-between bg-[#511076] px-4 py-3 text-white'>
+                        <span className='text-[17px] font-semibold tracking-tight'>
+                            Helpi
+                        </span>
+                        <span className='rounded-full bg-white/20 px-2.5 py-1 text-[12px] font-medium'>
+                            Book Now
+                        </span>
+                    </div>
+                </div>
+
+                <div className='hero-phone-list min-h-0 flex-1'>
+                    <div className='animate-scroll-up flex flex-col gap-2 p-3'>
+                        {HERO_SERVICE_LOOP.map((service, index) => (
+                            <div
+                                key={`${service.name}-${index}`}
+                                className='flex items-center gap-3 rounded-2xl border border-gray-100 bg-neutral-50 px-3 py-2.5'>
+                                <div className='flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-[#511076] shadow-sm'>
+                                    <service.Icon className='text-[18px]' />
+                                </div>
+                                <div className='min-w-0 flex-1'>
+                                    <div className='truncate text-[15px] font-medium leading-5 text-gray-900'>
+                                        {service.name}
+                                    </div>
+                                    <div className='truncate text-[12px] leading-4 text-gray-500'>
+                                        {service.meta}
+                                    </div>
+                                </div>
+                                <span className='shrink-0 rounded-lg bg-[#511076] px-2.5 py-1 text-[12px] font-semibold text-white'>
+                                    Book
+                                </span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                <div className='hero-phone-chrome bg-white'>
+                    <p className='px-4 py-1.5 text-center text-[11px] text-gray-500'>
+                        All Prices Exclude GST
+                    </p>
+
+                    <div className='border-t border-gray-200 bg-neutral-50 px-3 pb-2 pt-2.5'>
+                        <div className='mb-2 text-[11px] font-medium text-gray-500'>
+                            Quick Actions
+                        </div>
+                        <div className='flex gap-1.5'>
+                            {HERO_ACTIONS.map((action) => (
+                                <div
+                                    key={action.label}
+                                    className='min-w-0 flex-1 rounded-xl border border-gray-200 bg-white px-1 py-2 text-center'>
+                                    <action.Icon className='mx-auto mb-1 text-[15px] text-[#511076]' />
+                                    <div className='truncate text-[10px] leading-4 text-gray-700'>
+                                        {action.label}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className='flex justify-center bg-neutral-50 pb-2 pt-1'>
+                        <div className='h-[5px] w-[134px] rounded-full bg-black' />
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+function CellularIcon() {
+    return (
+        <svg
+            width='17'
+            height='12'
+            viewBox='0 0 17 12'
+            fill='currentColor'
+            aria-hidden='true'>
+            <rect x='0' y='7.5' width='3' height='4.5' rx='0.5' />
+            <rect x='4.5' y='5' width='3' height='7' rx='0.5' />
+            <rect x='9' y='2.5' width='3' height='9.5' rx='0.5' />
+            <rect x='13.5' y='0' width='3' height='12' rx='0.5' />
+        </svg>
+    );
+}
+
+function WifiIcon() {
+    return (
+        <svg
+            width='16'
+            height='12'
+            viewBox='0 0 16 12'
+            fill='none'
+            stroke='currentColor'
+            strokeWidth='1.6'
+            strokeLinecap='round'
+            aria-hidden='true'>
+            <path d='M1.2 3.8c3.8-3.6 9.8-3.6 13.6 0' />
+            <path d='M3.4 6.4c2.6-2.4 6.6-2.4 9.2 0' />
+            <path d='M5.8 8.8c1.3-1.2 3.1-1.2 4.4 0' />
+            <circle cx='8' cy='11' r='1.1' fill='currentColor' stroke='none' />
+        </svg>
+    );
+}
+
+function BatteryIcon() {
+    return (
+        <svg
+            width='25'
+            height='12'
+            viewBox='0 0 25 12'
+            fill='none'
+            aria-hidden='true'>
+            <rect
+                x='0.6'
+                y='0.6'
+                width='21'
+                height='10.8'
+                rx='2.2'
+                stroke='currentColor'
+                strokeWidth='1.2'
+            />
+            <rect x='2.2' y='2.2' width='17.8' height='7.6' rx='1.2' fill='currentColor' />
+            <path
+                d='M23 3.6v4.8c1.2-.5 1.2-4.3 0-4.8Z'
+                fill='currentColor'
+                opacity='0.45'
+            />
+        </svg>
     );
 }
