@@ -1,119 +1,117 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { APP_DOWNLOAD_SECTION_ID, scrollToAppDownload } from '@/utils/scroll';
+import { APP_DOWNLOAD_SECTION_ID } from '@/utils/scroll';
+import { SUPPORT_EMAIL } from '@/utils/constants';
 
 interface FinalCTAProps {
     title: string;
     subtitle: string;
     primaryCTA: string;
-    secondaryCTA: string;
 }
 
 export default function FinalCTA({
     title,
     subtitle,
     primaryCTA,
-    secondaryCTA,
 }: FinalCTAProps) {
-    const ctaClass =
-        'bg-[#511076] hover:bg-[#6b2a8f] text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center gap-2 justify-center focus:outline-none focus:ring-4 focus:ring-purple-200 cursor-pointer';
-    const outlineClass =
-        'border-2 border-[#511076] text-[#511076] hover:bg-[#511076] hover:text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 flex items-center gap-2 justify-center focus:outline-none focus:ring-4 focus:ring-purple-200 cursor-pointer';
+    const [showSticky, setShowSticky] = useState(true);
+    const mailHref = `mailto:${SUPPORT_EMAIL}`;
+
+    useEffect(() => {
+        const target = document.getElementById(APP_DOWNLOAD_SECTION_ID);
+        if (!target) {
+            return;
+        }
+        const observer = new IntersectionObserver(
+            (entries) => {
+                const entry = entries[0];
+                if (entry) {
+                    setShowSticky(!entry.isIntersecting);
+                }
+            },
+            { threshold: 0.35 }
+        );
+        observer.observe(target);
+        return () => observer.disconnect();
+    }, []);
 
     return (
-        <section className='py-20 px-4 bg-gradient-to-br from-purple-50 via-white to-blue-50 relative overflow-hidden'>
-            {/* Background decoration */}
-            <div className='absolute inset-0'>
-                <div className='absolute top-10 left-10 w-32 h-32 bg-purple-100 rounded-full opacity-30 blur-3xl'></div>
-                <div className='absolute bottom-10 right-10 w-40 h-40 bg-blue-100 rounded-full opacity-30 blur-3xl'></div>
-            </div>
-
-            <div className='relative max-w-4xl mx-auto text-center'>
-                <motion.h2
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                    viewport={{ once: true }}
-                    className='text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight'>
-                    {title}
-                </motion.h2>
-                <motion.p
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.2 }}
-                    viewport={{ once: true }}
-                    className='text-lg lg:text-xl text-gray-700 mb-10 max-w-2xl mx-auto leading-relaxed'>
-                    {subtitle}
-                </motion.p>
-
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.4 }}
-                    viewport={{ once: true }}
-                    className='flex flex-col sm:flex-row gap-4 justify-center mb-12'>
-                    <button onClick={scrollToAppDownload} className={ctaClass}>
+        <section
+            id={APP_DOWNLOAD_SECTION_ID}
+            className='relative overflow-hidden bg-white px-4 pb-10 pt-6 md:pb-12 md:pt-4'>
+            <div className='relative mx-auto grid h-[40rem] max-w-6xl scroll-mt-24 grid-cols-1 grid-rows-2 overflow-hidden rounded-[1.5rem] bg-gradient-to-br from-helpi-primary via-helpi-secondary to-helpi-accent sm:h-[28rem] sm:rounded-[2rem] md:h-[26rem] md:grid-cols-2 md:grid-rows-1'>
+                <div className='flex min-h-0 min-w-0 flex-col items-center justify-center px-5 py-5 text-center text-white md:items-start md:px-12 md:text-left'>
+                    <h2 className='mb-2 text-balance text-2xl font-bold leading-tight tracking-tight sm:mb-3 sm:text-3xl md:text-4xl'>
+                        {title}
+                    </h2>
+                    <p className='mb-4 max-w-lg text-pretty text-sm leading-relaxed text-white/90 sm:mb-6 sm:text-lg'>
+                        {subtitle}
+                    </p>
+                    <a
+                        href={mailHref}
+                        className='inline-flex min-h-11 w-fit max-w-full items-center justify-center rounded-full bg-white px-4 py-2.5 text-center text-sm font-semibold text-helpi-primary shadow-md transition-colors hover:bg-helpi-soft focus:outline-none focus-visible:ring-4 focus-visible:ring-white/50 sm:px-6 sm:py-3'>
                         {primaryCTA}
-                    </button>
-                    <button
-                        onClick={scrollToAppDownload}
-                        className={outlineClass}>
-                        {secondaryCTA}
-                    </button>
-                </motion.div>
-
-                {/* Download App Badges */}
-                <motion.div
-                    id={APP_DOWNLOAD_SECTION_ID}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.6 }}
-                    viewport={{ once: true }}
-                    className='flex flex-row items-center justify-center gap-4 mb-8 scroll-mt-24'>
-                    <Image
-                        src='/badges/app-store-badge.svg'
-                        width={160}
-                        height={56}
-                        alt='Download on the App Store'
-                        className='h-[56px] w-auto object-contain'
-                    />
-                    <Image
-                        src='/badges/google-play-badge.svg'
-                        width={520}
-                        height={182}
-                        alt='Get it on Google Play'
-                        className='h-[182px] w-auto object-contain'
-                    />
-                </motion.div>
-
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    transition={{ duration: 0.8, delay: 0.8 }}
-                    viewport={{ once: true }}
-                    className='text-sm text-gray-500'>
-                    Available on iOS and Android
-                </motion.div>
-            </div>
-
-            {/* Sticky CTA bar for mobile */}
-            <div className='fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200 shadow-xl flex sm:hidden items-center justify-between px-4 py-4'>
-                <div className='flex-1'>
-                    <span className='font-semibold text-[#511076] text-sm block'>
-                        Ready to get started?
-                    </span>
-                    <span className='text-xs text-gray-500'>
-                        Download Helpi now
-                    </span>
+                    </a>
+                    <p className='mt-2 text-sm text-white/80 sm:mt-3'>
+                        {SUPPORT_EMAIL}
+                    </p>
+                    <div
+                        className='mt-4 flex h-7 flex-row flex-wrap items-center justify-center gap-2 opacity-90 sm:mt-6 sm:h-8 md:justify-start'
+                        aria-hidden='true'>
+                        <Image
+                            src='/badges/app-store-badge.svg'
+                            width={90}
+                            height={30}
+                            alt=''
+                            className='h-7 w-auto sm:h-8'
+                        />
+                        <Image
+                            src='/badges/google-play-badge.svg'
+                            width={102}
+                            height={30}
+                            alt=''
+                            className='h-7 w-auto sm:h-8'
+                        />
+                    </div>
+                    <p className='mt-2 max-w-sm text-pretty text-xs leading-relaxed text-white/70'>
+                        Coming to iOS and Android. Store listings are not linked
+                        here yet.
+                    </p>
                 </div>
-                <button
-                    onClick={scrollToAppDownload}
-                    className='bg-[#511076] hover:bg-[#6b2a8f] text-white px-4 py-2 rounded-xl font-semibold text-sm shadow-lg transition-all duration-200 cursor-pointer'>
-                    Get the App
-                </button>
+                <div className='min-h-0 min-w-0 p-3 sm:p-4'>
+                    <div className='relative h-full w-full overflow-hidden rounded-[1.15rem] sm:rounded-[1.35rem]'>
+                        <Image
+                            src='/images/cta-office.jpg'
+                            alt='Helpi cleaner wiping an office desk'
+                            fill
+                            sizes='(min-width: 768px) 50vw, 100vw'
+                            className='object-cover object-center'
+                        />
+                    </div>
+                </div>
             </div>
+
+            {showSticky ? (
+                <div className='fixed bottom-0 left-0 right-0 z-50 border-t border-gray-200 bg-white px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-xl sm:hidden'>
+                    <div className='flex items-center justify-between gap-3'>
+                        <div>
+                            <p className='text-sm font-semibold text-helpi-primary'>
+                                Get Helpi
+                            </p>
+                            <p className='text-xs text-gray-500'>
+                                Email us for the app
+                            </p>
+                        </div>
+                        <a
+                            href={mailHref}
+                            className='inline-flex min-h-11 items-center rounded-xl bg-helpi-primary px-4 text-sm font-semibold text-white focus:outline-none focus-visible:ring-4 focus-visible:ring-helpi-soft'>
+                            {primaryCTA}
+                        </a>
+                    </div>
+                </div>
+            ) : null}
         </section>
     );
 }

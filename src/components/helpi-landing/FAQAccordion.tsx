@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { FaPlus, FaMinus, FaQuestionCircle } from 'react-icons/fa';
+import { useId, useState } from 'react';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import { SUPPORT_EMAIL } from '@/utils/constants';
 
 interface FAQ {
     question: string;
@@ -15,112 +15,100 @@ interface FAQAccordionProps {
 
 export default function FAQAccordion({ faqs }: FAQAccordionProps) {
     const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
-
-    const toggleAccordion = (index: number) => {
-        setExpandedIndex(expandedIndex === index ? null : index);
-    };
+    const baseId = useId();
+    const reduceMotion = useReducedMotion();
 
     return (
-        <section className='py-20 px-4 bg-gray-50'>
-            <div className='max-w-4xl mx-auto'>
-                {/* Header */}
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                    viewport={{ once: true }}
-                    className='text-center mb-16'>
-                    <h2 className='text-3xl md:text-4xl font-bold text-gray-900 mb-4'>
-                        Frequently Asked Questions
-                    </h2>
-                    <p className='text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed'>
-                        Everything you need to know about Helpi&apos;s cleaning
-                        services
+        <section className='border-t border-gray-100 bg-white px-4 py-12 md:pb-8 md:pt-16'>
+            <div className='mx-auto grid max-w-6xl gap-8 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.25fr)] lg:items-start lg:gap-12'>
+                <div className='lg:sticky lg:top-24'>
+                    <p className='mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-helpi-primary'>
+                        FAQ
                     </p>
-                </motion.div>
+                    <h2 className='mb-3 text-balance text-3xl font-bold tracking-tight text-gray-900 md:text-4xl'>
+                        Frequently asked questions
+                    </h2>
+                    <p className='mb-6 max-w-md text-base leading-relaxed text-gray-600 md:text-lg'>
+                        Booking through the app, choosing a time, and getting
+                        support.
+                    </p>
+                    <div className='rounded-2xl bg-helpi-soft/50 px-5 py-4'>
+                        <p className='mb-1 text-sm font-semibold text-gray-900'>
+                            Still have a question?
+                        </p>
+                        <p className='mb-2 text-sm text-gray-600'>
+                            Email the Helpi team and we will get back to you.
+                        </p>
+                        <a
+                            href={`mailto:${SUPPORT_EMAIL}`}
+                            className='inline-flex min-h-11 items-center text-sm font-medium text-helpi-primary underline-offset-2 hover:underline focus:outline-none focus-visible:ring-4 focus-visible:ring-helpi-soft'>
+                            {SUPPORT_EMAIL}
+                        </a>
+                    </div>
+                </div>
 
-                {/* Accordion */}
-                <div className='space-y-4'>
-                    {faqs.map((faq, idx) => (
-                        <motion.div
-                            key={idx}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: idx * 0.1 }}
-                            viewport={{ once: true }}>
-                            <div className='bg-white shadow-lg rounded-2xl p-6 border border-gray-100 hover:shadow-xl transition-all duration-300'>
-                                <button
-                                    onClick={() => toggleAccordion(idx)}
-                                    className='w-full flex items-center justify-between text-left focus:outline-none focus-visible:ring-4 focus-visible:ring-purple-200 focus-visible:ring-offset-2 rounded-xl p-2 -m-2'>
-                                    <div className='flex items-center flex-1'>
-                                        <div className='w-8 h-8 flex items-center justify-center rounded-full bg-purple-50 text-[#511076] mr-4 group-hover:bg-purple-100 transition-all duration-200'>
-                                            <FaQuestionCircle className='w-4 h-4' />
-                                        </div>
-                                        <span className='font-semibold text-lg text-gray-900 leading-tight'>
+                <div className='divide-y divide-gray-100 overflow-hidden rounded-[1.5rem] ring-1 ring-gray-100'>
+                    {faqs.map((faq, idx) => {
+                        const panelId = `${baseId}-panel-${idx}`;
+                        const buttonId = `${baseId}-button-${idx}`;
+                        const open = expandedIndex === idx;
+                        return (
+                            <div key={faq.question} className='bg-white'>
+                                <h3>
+                                    <button
+                                        type='button'
+                                        id={buttonId}
+                                        aria-expanded={open}
+                                        aria-controls={panelId}
+                                        onClick={() =>
+                                            setExpandedIndex(open ? null : idx)
+                                        }
+                                        className='flex min-h-11 w-full items-center justify-between gap-4 px-5 py-4 text-left focus:outline-none focus-visible:ring-4 focus-visible:ring-helpi-soft'>
+                                        <span className='text-base font-semibold text-gray-900'>
                                             {faq.question}
                                         </span>
-                                    </div>
-                                    <div className='flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-purple-50 group-hover:bg-purple-100 transition-all duration-200'>
-                                        {expandedIndex === idx ? (
-                                            <FaMinus className='w-4 h-4 text-[#511076] transition-transform duration-200' />
-                                        ) : (
-                                            <FaPlus className='w-4 h-4 text-[#511076] transition-transform duration-200' />
-                                        )}
-                                    </div>
-                                </button>
-
-                                <AnimatePresence>
-                                    {expandedIndex === idx && (
+                                        <span
+                                            className={`shrink-0 text-lg font-medium text-helpi-primary ${
+                                                open ? 'rotate-0' : ''
+                                            }`}>
+                                            {open ? '−' : '+'}
+                                        </span>
+                                    </button>
+                                </h3>
+                                <AnimatePresence initial={false}>
+                                    {open ? (
                                         <motion.div
-                                            initial={{ height: 0, opacity: 0 }}
+                                            id={panelId}
+                                            role='region'
+                                            aria-labelledby={buttonId}
+                                            initial={
+                                                reduceMotion === true
+                                                    ? false
+                                                    : { height: 0, opacity: 0 }
+                                            }
                                             animate={{
                                                 height: 'auto',
                                                 opacity: 1,
                                             }}
-                                            exit={{ height: 0, opacity: 0 }}
-                                            transition={{
-                                                duration: 0.3,
-                                                ease: 'easeInOut',
-                                            }}
+                                            exit={
+                                                reduceMotion === true
+                                                    ? undefined
+                                                    : {
+                                                          height: 0,
+                                                          opacity: 0,
+                                                      }
+                                            }
                                             className='overflow-hidden'>
-                                            <div className='mt-6 pt-6 border-t border-gray-100'>
-                                                <p className='text-gray-600 leading-relaxed text-base'>
-                                                    {faq.answer}
-                                                </p>
-                                            </div>
+                                            <p className='px-5 pb-4 text-sm leading-relaxed text-gray-600 md:text-base'>
+                                                {faq.answer}
+                                            </p>
                                         </motion.div>
-                                    )}
+                                    ) : null}
                                 </AnimatePresence>
                             </div>
-                        </motion.div>
-                    ))}
+                        );
+                    })}
                 </div>
-
-                {/* Additional Help */}
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.4 }}
-                    viewport={{ once: true }}
-                    className='text-center mt-16'>
-                    <div className='bg-white rounded-2xl p-8 lg:p-10 shadow-xl border border-gray-100 relative overflow-hidden'>
-                        {/* Background gradient */}
-                        <div className='absolute inset-0 bg-gradient-to-br from-purple-50 to-blue-50 opacity-50' />
-                        <div className='relative z-10'>
-                            <h3 className='text-2xl font-bold text-gray-900 mb-4'>
-                                Still have questions?
-                            </h3>
-                            <p className='text-gray-600 mb-6 max-w-2xl mx-auto leading-relaxed'>
-                                Our support team is here to help you 24/7. Get
-                                in touch and we&apos;ll get back to you as soon
-                                as possible.
-                            </p>
-                            <p className='text-base font-medium text-[#511076]'>
-                                support@gethelpi.com
-                            </p>
-                        </div>
-                    </div>
-                </motion.div>
             </div>
         </section>
     );

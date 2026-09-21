@@ -11,81 +11,48 @@ interface ComingSoonProps {
 
 export default function ComingSoon({
     title,
-    message = 'We&apos;re working hard to bring you this feature. Stay tuned!',
+    message = "We're working hard to bring you this feature. Stay tuned!",
 }: ComingSoonProps) {
     const router = useRouter();
 
     return (
-        <div className='bg-white min-h-screen'>
-            <div className='min-h-screen flex items-center justify-center px-4 py-16'>
-                <div className='max-w-2xl mx-auto text-center'>
+        <div className='min-h-screen bg-white'>
+            <div className='flex min-h-screen items-center justify-center px-4 py-16'>
+                <div className='mx-auto max-w-2xl text-center'>
                     <motion.div
-                        initial={{ opacity: 0, y: 30 }}
+                        initial={{ opacity: 0, y: 24 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8 }}
+                        transition={{ duration: 0.6 }}
                         className='mb-8'>
-                        {/* Coming Soon Icon */}
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.8, delay: 0.2 }}
-                            className='w-24 h-24 bg-gradient-to-br from-purple-100 to-blue-100 rounded-full flex items-center justify-center mx-auto mb-8'>
-                            <span className='text-4xl'>🚧</span>
-                        </motion.div>
+                        <div className='mx-auto mb-8 flex h-24 w-24 items-center justify-center rounded-full bg-helpi-soft'>
+                            <span className='text-3xl font-bold text-helpi-primary'>
+                                Soon
+                            </span>
+                        </div>
 
-                        <h1 className='text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6'>
+                        <h1 className='mb-6 text-4xl font-bold leading-tight text-gray-900 md:text-5xl'>
                             {title}
                         </h1>
 
-                        <div className='inline-flex items-center px-6 py-3 bg-purple-100 text-purple-800 rounded-full text-lg font-medium mb-8 shadow-sm'>
-                            <span className='mr-2'>🛠️</span>
-                            Coming Soon
-                        </div>
-
-                        <p className='text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-12'>
+                        <p className='mx-auto mb-12 max-w-3xl text-lg leading-relaxed text-gray-600 md:text-xl'>
                             {message}
                         </p>
 
-                        {/* Action Buttons */}
-                        <div className='flex flex-col sm:flex-row gap-4 justify-center mb-12'>
+                        <div className='mb-12 flex flex-col justify-center gap-4 sm:flex-row'>
                             <button
+                                type='button'
                                 onClick={() => router.push('/')}
-                                className='bg-[#511076] hover:bg-[#6b2a8f] text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-purple-200 flex items-center justify-center gap-2'>
-                                <FaHome className='w-5 h-5' />
+                                className='inline-flex min-h-11 items-center justify-center gap-2 rounded-2xl bg-helpi-primary px-8 py-4 font-semibold text-white shadow-lg transition-all duration-300 hover:bg-helpi-secondary focus:outline-none focus-visible:ring-4 focus-visible:ring-helpi-soft'>
+                                <FaHome className='h-5 w-5' />
                                 Back to Home
                             </button>
                             <a
                                 href='mailto:support@gethelpi.com'
-                                className='border-2 border-[#511076] text-[#511076] hover:bg-[#511076] hover:text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-purple-200 flex items-center justify-center gap-2'>
-                                <FaEnvelope className='w-5 h-5' />
-                                Contact Us
+                                className='inline-flex min-h-11 items-center justify-center gap-2 rounded-2xl border-2 border-helpi-primary px-8 py-4 font-semibold text-helpi-primary transition-all duration-300 hover:bg-helpi-primary hover:text-white focus:outline-none focus-visible:ring-4 focus-visible:ring-helpi-soft'>
+                                <FaEnvelope className='h-5 w-5' />
+                                Contact us
                             </a>
                         </div>
-
-                        {/* Newsletter Signup */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, delay: 0.6 }}
-                            className='bg-gray-50 rounded-2xl p-8 border border-gray-100'>
-                            <h3 className='text-xl font-semibold text-gray-900 mb-4'>
-                                Be the first to know
-                            </h3>
-                            <p className='text-gray-600 mb-6'>
-                                Get notified when this feature launches.
-                                We&apos;ll keep you updated!
-                            </p>
-                            {/* <div className='flex flex-col sm:flex-row gap-3 max-w-md mx-auto'>
-                                <input
-                                    type='email'
-                                    placeholder='your.email@example.com'
-                                    className='flex-1 px-4 py-3 border border-gray-300 rounded-xl focus:ring-4 focus:ring-purple-200 focus:border-[#511076] transition-colors duration-200'
-                                />
-                                <button className='bg-[#511076] hover:bg-[#6b2a8f] text-white px-6 py-3 rounded-xl font-medium transition-all duration-200 transform hover:scale-105'>
-                                    Notify Me
-                                </button>
-                            </div> */}
-                        </motion.div>
                     </motion.div>
                 </div>
             </div>

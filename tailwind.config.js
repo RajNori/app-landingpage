@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+// Unused by Tailwind CSS 4. Live brand tokens live in src/app/globals.css (@theme inline).
 module.exports = {
     content: [
         './src/pages/**/*.{js,ts,jsx,tsx,mdx}',

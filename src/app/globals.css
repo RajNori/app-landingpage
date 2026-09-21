@@ -1,27 +1,34 @@
 @import 'tailwindcss';
+@source not "../../.playwright-cli";
 
 :root {
     --background: #ffffff;
     --foreground: #171717;
-    --helpi-primary: #511076;
-    --helpi-primary-light: #6b2a8f;
-    --helpi-primary-dark: #3d0a5a;
+    --helpi-primary: #6a1ad9;
+    --helpi-secondary: #8926e9;
+    --helpi-accent: #ae2dfa;
+    --helpi-mid: #8f4bc8;
+    --helpi-soft: #fbe7fc;
+    --helpi-primary-light: #8926e9;
+    --helpi-primary-dark: #6a1ad9;
 }
 
 @theme inline {
     --color-background: var(--background);
     --color-foreground: var(--foreground);
     --color-helpi-primary: var(--helpi-primary);
+    --color-helpi-secondary: var(--helpi-secondary);
+    --color-helpi-accent: var(--helpi-accent);
+    --color-helpi-mid: var(--helpi-mid);
+    --color-helpi-soft: var(--helpi-soft);
     --color-helpi-primary-light: var(--helpi-primary-light);
     --color-helpi-primary-dark: var(--helpi-primary-dark);
     --font-sans: var(--font-inter);
 }
 
-@media (prefers-color-scheme: dark) {
-    :root {
-        --background: #0a0a0a;
-        --foreground: #ededed;
-    }
+html {
+    scroll-behavior: smooth;
+    scrollbar-width: none;
 }
 
 body {
@@ -30,55 +37,48 @@ body {
     font-family: var(--font-inter), system-ui, sans-serif;
 }
 
-/* Hide scrollbars across all browsers */
-/* Chrome, Safari, Edge */
+::selection {
+    background: var(--helpi-soft);
+    color: var(--helpi-primary-dark);
+}
+
+.hero-atmosphere {
+    background:
+        radial-gradient(
+            48rem 28rem at 88% 12%,
+            rgb(174 45 250 / 0.16),
+            transparent 58%
+        ),
+        radial-gradient(
+            36rem 24rem at 6% 88%,
+            rgb(106 26 217 / 0.1),
+            transparent 55%
+        ),
+        linear-gradient(180deg, #ffffff 0%, #fdf7fe 52%, #ffffff 100%);
+}
+
 ::-webkit-scrollbar {
     display: none;
 }
 
-/* Firefox */
-html {
-    scrollbar-width: none;
-}
-
-/* IE */
 body {
     -ms-overflow-style: none;
 }
 
-/* Hide scrollbar utility */
 .scrollbar-hide {
-    -ms-overflow-style: none; /* Internet Explorer 10+ */
-    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
 .scrollbar-hide::-webkit-scrollbar {
-    display: none; /* Safari and Chrome */
-}
-
-/* Custom scroll animation for phone screen */
-@keyframes scrollUp {
-    0% {
-        transform: translateY(0);
-    }
-    100% {
-        transform: translateY(-50%);
-    }
-}
-
-.animate-scroll-up {
-    animation: scrollUp 10s linear infinite;
-}
-
-.animate-scroll-up:hover {
-    animation-play-state: paused;
+    display: none;
 }
 
 .hero-phone-stage {
     --hero-phone-scale: 1;
     --hero-phone-w: 390px;
     --hero-phone-h: 700px;
-    height: calc(var(--hero-phone-h) * var(--hero-phone-scale) + 2rem);
+    height: calc(var(--hero-phone-h) * var(--hero-phone-scale) + 0.75rem);
     overflow: hidden;
 }
 
@@ -127,39 +127,58 @@ body {
 @media (min-width: 640px) and (max-width: 767px) {
     .hero-phone-stage {
         --hero-phone-scale: 0.82;
-        height: calc(var(--hero-phone-h) * var(--hero-phone-scale) + 3rem);
+        height: calc(var(--hero-phone-h) * var(--hero-phone-scale) + 1rem);
     }
 }
 
 @media (min-width: 768px) {
     .hero-phone-stage {
         --hero-phone-scale: 0.8;
-        height: calc(var(--hero-phone-h) * var(--hero-phone-scale) + 3rem);
-        overflow: visible;
+        height: calc(var(--hero-phone-h) * var(--hero-phone-scale) + 1rem);
+        overflow: hidden;
     }
 }
 
 @media (min-width: 1024px) {
     .hero-phone-stage {
         --hero-phone-scale: 0.88;
-        height: calc(var(--hero-phone-h) * var(--hero-phone-scale) + 4rem);
+        height: calc(var(--hero-phone-h) * var(--hero-phone-scale) + 1.25rem);
+    }
+
+    .hero-phone-on-film {
+        --hero-phone-scale: 0.7;
+        height: calc(var(--hero-phone-h) * var(--hero-phone-scale));
     }
 }
 
-.hero-phone-list {
+.preview-phone-frame {
+    --preview-phone-scale: 0.72;
+    --preview-phone-w: 390px;
+    --preview-phone-h: 780px;
+    position: relative;
+    width: calc(var(--preview-phone-w) * var(--preview-phone-scale));
+    height: calc(var(--preview-phone-h) * var(--preview-phone-scale));
     overflow: hidden;
-    isolation: isolate;
-    clip-path: inset(0);
 }
 
-.hero-phone-chrome {
-    position: relative;
-    z-index: 2;
-    transform: translateZ(0);
+.preview-phone-frame > .hero-phone {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: var(--preview-phone-w);
+    height: var(--preview-phone-h);
+    transform: scale(var(--preview-phone-scale));
+    transform-origin: top left;
+}
+
+@media (min-width: 640px) {
+    .preview-phone-frame {
+        --preview-phone-scale: 0.8;
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .animate-scroll-up {
-        animation: none;
+    html {
+        scroll-behavior: auto;
     }
 }

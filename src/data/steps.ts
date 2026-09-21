@@ -1,22 +1,17 @@
 export const steps = [
     {
-        icon: '📱',
-        title: 'Find Help Quick',
-        text: 'Choose your service and get instant confirmation - help on the way in minutes',
+        icon: '1',
+        title: 'Choose a cleaning service',
+        text: 'Pick Home, Office, or Warehouse in the Helpi app.',
     },
     {
-        icon: '👥',
-        title: 'Vetted Cleaners',
-        text: 'Our cleaners are background-checked and insured professionals',
+        icon: '2',
+        title: 'Select duration, date, and time',
+        text: 'Choose how long you need and a slot that suits you.',
     },
     {
-        icon: '✨',
-        title: 'Quality Guaranteed',
-        text: 'Enjoy a spotless home with our 100% satisfaction guarantee',
-    },
-    {
-        icon: '💳',
-        title: 'Pay Securely',
-        text: 'Secure online payment with upfront pricing - no hidden fees',
+        icon: '3',
+        title: 'Review and continue in the app',
+        text: 'Check the details, then continue in Helpi to finish arranging your clean.',
     },
 ];

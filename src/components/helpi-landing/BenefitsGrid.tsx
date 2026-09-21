@@ -1,126 +1,74 @@
-'use client';
+import Image from 'next/image';
+import { SECTION_IDS } from '@/utils/constants';
 
-import { motion } from 'framer-motion';
-import { scrollToAppDownload } from '@/utils/scroll';
-import {
-    FaClock,
-    FaShieldAlt,
-    FaMoneyCheckAlt,
-    FaCheckCircle,
-    FaLeaf,
-    FaSyncAlt,
-} from 'react-icons/fa';
-
-interface Benefit {
-    icon: string;
+interface Service {
     title: string;
     description: string;
+    image: string;
+    imageAlt: string;
 }
 
 interface BenefitsGridProps {
-    benefits: Benefit[];
+    services: Service[];
 }
 
-// Icon mapping for benefits
-const benefitIcons = {
-    '🕒': FaClock,
-    '🛡️': FaShieldAlt,
-    '💰': FaMoneyCheckAlt,
-    '🌟': FaCheckCircle,
-    '🌿': FaLeaf,
-    '📱': FaSyncAlt,
-};
-
-export default function BenefitsGrid({ benefits }: BenefitsGridProps) {
+export default function BenefitsGrid({ services }: BenefitsGridProps) {
     return (
-        <section id='benefits' className='py-20 px-4 bg-white'>
-            <div className='max-w-7xl mx-auto'>
-                {/* Header */}
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                    viewport={{ once: true }}
-                    className='text-center mb-16'>
-                    <h2 className='text-3xl md:text-4xl font-bold text-gray-900 mb-4'>
-                        Why Choose Helpi?
-                    </h2>
-                    <p className='text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed'>
-                        Find help fast with our professional cleaning services - help on the way when you need it most
+        <section
+            id={SECTION_IDS.services}
+            className='scroll-mt-20 bg-white px-4 py-14 md:py-20'>
+            <div className='mx-auto max-w-6xl'>
+                <div className='mb-10 max-w-2xl md:mb-14'>
+                    <p className='mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-helpi-primary'>
+                        Services
                     </p>
-                </motion.div>
-
-                {/* Benefits Grid */}
-                <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8'>
-                    {benefits.map((benefit, index) => {
-                        const IconComponent =
-                            benefitIcons[
-                                benefit.icon as keyof typeof benefitIcons
-                            ];
+                    <h2 className='mb-3 text-balance text-3xl font-bold tracking-tight text-gray-900 md:text-4xl'>
+                        Cleaning for home and work
+                    </h2>
+                    <p className='text-base leading-relaxed text-gray-600 md:text-lg'>
+                        Helpi shows Home, Office, and Warehouse cleaning. What
+                        you can arrange depends on what the app displays for
+                        your area.
+                    </p>
+                </div>
+                <div className='flex flex-col gap-12 md:gap-16'>
+                    {services.map((service, index) => {
+                        const reverse = index % 2 === 1;
                         return (
-                            <motion.div
-                                key={index}
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{
-                                    duration: 0.8,
-                                    delay: index * 0.1,
-                                }}
-                                viewport={{ once: true }}
-                                className='group'>
-                                <div className='bg-white rounded-2xl p-6 lg:p-8 h-full border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 hover:border-purple-200 relative overflow-hidden'>
-                                    {/* Background gradient circle */}
-                                    <div className='absolute -top-8 -right-8 w-24 h-24 bg-gradient-to-br from-purple-100 to-blue-100 rounded-full opacity-50 group-hover:opacity-70 transition-opacity duration-300' />
-
-                                    <div className='relative z-10 text-center'>
-                                        {/* Icon */}
-                                        <div className='w-16 h-16 flex items-center justify-center rounded-2xl bg-purple-50 text-[#511076] mx-auto mb-6 group-hover:bg-[#511076] group-hover:text-white transition-all duration-300 shadow-sm'>
-                                            {IconComponent && (
-                                                <IconComponent
-                                                    className='text-2xl'
-                                                    aria-label={benefit.title}
-                                                />
-                                            )}
-                                        </div>
-                                        <h3 className='text-xl font-semibold text-gray-900 mb-4 leading-tight'>
-                                            {benefit.title}
-                                        </h3>
-                                        <p className='text-gray-600 leading-relaxed'>
-                                            {benefit.description}
-                                        </p>
-                                    </div>
+                            <article
+                                key={service.title}
+                                className='grid items-center gap-6 md:grid-cols-2 md:gap-12'>
+                                <div
+                                    className={`relative min-h-[16rem] overflow-hidden rounded-[1.75rem] md:min-h-[22rem] ${
+                                        reverse ? 'md:order-2' : ''
+                                    }`}>
+                                    <Image
+                                        src={service.image}
+                                        alt={service.imageAlt}
+                                        width={720}
+                                        height={520}
+                                        className={`absolute inset-0 h-full w-full object-cover ${
+                                            index === 0
+                                                ? 'object-[50%_18%] md:scale-[1.15]'
+                                                : 'object-[50%_24%]'
+                                        }`}
+                                    />
                                 </div>
-                            </motion.div>
+                                <div className={reverse ? 'md:order-1' : ''}>
+                                    <p className='mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-helpi-primary'>
+                                        {String(index + 1).padStart(2, '0')}
+                                    </p>
+                                    <h3 className='mb-3 text-3xl font-bold tracking-tight text-gray-900'>
+                                        {service.title}
+                                    </h3>
+                                    <p className='max-w-md text-base leading-relaxed text-gray-600 md:text-lg'>
+                                        {service.description}
+                                    </p>
+                                </div>
+                            </article>
                         );
                     })}
                 </div>
-
-                {/* Additional CTA */}
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.4 }}
-                    viewport={{ once: true }}
-                    className='text-center mt-16'>
-                    <div className='bg-gradient-to-br from-purple-50 to-blue-50 rounded-2xl p-8 lg:p-10 shadow-lg border border-purple-100'>
-                        <h3 className='text-2xl lg:text-3xl font-bold text-gray-900 mb-4'>
-                            Ready to Find Help Fast?
-                        </h3>
-                        <p className='text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed'>
-                            Join thousands of Australian families who trust
-                            Helpi for their cleaning needs. Help on the way when you need it most - book your first
-                            clean today and see why we&apos;re the preferred
-                            choice.
-                        </p>
-                        <div className='flex justify-center'>
-                            <button
-                                onClick={scrollToAppDownload}
-                                className='bg-[#511076] text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-purple-200 hover:bg-[#6b2a8f] cursor-pointer'>
-                                Get the App
-                            </button>
-                        </div>
-                    </div>
-                </motion.div>
             </div>
         </section>
     );

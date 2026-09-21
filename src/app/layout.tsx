@@ -2,19 +2,24 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({
+    subsets: ['latin'],
+    variable: '--font-inter',
+});
 
 export const metadata: Metadata = {
-    title: 'Helpi - Find Help Fast | On-Demand Cleaning Services',
+    title: 'Helpi — A cleaner home. More time for you.',
     description:
-        'Find Help Fast. Helpi connects you with trusted local cleaners for fast, affordable, and reliable cleaning services across Australia. Help on the way when you need it most.',
+        'Find cleaning help for your home or workspace. Choose a time that suits you in the Helpi app.',
     authors: [{ name: 'Helpi Team' }],
     keywords:
         'cleaning services app,on-demand cleaners,Helpi app,book a cleaner,Australian cleaning app,mopping, dusting, kitchen cleaning,fast local cleaning help,find help fast',
     icons: {
         icon: [
+            { url: '/favicon.ico', sizes: 'any' },
             { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
             { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+            { url: '/favicon-48x48.png', sizes: '48x48', type: 'image/png' },
         ],
         apple: [
             {
@@ -37,17 +42,17 @@ export const metadata: Metadata = {
         ],
     },
     openGraph: {
-        title: 'Helpi - Find Help Fast | Trusted Cleaning Services',
+        title: 'Helpi — A cleaner home. More time for you.',
         description:
-            "Find help fast with Helpi - Australia's easiest way to book cleaning help. Help on the way when you need it most. Trusted cleaners, secure payments, and real reviews.",
+            'Find cleaning help for your home or workspace. Choose a time that suits you in the Helpi app.',
         url: 'https://www.gethelpi.com',
         type: 'website',
     },
     twitter: {
         card: 'summary',
-        title: 'Helpi - Find Help Fast | Trusted Cleaning Services',
+        title: 'Helpi — A cleaner home. More time for you.',
         description:
-            "Find help fast with Helpi - Australia's easiest way to book cleaning help. Help on the way when you need it most. Trusted cleaners, secure payments, and real reviews.",
+            'Find cleaning help for your home or workspace. Choose a time that suits you in the Helpi app.',
     },
 };
 
@@ -58,7 +63,9 @@ export default function RootLayout({
 }) {
     return (
         <html lang='en'>
-            <body className={inter.className} suppressHydrationWarning>
+            <body
+                className={`${inter.className} ${inter.variable}`}
+                suppressHydrationWarning>
                 <main className='bg-white min-h-screen'>{children}</main>
             </body>
         </html>
