@@ -8,7 +8,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-    title: 'Helpi — A cleaner home. More time for you.',
+    title: 'Helpi - Find Help Fast',
     description:
         'Find cleaning help for your home or workspace. Choose a time that suits you in the Helpi app.',
     authors: [{ name: 'Helpi Team' }],
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
         ],
     },
     openGraph: {
-        title: 'Helpi — A cleaner home. More time for you.',
+        title: 'Helpi - Find Help Fast',
         description:
             'Find cleaning help for your home or workspace. Choose a time that suits you in the Helpi app.',
         url: 'https://www.gethelpi.com',
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary',
-        title: 'Helpi — A cleaner home. More time for you.',
+        title: 'Helpi - Find Help Fast',
         description:
             'Find cleaning help for your home or workspace. Choose a time that suits you in the Helpi app.',
     },

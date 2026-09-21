@@ -10,7 +10,7 @@ export const SECTION_IDS = {
 export const HELPI_CONFIG = {
     brand: {
         name: 'Helpi',
-        tagline: 'A cleaner home. More time for you.',
+        tagline: 'Helpi - Find Help Fast',
         description:
             'Find cleaning help for your home or workspace in the Helpi app.',
         primaryColor: '#6A1AD9',
@@ -22,14 +22,14 @@ export const HELPI_CONFIG = {
         },
     },
     hero: {
-        title: 'A cleaner home. More time for you.',
+        title: 'Helpi - Find Help Fast',
         subtitle:
             'Find cleaning help for your home or workspace. Choose a time that suits you in the Helpi app.',
         primaryCTA: 'Get the App',
         secondaryCTA: 'See how it works',
     },
     finalCTA: {
-        title: 'A cleaner home. More time for you.',
+        title: 'Helpi - Find Help Fast',
         subtitle:
             'Arrange Home, Office, or Warehouse cleaning in the Helpi app.',
         primaryCTA: 'Email Helpi for the app',

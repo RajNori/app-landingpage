@@ -45,9 +45,6 @@ export default function HeroSection({
 
             <div className='relative z-10 mx-auto flex min-h-[calc(100svh-4rem)] max-w-6xl items-end px-4 pb-28 pt-16 sm:items-center sm:pb-16 lg:pb-20 lg:pt-10'>
                 <div className='max-w-xl text-left'>
-                    <p className='mb-3 text-xs font-semibold uppercase tracking-[0.22em] text-white/80'>
-                        Helpi
-                    </p>
                     <h1 className='mb-4 text-balance text-4xl font-bold tracking-tight md:text-5xl lg:text-[3.4rem] lg:leading-[1.06]'>
                         {title}
                     </h1>
