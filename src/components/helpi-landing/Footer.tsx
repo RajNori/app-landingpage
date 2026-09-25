@@ -44,6 +44,11 @@ export default function Footer() {
                         className='inline-flex min-h-11 items-center hover:text-helpi-primary'>
                         Cookies
                     </Link>
+                    <Link
+                        href='/support'
+                        className='inline-flex min-h-11 items-center hover:text-helpi-primary'>
+                        Support
+                    </Link>
                 </nav>
 
                 <div className='flex justify-center gap-2'>
