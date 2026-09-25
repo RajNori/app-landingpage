@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useReducedMotion } from 'framer-motion';
 
 export const HELPI_VIDEO_SRC = '/videos/helpi.mp4';
-export const HELPI_VIDEO_POSTER = '/images/hero-office.jpg';
+export const HELPI_VIDEO_POSTER = '/images/cta-office.jpg';
 
 interface HelpiVideoProps {
     mode?: 'cover' | 'frame';
